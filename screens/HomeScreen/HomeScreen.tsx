@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Button} from 'react-native';
-import Input from '../../components/input/Input';
+import {ScrollView, Button} from 'react-native';
+import Input from '../../components/Input/Input';
 import CustomButton from '../../components/button/CustomButton';
-import CustomFab from '../../components/fab/Fab';
+import CustomFab from '../../components/Fab/Fab';
 import ListItem from '../../components/listItem/ListItem';
-import Dropdown from '../../components/dropdown/Dropdown';
-import Header from '../../components/header/Header';
+import Dropdown from '../../components/Dropdown/Dropdown';
+import Header from '../../components/Header/Header';
 
 const HomeScreen = () => {
   return (
-    <View>
+    <ScrollView>
       <Header />
       <Button title="HomeScreenDemo" />
       <Input customProp="example" onChangeText={text => console.log(text)} />
@@ -17,8 +17,7 @@ const HomeScreen = () => {
       <CustomFab />
       <ListItem />
       <Dropdown />
-    </View>
+    </ScrollView>
   );
 };
-
 export default HomeScreen;

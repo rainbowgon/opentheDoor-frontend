@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Image, Text, View } from 'react-native';
+import {Image, Text, View} from 'react-native';
 
 // components
 import CustomCheckBox from '../CheckBox/CustomCheckBox';
@@ -15,7 +15,7 @@ import IconPersonGroup from '../../assets/icons/icon-person-group.png';
  * [icon]
  * type : "person", "personGroup", "none"
  * Default value: "none"
- * 
+ *
  * [right]
  * type : "checkbox", "none"
  * Default value: "none"
@@ -36,20 +36,20 @@ const handleIcon = (value: string) => {
     return <Image source={IconPersonGroup} />;
   }
   return <View />;
-}
+};
 
 const handleRight = (value: string) => {
   if (value === 'checkbox') {
     return <CustomCheckBox />;
   }
   return <View />;
-}
+};
 
 const ListItem = ({
-  icon = "none",
+  icon = 'none',
   title,
   subTitle,
-  right = "none",
+  right = 'none',
   style,
 }: ListItemProps) => (
   <View>
