@@ -1,26 +1,49 @@
 //TODO - create InfoCard Custom Style
 
-import { Alert, Image, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 
+// image
 import Default from '../../assets/images/image-default.png';
 
 // icons
-import Star from '../../assets/icons/icon-star-on.png';
+import StarOn from '../../assets/icons/icon-star-on.png';
 import BookmarkDisable from '../../assets/icons/icon-bookmark-disable.png';
 import BookmarkOff from '../../assets/icons/icon-bookmark-off.png';
 import BookmarkOn from '../../assets/icons/icon-bookmark-on.png';
 
-const InfoCard = () => (
-  <View>
-    <Image source={Default} />
+export interface InfoCardProps {
+  image?: string;
+  theme?: string;
+  branch?: string;
+  difficulty?: string;
+  time?: string;
+  star?: number;
+  reviewCount?: number;
+  style?: string;
+  onclinck?: any;
+}
+
+const InfoCard = ({
+  image,
+  theme,
+  branch,
+  difficulty,
+  time,
+  star,
+  reviewCount,
+  style,
+  onclinck,
+}: InfoCardProps) => (
+  <ScrollView>
+    <Image source={image || Default} />
     <View>
-      <Text>테마명</Text>
-      <Text>지점명</Text>
-      <Text>난이도 | 소요시간</Text>
+      <Text> {theme}</Text>
+      <Text>{branch}</Text>
+      <Text>{difficulty} {(difficulty && time) || "|"} {time}</Text>
       <View>
-        <Image source={Star}></Image>
-        <Text>별점</Text>
-        <Text>(리뷰 수)</Text>
+        <Image source={StarOn}></Image>
+        <Text>{star}</Text>
+        <Text>({reviewCount})</Text>
       </View>
       <View>
         <Image source={BookmarkDisable} />
@@ -28,7 +51,7 @@ const InfoCard = () => (
         <Image source={BookmarkOff} />
       </View>
     </View>
-  </View>
+  </ScrollView>
 );
 
 export default InfoCard;

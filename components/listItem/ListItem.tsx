@@ -6,15 +6,16 @@ import { Image, Text, View } from 'react-native';
 import CustomCheckBox from '../CheckBox/CustomCheckBox';
 
 // icons
-import Person from '../../assets/icons/icon-person-off.png';
+import IconPersonOn from '../../assets/icons/icon-person-on.png';
+import IconPersonGroup from '../../assets/icons/icon-person-group.png';
 
 //TODO - create ListItem Custom Style
 
 /**
  * [icon]
- * type : "person"
+ * type : "person", "personGroup", "none"
  * Default value: "none"
- *
+ * 
  * [right]
  * type : "checkbox", "none"
  * Default value: "none"
@@ -25,27 +26,31 @@ export interface ListItemProps {
   title: string;
   subTitle?: string;
   right?: string;
+  style?: string;
 }
 
 const handleIcon = (value: string) => {
   if (value === 'person') {
-    return <Image source={Person} />;
+    return <Image source={IconPersonOn} />;
+  } else if (value === 'personGroup') {
+    return <Image source={IconPersonGroup} />;
   }
-  return;
+  return <View />;
 }
 
 const handleRight = (value: string) => {
   if (value === 'checkbox') {
     return <CustomCheckBox />;
   }
-  return;
+  return <View />;
 }
 
 const ListItem = ({
-  icon,
+  icon = "none",
   title,
   subTitle,
-  right
+  right = "none",
+  style,
 }: ListItemProps) => (
   <View>
     {icon && handleIcon(icon)}

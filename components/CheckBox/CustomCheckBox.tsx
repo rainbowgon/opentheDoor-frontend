@@ -1,9 +1,19 @@
 import * as React from 'react';
 import { Checkbox } from 'react-native-paper';
 
-const CustomCheckBox = () => {
-  const [checked, setChecked] = React.useState(false);
+export interface CustomCheckBoxProps {
+  checked?: boolean;
+  setChecked?: any;
+  style?: string;
+  onClick?: any;
+}
 
+const CustomCheckBox = ({
+  checked,
+  setChecked,
+  style,
+  onClick,
+}: CustomCheckBoxProps) => {
   return (
     <Checkbox
       status={checked ? 'checked' : 'unchecked'}
