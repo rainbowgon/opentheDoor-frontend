@@ -1,5 +1,57 @@
 //TODO - create InfoCard Custom Style
 
-const InfoCard = () => <div></div>;
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
+
+// image
+import Default from '../../assets/images/image-default.png';
+
+// icons
+import StarOn from '../../assets/icons/icon-star-on.png';
+import BookmarkDisable from '../../assets/icons/icon-bookmark-disable.png';
+import BookmarkOff from '../../assets/icons/icon-bookmark-off.png';
+import BookmarkOn from '../../assets/icons/icon-bookmark-on.png';
+
+export interface InfoCardProps {
+  image?: string;
+  theme?: string;
+  branch?: string;
+  difficulty?: string;
+  time?: string;
+  star?: number;
+  reviewCount?: number;
+  style?: string;
+  onclinck?: any;
+}
+
+const InfoCard = ({
+  image,
+  theme,
+  branch,
+  difficulty,
+  time,
+  star,
+  reviewCount,
+  style,
+  onclinck,
+}: InfoCardProps) => (
+  <ScrollView>
+    <Image source={image || Default} />
+    <View>
+      <Text> {theme}</Text>
+      <Text>{branch}</Text>
+      <Text>{difficulty} {(difficulty && time) || "|"} {time}</Text>
+      <View>
+        <Image source={StarOn}></Image>
+        <Text>{star}</Text>
+        <Text>({reviewCount})</Text>
+      </View>
+      <View>
+        <Image source={BookmarkDisable} />
+        <Image source={BookmarkOn} />
+        <Image source={BookmarkOff} />
+      </View>
+    </View>
+  </ScrollView>
+);
 
 export default InfoCard;
