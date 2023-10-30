@@ -1,6 +1,6 @@
 //TODO - create InfoCard Custom Style
 
-import { Alert, Image, ScrollView, Text, View } from 'react-native';
+import {Alert, Image, ScrollView, Text, View} from 'react-native';
 
 // image
 import Default from '../../assets/images/image-default.png';
@@ -39,7 +39,9 @@ const InfoCard = ({
     <View>
       <Text> {theme}</Text>
       <Text>{branch}</Text>
-      <Text>{difficulty} {(difficulty && time) || "|"} {time}</Text>
+      <Text>
+        {difficulty} {(difficulty && time) || '|'} {time}
+      </Text>
       <View>
         <Image source={StarOn}></Image>
         <Text>{star}</Text>

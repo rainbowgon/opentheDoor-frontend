@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {FAB} from 'react-native-paper';
 
 //icons
-import Zoomicon from '../../assets/icons/icon-zoom.svg';
+import Zoomicon from '../../assets/icons/icon-zoom.png';
 
 const CustomFab = () => (
   <FAB
