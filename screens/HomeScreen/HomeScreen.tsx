@@ -1,9 +1,9 @@
 import React from 'react';
-import {ScrollView, Button} from 'react-native';
+import { ScrollView, Button } from 'react-native';
 import Input from '../../components/Input/Input';
-import CustomButton from '../../components/button/CustomButton';
+import CustomButton from '../../components/Button/CustomButton';
 import CustomFab from '../../components/Fab/Fab';
-import ListItem from '../../components/listItem/ListItem';
+import ListItem from '../../components/ListItem/ListItem';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Header from '../../components/Header/Header';
 
