@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Button } from 'react-native';
+import { ScrollView, Button, View } from 'react-native';
 import Input from '../../components/Input/Input';
 import CustomButton from '../../components/Button/CustomButton';
 import CustomFab from '../../components/Fab/Fab';
@@ -9,15 +9,17 @@ import Header from '../../components/Header/Header';
 
 const HomeScreen = () => {
   return (
-    <ScrollView>
+    <View>
+      {/* <ScrollView android:fillViewport="true"> */}
       <Header />
       <Button title="HomeScreenDemo" />
       <Input customProp="example" onChangeText={text => console.log(text)} />
-      <CustomButton>Press me</CustomButton>
+      <CustomButton value="Press" />
       <CustomFab />
       <ListItem />
       <Dropdown />
-    </ScrollView>
+      {/* </ScrollView> */}
+    </View>
   );
 };
 export default HomeScreen;
