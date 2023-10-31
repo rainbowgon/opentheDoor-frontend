@@ -5,14 +5,14 @@ export interface CustomCheckBoxProps {
   checked?: boolean;
   setChecked?: any;
   style?: string;
-  onClick?: any;
+  onPress?: any;
 }
 
 const CustomCheckBox = ({
   checked,
   setChecked,
   style,
-  onClick,
+  onPress,
 }: CustomCheckBoxProps) => {
   return (
     <Checkbox
