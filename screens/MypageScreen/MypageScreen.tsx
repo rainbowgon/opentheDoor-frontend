@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import { View, Button, ScrollView } from 'react-native';
 
 const MypageScreen = () => {
   return (
-    <View>
+    <ScrollView>
       <Button title="MypageScreenDemo" />
-    </View>
+    </ScrollView>
   );
 };
 
