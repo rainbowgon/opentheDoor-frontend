@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import 'react-native-gesture-handler';
 
 // components
@@ -70,10 +72,28 @@ const RightDrawerScreen = () => {
 //   Mypage: undefined;
 // };
 
+// firebase
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('[Background Remote Message]', remoteMessage);
+});
+
 // const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    console.log('[FCM Token] ', fcmToken);
+  };
+
+  useEffect(() => {
+    getFcmToken();
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('[Remote Message] ', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
+
   return (
 
     <NavigationContainer >
@@ -98,7 +118,3 @@ const App = () => {
       </Tab.Navigator> */}
       <RightDrawerScreen />
     </NavigationContainer >
-  );
-};
-
-export default App;

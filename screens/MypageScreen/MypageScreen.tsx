@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Button, ScrollView } from 'react-native';
+import {View, Button, ScrollView} from 'react-native';
 
 const MypageScreen = () => {
   return (
-    <ScrollView>
-      <Button title="MypageScreenDemo" />
-    </ScrollView>
+    <View>
+      <ScrollView>
+        <Button title="MypageScreenDemo" />
+      </ScrollView>
+    </View>
   );
 };
 

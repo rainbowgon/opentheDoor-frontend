@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1090349082521",
+    "project_id": "openthedoor-930e4",
+    "storage_bucket": "openthedoor-930e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090349082521:android:207aa5f5014e41f8efd508",
+        "android_client_info": {
+          "package_name": "com.openthedoor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdBcl7tZbmQjLIWEOGOTq1vNRsT2MT93E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
