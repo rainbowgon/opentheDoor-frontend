@@ -30,9 +30,9 @@ public class MainActivity extends ReactActivity {
               String token = task.getResult();
 
               // Log and toast (for demonstration purposes)
-              String msg = "Token: " + token;
-              Log.d(TAG, msg);
-              Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+              // String msg = "Token: " + token;
+              // Log.d(TAG, msg);
+              // Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
           });
   }
   /**

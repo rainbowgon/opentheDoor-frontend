@@ -1,13 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from "react-native";
 
 // components
-import CustomCheckBox from '../CheckBox/CustomCheckBox';
+import CustomCheckBox from "../CheckBox/CustomCheckBox";
 
 // icons
-import IconPersonOn from '../../assets/icons/icon-person-on.png';
-import IconPersonGroup from '../../assets/icons/icon-person-group.png';
+import IconPersonOn from "../../assets/icons/icon-person-on.png";
+import IconPersonGroup from "../../assets/icons/icon-person-group.png";
 
 //TODO - create ListItem Custom Style
 
@@ -30,26 +30,26 @@ export interface ListItemProps {
 }
 
 const handleIcon = (value: string) => {
-  if (value === 'person') {
+  if (value === "person") {
     return <Image source={IconPersonOn} />;
-  } else if (value === 'personGroup') {
+  } else if (value === "personGroup") {
     return <Image source={IconPersonGroup} />;
   }
   return <View />;
 };
 
 const handleRight = (value: string) => {
-  if (value === 'checkbox') {
+  if (value === "checkbox") {
     return <CustomCheckBox />;
   }
   return <View />;
 };
 
 const ListItem = ({
-  icon = 'none',
+  icon = "none",
   title,
   subTitle,
-  right = 'none',
+  right = "none",
   style,
 }: ListItemProps) => (
   <View>

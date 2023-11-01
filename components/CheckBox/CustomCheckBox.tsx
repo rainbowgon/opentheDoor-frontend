@@ -18,7 +18,7 @@ const CustomCheckBox = ({
     <Checkbox
       status={checked ? 'checked' : 'unchecked'}
       onPress={() => {
-        setChecked(!checked);
+        checked && setChecked(!checked);
       }}
     />
   );
