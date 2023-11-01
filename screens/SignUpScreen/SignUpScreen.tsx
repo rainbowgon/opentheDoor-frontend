@@ -1,10 +1,18 @@
-import React from 'react';
-import { View, Button, ScrollView } from 'react-native';
+import React from "react";
+import { View, Button, ScrollView } from "react-native";
+import CustomButton from "../../components/Button/CustomButton";
+import Input from "../../components/Input/Input";
 
 const SignUpScreen = () => {
   return (
     <ScrollView>
-      <Button title="SignUpScreenDemo" />
+      <Input />
+      <Input />
+      <CustomButton
+        value="인증번호 받기" />
+      <Input />
+      <Input />
+      <Input />
     </ScrollView>
   );
 };
