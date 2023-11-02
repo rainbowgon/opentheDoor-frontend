@@ -1,15 +1,15 @@
 //TODO - create InfoCard Custom Style
 
-import { Alert, Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 
 // image
-import ImageDefault from '../../assets/images/image-default.png';
+import ImageDefault from "../../assets/images/image-default.png";
 
 // icons
-import StarOn from '../../assets/icons/icon-star-on.png';
-import BookmarkDisable from '../../assets/icons/icon-bookmark-disable.png';
-import BookmarkOff from '../../assets/icons/icon-bookmark-off.png';
-import BookmarkOn from '../../assets/icons/icon-bookmark-on.png';
+import StarOn from "../../assets/icons/icon-star-on.png";
+import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
+import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
+import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
 
 export interface InfoCardProps {
   image?: string;
@@ -40,7 +40,7 @@ const InfoCard = ({
       <Text> {theme}</Text>
       <Text>{branch}</Text>
       <Text>
-        {difficulty} {(difficulty && time) || '|'} {time}
+        {difficulty} {(difficulty && time) || "|"} {time}
       </Text>
       <View>
         <Image source={StarOn}></Image>

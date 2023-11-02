@@ -1,20 +1,38 @@
-import * as React from 'react';
-import {Appbar} from 'react-native-paper';
+import * as React from "react";
+import { Image } from "react-native";
+import { Appbar } from "react-native-paper";
 
 const Header = () => {
-  const goBack = () => console.log('Went back');
+  const goBack = () => console.log("Went back");
 
   // const handleSearch = () => console.log('Searching');
 
-  const handleAlarm = () => console.log('Alarm');
+  const handleAlarm = () => console.log("Alarm");
 
   return (
     // <Appbar.Header style={{ backgroundColor: 'transparent' }}> ---> 배경 투명
-    <Appbar.Header>
-      <Appbar.BackAction onPress={goBack} />
-      <Appbar.Content title="Title" />
+    // <Appbar.Header>
+    <Appbar.Header style={{ backgroundColor: "transparent" }}>
+      <Appbar.Action
+        icon={props => (
+          <Image
+            source={require("../../assets/icons/icon-backarrow.png")}
+            style={{ width: 24, height: 24 }}
+          />
+        )}
+        onPress={goBack}
+      />
+      <Appbar.Content title="" />
       {/* <Appbar.Action icon="magnify" onPress={handleSearch} /> */}
-      <Appbar.Action icon="dots-vertical" onPress={handleAlarm} />
+      <Appbar.Action
+        icon={props => (
+          <Image
+            source={require("../../assets/icons/icon-notifications-fill.png")}
+            style={{ width: 24, height: 24 }}
+          />
+        )}
+        onPress={handleAlarm}
+      />
     </Appbar.Header>
   );
 };

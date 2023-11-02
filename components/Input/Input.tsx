@@ -1,37 +1,14 @@
-// //TODO - create Input
-// import React from 'react';
-// import {TextInput, TextInputProps, StyleSheet} from 'react-native';
+import * as React from "react";
+import { TextInput } from "react-native-paper";
 
-// interface Props extends TextInputProps {
-//   customProp?: string;
-// }
-
-// const Input: React.FC<Props> = props => {
-//   return <TextInput style={styles.input} {...props} />;
-// };
-
-// const styles = StyleSheet.create({
-//   input: {
-//     // height: 40,
-//     // borderColor: 'gray',
-//     // borderWidth: 1,
-//     // paddingLeft: 10,
-//     backgroundColor: 'black',
-//   },
-// });
-
-// export default Input;
-
-import * as React from 'react';
-import {TextInput} from 'react-native-paper';
-
-const MyComponent = () => {
-  const [text, setText] = React.useState('');
-  // const label = '';
+//NOTE const [text, setText] = React.useState("");
+//NOTE 얘네는 Input을 import 한 곳에서 밀어넣어주기 store에서 관리할지 onChange에 뭘 걸지 고민
+const Input = ({ label = "" }) => {
+  const [text, setText] = React.useState("");
 
   return (
     <TextInput
-      label="email"
+      label={label}
       // placeholder="email"
       mode="outlined"
       value={text}
@@ -42,4 +19,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default Input;
