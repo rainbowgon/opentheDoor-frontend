@@ -22,16 +22,16 @@
 
 // export default Input;
 
-import * as React from 'react';
-import {TextInput} from 'react-native-paper';
+import * as React from "react";
+import { TextInput } from "react-native-paper";
 
-const MyComponent = () => {
-  const [text, setText] = React.useState('');
+const Input = ({ label = "" }) => {
+  const [text, setText] = React.useState("");
   // const label = '';
 
   return (
     <TextInput
-      label="email"
+      label={label}
       // placeholder="email"
       mode="outlined"
       value={text}
@@ -42,4 +42,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default Input;
