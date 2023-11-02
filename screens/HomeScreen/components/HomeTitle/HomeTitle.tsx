@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, Button, View, Text } from "react-native";
-import Input from "../../../components/Input/Input";
+import Input from "../../../../components/Input/Input";
 
 const HomeTitle = () => {
   return (
