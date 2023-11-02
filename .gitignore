@@ -66,4 +66,5 @@ yarn-error.log
 /coverage
 
 # Android
+android/app/gradle.properties
 android/gradle.properties
