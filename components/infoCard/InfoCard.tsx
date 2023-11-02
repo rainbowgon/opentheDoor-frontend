@@ -3,7 +3,7 @@
 import { Alert, Image, ScrollView, Text, View } from 'react-native';
 
 // image
-import Default from '../../assets/images/image-default.png';
+import ImageDefault from '../../assets/images/image-default.png';
 
 // icons
 import StarOn from '../../assets/icons/icon-star-on.png';
@@ -35,7 +35,7 @@ const InfoCard = ({
   onPress,
 }: InfoCardProps) => (
   <ScrollView>
-    <Image source={image || Default} />
+    <Image source={image || ImageDefault} />
     <View>
       <Text> {theme}</Text>
       <Text>{branch}</Text>

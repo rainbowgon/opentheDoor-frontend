@@ -1,10 +1,128 @@
 import React from 'react';
-import { View, Button, ScrollView } from 'react-native';
+import { View, Button, ScrollView, Image, Text } from 'react-native';
+
+// components
+import CustomButton from '../../components/Button/CustomButton';
+
+// images
+import ImageDefault from "../../assets/images/image-default.png";
+
+// icons
+import StarOn from '../../assets/icons/icon-star-on.png';
+import Calendar from '../../components/Calendar/Calendar';
+import BarGraph from '../../components/BarGraph/BarGraph';
 
 const ThemeDetailScreen = () => {
   return (
     <ScrollView>
-      <Button title="ThemeDetailScreenDemo" />
+      <View>
+        <Button title="ThemeDetailScreenDemo" />
+        <Image source={ImageDefault} />
+        <View>
+          <View>
+            <Text>테마 제목</Text>
+            <Text>지점</Text>
+            <Text>주소</Text>
+            <CustomButton
+              value="장르1"
+            />
+            <CustomButton
+              value="장르2"
+            />
+          </View>
+          <View>
+            <Image source={StarOn} />
+            <Text>별점</Text>
+            <Text>리뷰 수</Text>
+          </View>
+          <View>
+            <View>
+              <Text>난이도</Text>
+              <Text>점수</Text>
+              <Text>/5</Text>
+            </View>
+            <View>
+              <Text>장치 비율</Text>
+              <Text>점수</Text>
+              <Text>/5</Text>
+            </View>
+            <View>
+              <Text>활동성</Text>
+              <Text>점수</Text>
+              <Text>/5</Text>
+            </View>
+            <View>
+              <Text>공포도</Text>
+              <Text>점수</Text>
+              <Text>/5</Text>
+            </View>
+          </View>
+          <View>
+            <View>
+              <Text>금액</Text>
+              <Text>최대 { }원 (1인 당 { }원)</Text>
+            </View>
+            <View>
+              <Text>날짜</Text>
+              <Text>{ }.{ }.{ } ({ })</Text>
+            </View>
+            <View>
+              <Text>인원</Text>
+              <Text>{ } ~ { } 명</Text>
+            </View>
+            <View>
+              <Text>소요시간</Text>
+              <Text>{ } 분 (최대)</Text>
+            </View>
+          </View>
+          <View>
+            <Calendar />
+          </View>
+          <View>
+            <Text>이 가게 위치</Text>
+            {/* TODO - 지도 삽입 
+              <View>
+              </View>
+            */}
+          </View>
+          <View>
+            <Text>내가 쓴 리뷰</Text>
+            <CustomButton
+              value="삭제"
+            />
+            <CustomButton
+              value="수정"
+            />
+            <Text>내가 쓴 리뷰 아이템</Text>
+          </View>
+          <View>
+            <Text>리뷰</Text>
+            <View>
+              <Image source={StarOn} />
+              <Text>별점</Text>
+              <Text>리뷰 수</Text>
+            </View>
+            <Text>총 { }건</Text>
+            <View>
+              <BarGraph />
+            </View>
+            <View>
+              <Text>리뷰 리스트</Text>
+            </View>
+            <CustomButton
+              value="리뷰 더 보기"
+            />
+          </View>
+          <View>
+            <CustomButton
+              value="리뷰 쓰기"
+            />
+            <CustomButton
+              value="예약 or 예약 대기"
+            />
+          </View>
+        </View>
+      </View>
     </ScrollView>
   );
 };
