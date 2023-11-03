@@ -23,6 +23,7 @@ export interface InfoCardProps {
   reviewCount?: number;
   style?: string;
   onPress?: any;
+  memberCount?: number;
 }
 
 const InfoCard = ({
@@ -36,6 +37,7 @@ const InfoCard = ({
   reviewCount,
   style,
   onPress,
+  memberCount,
 }: InfoCardProps) => (
   <ScrollView>
     <Image source={image || ImageDefault} />
@@ -51,7 +53,8 @@ const InfoCard = ({
         <Text>({reviewCount})</Text>
       </View>
       <View>
-        <Text>({price})</Text>
+        <Text>{price}원</Text>
+        <Text>({memberCount}명)</Text>
       </View>
       <View>
         <Image source={BookmarkDisable} />
@@ -59,16 +62,10 @@ const InfoCard = ({
         <Image source={BookmarkOff} />
       </View>
       <View>
-        <CustomButton
-          value="예약 취소"
-        />
-        <CustomButton
-          value="예약 대기 취소"
-        />
+        <CustomButton value="예약 취소" />
+        <CustomButton value="예약 대기 취소" />
       </View>
-      <CustomButton
-        value="오픈 알람 받기"
-      />
+      <CustomButton value="오픈 알람 받기" />
     </View>
   </ScrollView>
 );
