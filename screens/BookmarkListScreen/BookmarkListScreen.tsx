@@ -5,6 +5,7 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 const BookmarkListScreen = () => {
   return (
     <ScrollView>
+      <Button title="BookmarkListScreenDemo" />
       <View>
         {
           [...Array(3)].map(() => (

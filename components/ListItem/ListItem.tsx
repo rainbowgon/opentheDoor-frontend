@@ -27,6 +27,7 @@ export interface ListItemProps {
   subTitle?: string;
   right?: string;
   style?: string;
+  onPress?: void;
 }
 
 const handleIcon = (value: string) => {
@@ -51,6 +52,7 @@ const ListItem = ({
   subTitle,
   right = "none",
   style,
+  onPress,
 }: ListItemProps) => (
   <View>
     {icon && handleIcon(icon)}
