@@ -11,6 +11,7 @@ import ImageDefault from "../../assets/images/image-default.png";
 import StarOn from '../../assets/icons/icon-star-on.png';
 import Calendar from '../../components/Calendar/Calendar';
 import BarGraph from '../../components/BarGraph/BarGraph';
+import EscapeInfo from '../../components/EscapeInfo/EscapeInfo';
 
 const ThemeDetailScreen = () => {
   return (
@@ -57,24 +58,12 @@ const ThemeDetailScreen = () => {
               <Text>/5</Text>
             </View>
           </View>
-          <View>
-            <View>
-              <Text>금액</Text>
-              <Text>최대 { }원 (1인 당 { }원)</Text>
-            </View>
-            <View>
-              <Text>날짜</Text>
-              <Text>{ }.{ }.{ } ({ })</Text>
-            </View>
-            <View>
-              <Text>인원</Text>
-              <Text>{ } ~ { } 명</Text>
-            </View>
-            <View>
-              <Text>소요시간</Text>
-              <Text>{ } 분 (최대)</Text>
-            </View>
-          </View>
+          <EscapeInfo
+            price={120000}
+            minPerson={1}
+            maxPerson={2}
+            date={new Date()}
+          />
           <View>
             <Calendar />
           </View>

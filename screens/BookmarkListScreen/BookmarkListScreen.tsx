@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Button, ScrollView } from "react-native";
+
+// components
 import InfoCard from "../../components/InfoCard/InfoCard";
 
 const BookmarkListScreen = () => {
