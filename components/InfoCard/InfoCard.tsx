@@ -10,12 +10,14 @@ import StarOn from "../../assets/icons/icon-star-on.png";
 import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
 import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
+import CustomButton from "../Button/CustomButton";
 
 export interface InfoCardProps {
   image?: string;
   theme?: string;
   branch?: string;
   difficulty?: string;
+  price?: number;
   time?: string;
   star?: number;
   reviewCount?: number;
@@ -28,6 +30,7 @@ const InfoCard = ({
   theme,
   branch,
   difficulty,
+  price,
   time,
   star,
   reviewCount,
@@ -48,10 +51,24 @@ const InfoCard = ({
         <Text>({reviewCount})</Text>
       </View>
       <View>
+        <Text>({price})</Text>
+      </View>
+      <View>
         <Image source={BookmarkDisable} />
         <Image source={BookmarkOn} />
         <Image source={BookmarkOff} />
       </View>
+      <View>
+        <CustomButton
+          value="예약 취소"
+        />
+        <CustomButton
+          value="예약 대기 취소"
+        />
+      </View>
+      <CustomButton
+        value="오픈 알람 받기"
+      />
     </View>
   </ScrollView>
 );
