@@ -6,6 +6,7 @@ import { ButtonContainer, Button, ButtonText } from './CustomButtonStyle';
 
 export interface CustomButtonProps {
   value?: string;
+  size?: string;
   mode?: string;
   border?: string;
   onPress?: any;
@@ -13,22 +14,23 @@ export interface CustomButtonProps {
 
 const CustomButton = ({
   value,
+  size,
   mode,
   border,
   onPress,
 }: CustomButtonProps) => {
   const handleButtonPress = () => {
-    alert('버튼이 눌렸습니다.');
+    console.log('버튼이 눌렸습니다.');
+    // alert('버튼이 눌렸습니다.');
   };
 
-  // 'text' | 'outlined' | 'selected' | 'inactive' | 'error'
+  // size : 'large' | 'medium' | 'small' | 'xsmall'
+  // mode : 'text' | 'outlined' | 'static' | 'selected' | 'inactive' | 'error'
+  // border : 'square' | 'round'
   return (
-    // <ButtonContainer mode="contained">
-    <ButtonContainer>
-      <Button mode={mode} border={border} onPress={handleButtonPress}>
-        <ButtonText mode={mode}>{value}</ButtonText>
-      </Button>
-    </ButtonContainer>
+    <Button size={size} mode={mode} border={border} onPress={handleButtonPress} activeOpacity={0.7}>
+      <ButtonText size={size} mode={mode}>{value}</ButtonText>
+    </Button>
   )
 };
 

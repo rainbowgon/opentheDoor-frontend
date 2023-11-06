@@ -1,14 +1,32 @@
 import styled from 'styled-components/native';
 import { theme } from "../../styles/colors";
 
-export const ButtonContainer = styled.View`
-    flex: 1;
-    justify-content: 'center';
-    align-items: 'center';
-    background-color: ${theme.background5_main};
-    `;
+// size : 'large' | 'medium' | 'small' | 'xsmall'
+const getPaddingSize = (props) => {
+  if (props.size === "large") return "10px";
+  if (props.size === "medium") return "10px 20px";
+  if (props.size === "small") return "5px";
+  if (props.size === "xsmall") return "2px";
+  return "10px";
+}
 
-// 'square' | 'round'
+const getMarginSize = (props) => {
+  // if (props.size === "large") return "5px";
+  // if (props.size === "medium") return "20px";
+  // if (props.size === "small") return "20px";
+  // if (props.size === "xsmall") return "20px";
+  return "5px";
+}
+
+const getFontSize = (props) => {
+  if (props.size === "large") return "16px";
+  if (props.size === "medium") return "14px";
+  if (props.size === "small") return "12px";
+  if (props.size === "xsmall") return "10px";
+  return "16px";
+}
+
+// border : 'square' | 'round'
 const getRadius = (props) => {
   if (props.border === "square") return "5px";
   if (props.border === "round") return "20px";
@@ -49,19 +67,20 @@ const getColor = (props) => {
 };
 
 export const Button = styled.TouchableOpacity`
+  flex: 1;
   justify-content: center;
   align-items: center;
 
-  padding: 10px;
-  margin: 5px;
+  padding: ${getPaddingSize};
+  margin: ${getMarginSize};
 
-  border: 2px solid ${getBorderColor};
+  border: 1px solid ${getBorderColor};
   border-radius: ${getRadius};
   background-color: ${getBackgroundColor};
 `;
 
 export const ButtonText = styled.Text`
   color: ${getColor};
-  font-size: 16px;
+  font-size: ${getFontSize};
   font-weight: 600;
 `;
