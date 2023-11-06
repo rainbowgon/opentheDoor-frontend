@@ -33,7 +33,7 @@ export const theme = {
   background4: '#242423FF',
   background5_main: '#19181DFF',
 
-  // transparent: '#00000000',
+  transparent: '#00000000',
 
   icons: '#FFFFFF88',
 };
