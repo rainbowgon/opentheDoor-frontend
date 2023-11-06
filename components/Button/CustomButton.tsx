@@ -12,6 +12,13 @@ export interface CustomButtonProps {
   onPress?: any;
 }
 
+/**
+ * size : 'large' | 'medium' | 'small' | 'xsmall'
+ * 
+ * mode : 'text' | 'outlined' | 'static' | 'selected' | 'inactive' | 'error'
+ * 
+ * border : 'square' | 'round'
+ */
 const CustomButton = ({
   value,
   size,
@@ -20,13 +27,10 @@ const CustomButton = ({
   onPress,
 }: CustomButtonProps) => {
   const handleButtonPress = () => {
-    console.log('버튼이 눌렸습니다.');
-    // alert('버튼이 눌렸습니다.');
+    console.log(`${value} 버튼이 눌렸습니다.`);
+    // alert(`${value} 버튼이 눌렸습니다.`);
   };
 
-  // size : 'large' | 'medium' | 'small' | 'xsmall'
-  // mode : 'text' | 'outlined' | 'static' | 'selected' | 'inactive' | 'error'
-  // border : 'square' | 'round'
   return (
     <Button size={size} mode={mode} border={border} onPress={handleButtonPress} activeOpacity={0.7}>
       <ButtonText size={size} mode={mode}>{value}</ButtonText>
