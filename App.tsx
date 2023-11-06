@@ -1,4 +1,11 @@
 import React, { useEffect } from "react";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 import messaging from "@react-native-firebase/messaging";
 import { NavigationContainer } from "@react-navigation/native";
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -46,8 +53,9 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      {/* <Tab.Navigator>
+    <RecoilRoot>
+      <NavigationContainer>
+        {/* <Tab.Navigator>
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -66,8 +74,9 @@ const App = () => {
           options={{ title: 'mypage' }}
         />
       </Tab.Navigator> */}
-      <AdminRightNavigation />
-    </NavigationContainer>
+        <AdminRightNavigation />
+      </NavigationContainer>
+    </RecoilRoot>
   );
 };
 export default App;
