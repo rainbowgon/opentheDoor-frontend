@@ -16,6 +16,10 @@ import EscapeInfo from "../../components/EscapeInfo/EscapeInfo";
 import CustomButton from "../../components/Button/CustomButton";
 import CustomCheckBox from "../../components/CheckBox/CustomCheckBox";
 import DifficultySlider from "./components/DifficultySlider/DifficultySlider";
+import UseHint from "./components/UseHint/UseHint";
+import Input from "../../components/Input/Input";
+import ReviewContent from "./components/ReviewContent/ReviewContent";
+import { Alert } from "react-native";
 // import { ImageBackground } from "react-native";
 
 // export interface BackgroundImgProps = {
@@ -23,6 +27,11 @@ import DifficultySlider from "./components/DifficultySlider/DifficultySlider";
 // };
 export type BackgroundImgProps = {
   poster: string;
+};
+
+const handleReview = () => {
+  console.log("리뷰작성 버튼");
+  // alert("Review");
 };
 
 const ReviewScreen = () => {
@@ -61,6 +70,15 @@ const ReviewScreen = () => {
             <StarRating rating={rating} onChange={setRating} />
             <CustomCheckBox label="탈출 성공" />
             <DifficultySlider />
+            <UseHint />
+            <ReviewContent />
+            <CustomButton
+              size="medieum"
+              mode="selected"
+              border="round"
+              value="리뷰 작성"
+              onPress={handleReview}
+            />
           </ScrollView>
         </ImageBackground>
       </View>

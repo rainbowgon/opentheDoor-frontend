@@ -32,12 +32,12 @@ const DifficultySlider = () => {
 
   return (
     <View style={styles.container}>
+      <Text>난이도: {difficultyText(difficulty)}</Text>
       <CustomCheckBox
         checked={isEnabled}
         setChecked={setIsEnabled}
         onPress={toggleSwitch}
       />
-      <Text>난이도: {difficultyText(difficulty)}</Text>
       <Slider
         style={{ width: 200, height: 40 }}
         minimumValue={1}
