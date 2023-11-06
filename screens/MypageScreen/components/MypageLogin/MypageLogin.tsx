@@ -8,7 +8,10 @@ const MypageLogin = () => {
   return (
     <View>
       <CustomButton
-        value="Login 하러가기"
+        value="로그인 하러가기"
+        size="large"
+        mode="inactive"
+        border="square"
       />
     </View>
   );
