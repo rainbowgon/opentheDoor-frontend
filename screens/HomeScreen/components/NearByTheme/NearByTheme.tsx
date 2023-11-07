@@ -5,7 +5,7 @@ import Geolocation from "@react-native-community/geolocation";
 import CustomMap from "../../../../components/Maps/Map";
 
 import { PermissionsAndroid } from "react-native";
-import { Region } from "react-native-maps";
+import { Region, Marker } from "react-native-maps";
 
 const NearByTheme = () => {
   const [region, setRegion] = useState<Region>({
@@ -21,6 +21,7 @@ const NearByTheme = () => {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
+            // NOTE 사실 이게 왜 필요한지 모르겠습니다. / device측에서 권한을 받아오는데요
             title: "위치 정보 권한",
             message: "이 앱은 당신의 위치 정보가 필요합니다.",
             buttonNeutral: "나중에 묻기",
@@ -59,7 +60,9 @@ const NearByTheme = () => {
     <View style={styles.container}>
       <Text>내 주변</Text>
       <View style={styles.mapContainer}>
-        <CustomMap region={region} />
+        <CustomMap region={region}>
+          <Marker coordinate={region} title={"내 위치"} />
+        </CustomMap>
       </View>
     </View>
   );
