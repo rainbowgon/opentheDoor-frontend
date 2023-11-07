@@ -13,7 +13,7 @@ import StarRating from "react-native-star-rating-widget";
 // import ImageDefault from "../../assets/images/image-default.png";
 import ReviewTitle from "./components/ReviewTitle/ReviewTitle";
 import EscapeInfo from "../../components/EscapeInfo/EscapeInfo";
-import CustomButton from "../../components/Button/CustomButton";
+import CustomButton from "../../components/Button/Button";
 import CustomCheckBox from "../../components/CheckBox/CustomCheckBox";
 import DifficultySlider from "./components/DifficultySlider/DifficultySlider";
 import UseHint from "./components/UseHint/UseHint";

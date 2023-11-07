@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 
 // components
-import CustomButton from "../../../../components/Button/CustomButton";
+import CustomButton from "../../../../components/Button/Button";
 
 const NonUserFeatureList = () => {
   return (

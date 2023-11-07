@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { ButtonContainer, Button, ButtonText } from './CustomButtonStyle';
+import { Button, ButtonText } from './ButtonStyle';
 
 //TODO - create Button Custom Style
 
 export interface CustomButtonProps {
   value?: string;
-  size?: string;
-  mode?: string;
-  border?: string;
-  onPress?: any;
+  size?: "large" | "medium" | "small" | "xsmall";
+  mode?: "text" | "outlined" | "static" | "selected" | "inactive" | "error";
+  border?: "square" | "round";
+  onPress?: () => any;
 }
 
 /**
- * size : 'large' | 'medium' | 'small' | 'xsmall'
- * 
+ * size : 'large' | 'medium' | 'small' | 'xsmall' 
+ *  
  * mode : 'text' | 'outlined' | 'static' | 'selected' | 'inactive' | 'error'
  * 
  * border : 'square' | 'round'

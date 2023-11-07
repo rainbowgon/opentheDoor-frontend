@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, Button, View } from "react-native";
-import CustomButton from "../../components/Button/CustomButton";
+import CustomButton from "../../components/Button/Button";
 // import CustomFab from "../../components/Fab/Fab";
 // import ListItem from "../../components/ListItem/ListItem";
 // import Dropdown from "../../components/Dropdown/Dropdown";
@@ -14,7 +14,7 @@ import NearByTheme from "./components/NearByTheme/NearByTheme";
 import BookmarkedTheme from "./components/BookmarkedTheme/BookmarkedTheme";
 import Header from "../../components/Header/Header";
 
-const HomeScreen = ({}) => {
+const HomeScreen = ({ }) => {
   return (
     <View>
       <ScrollView>

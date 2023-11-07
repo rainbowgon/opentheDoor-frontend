@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Button, ScrollView } from "react-native";
-import CustomButton from "../../components/Button/CustomButton";
+import CustomButton from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 
 const SignUpScreen = () => {
