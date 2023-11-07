@@ -3,7 +3,7 @@ import { Text, Image, View, Button, ScrollView } from 'react-native';
 
 // components
 import Header from '../../components/Header/Header';
-import CustomButton from '../../components/Button/CustomButton';
+import CustomButton from '../../components/Button/Button';
 import EscapeInfo from '../../components/EscapeInfo/EscapeInfo';
 import Input from '../../components/Input/Input';
 

@@ -4,13 +4,15 @@ interface MemberInfoType {
   name: string;
   phoneNumber: number;
   nickname: string;
+  profileImage: string;
 }
 
-const memberState = atom<MemberInfoType>({
+export const memberState = atom<MemberInfoType>({
   key: 'memberState',
   default: {
     name: "",
     phoneNumber: NaN,
     nickname: "",
+    profileImage: "",
   },
 });

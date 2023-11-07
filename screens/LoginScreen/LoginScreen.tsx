@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, ScrollView } from 'react-native';
-import CustomButton from '../../components/Button/CustomButton';
+import CustomButton from '../../components/Button/Button';
 import { Text } from 'react-native';
 import CustomCheckBox from '../../components/CheckBox/CustomCheckBox';
 
