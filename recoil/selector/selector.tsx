@@ -24,7 +24,7 @@ const ReviewAPI = "/reviews";
 //   return response.data;
 // }
 
-// NOTE ---------------------------------------------- MEMBER ----------------------------------------------
+// NOTE [MEMBER] ----------------------------------------------
 /**
  * TODO - 카카오 로그인
  * /member-service/members/login/kakao
@@ -149,7 +149,7 @@ export async function deleteMember() {
 
 
 
-// NOTE ---------------------------------------------- PROFILE ----------------------------------------------
+// NOTE  [PROFILE] ----------------------------------------------
 /**
  * TODO - 앱 전체 알림 on/off	(PATCH) - patchAllNotification
  * /member-service/profiles/notifications
@@ -192,7 +192,7 @@ export async function patchBookmarkNotification() {
     });
 }
 
-// NOTE ---------------------------------------------- NOTIFICATION ----------------------------------------------
+// NOTE  [NOTIFICATION] ----------------------------------------------
 /**
  * TODO 알림 전체보기 (GET)
  * /notificatiom-service/notifications
@@ -262,7 +262,7 @@ export async function patchNotificationAll() {
 
 
 
-// NOTE ---------------------------------------------- RESERVATION ----------------------------------------------
+// NOTE  [RESERVATION] ----------------------------------------------
 /**
  * TODO - 예약 페이지 정보 가져오기 (GET) - getReservation
  * /reservation-service/reservations/{theme-id}
@@ -313,7 +313,7 @@ export async function postReservation() {
 }
 
 
-// NOTE ---------------------------------------------- SEARCH ----------------------------------------------
+// NOTE  [SEARCH] ----------------------------------------------
 /**
  * TODO - 테마 정렬 (GET) - getThemeSort
  * /search-service/themes/sorts?keyword={keyword}&sortBy={sort-by}&page={page}&size={size}
@@ -395,7 +395,7 @@ export async function getThemeDetail() {
 }
 
 
-// NOTE ---------------------------------------------- BOOKMARK ----------------------------------------------
+// NOTE  [BOOKMARK] ----------------------------------------------
 
 /**
  * TODO - 북마크 등록/해제 (PUT) - putBookmarkToggle
@@ -486,7 +486,7 @@ export async function patchBookmarkNotificationToggle() {
 }
 
 
-// NOTE ---------------------------------------------- REVIEW ----------------------------------------------
+// NOTE  [REVIEW] ----------------------------------------------
 
 /**
  * TODO - 리뷰 작성 (POST)
