@@ -13,7 +13,7 @@ import StarRating from "react-native-star-rating-widget";
 // import ImageDefault from "../../assets/images/image-default.png";
 import ReviewTitle from "./components/ReviewTitle/ReviewTitle";
 import EscapeInfo from "../../components/EscapeInfo/EscapeInfo";
-import CustomButton from "../../components/Button/Button";
+import CustomButton from "../../components/Button/CustomButton";
 import CustomCheckBox from "../../components/CheckBox/CustomCheckBox";
 import DifficultySlider from "./components/DifficultySlider/DifficultySlider";
 import UseHint from "./components/UseHint/UseHint";
@@ -39,49 +39,47 @@ const ReviewScreen = () => {
   return (
     <View style={styles.container}>
       <Button title="ReviewScreenDemo" />
-      <View style={styles.container}>
-        <ImageBackground
-          source={{
-            uri: "http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg",
-          }}
-          style={styles.container}>
-          <Header />
-          <ScrollView>
-            <View style={stylediv.container}></View>
-            <ReviewTitle />
-            <CustomButton
-              size="xsmall"
-              mode="static"
-              border="round"
-              value="공포"
-            />
-            <CustomButton
-              size="xsmall"
-              mode="static"
-              border="round"
-              value="에코"
-            />
-            <EscapeInfo
-              price={120000}
-              date={new Date()}
-              minPerson={3}
-              maxPerson={4}
-            />
-            <StarRating rating={rating} onChange={setRating} />
-            <CustomCheckBox label="탈출 성공" />
-            <DifficultySlider />
-            <UseHint />
-            <ReviewContent />
-            <CustomButton
-              size="medieum"
-              mode="selected"
-              border="round"
-              value="리뷰 작성"
-              onPress={handleReview}
-            />
-          </ScrollView>
-        </ImageBackground>
-      </View>
+      <ImageBackground
+        source={{
+          uri: "http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg",
+        }}
+        style={styles.container}>
+        <Header />
+        <ScrollView>
+          <View style={stylediv.container}></View>
+          <ReviewTitle />
+          <CustomButton
+            size="xsmall"
+            mode="static"
+            border="round"
+            value="공포"
+          />
+          <CustomButton
+            size="xsmall"
+            mode="static"
+            border="round"
+            value="에코"
+          />
+          <EscapeInfo
+            price={120000}
+            date={new Date()}
+            minPerson={3}
+            maxPerson={4}
+          />
+          <StarRating rating={rating} onChange={setRating} />
+          <CustomCheckBox label="탈출 성공" />
+          <DifficultySlider />
+          <UseHint />
+          <ReviewContent />
+          <CustomButton
+            size="medieum"
+            mode="selected"
+            border="round"
+            value="리뷰 작성"
+            onPress={handleReview}
+          />
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };

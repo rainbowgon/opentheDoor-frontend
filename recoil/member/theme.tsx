@@ -11,7 +11,7 @@ interface ThemeInfoType {
   maxHeadcount: number;
 }
 
-// TODO - 공백으로 변경해야 합니다. - 테스트용 데이터입니다.
+// FIXME - 공백으로 변경해야 합니다. - 테스트용 데이터입니다.
 export const themeState = atom<ThemeInfoType>({
   key: 'memberState',
   default: {
@@ -26,7 +26,7 @@ export const themeState = atom<ThemeInfoType>({
   },
 });
 
-// TODO - 공백으로 변경해야 합니다. - 테스트용 데이터입니다.
+// FIXME - 공백으로 변경해야 합니다. - 테스트용 데이터입니다.
 export const themeListState = atom<ThemeInfoType[]>({
   key: 'memberState',
   default: [{

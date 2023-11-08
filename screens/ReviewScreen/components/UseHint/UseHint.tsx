@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import "../../../../styles/colors";
 import CustomCheckBox from "../../../../components/CheckBox/CustomCheckBox";
-import CustomButton from "../../../../components/Button/Button";
+import CustomButton from "../../../../components/Button/CustomButton";
 
 const UseHint = () => {
   const [useHint, setUseHint] = useState(0);

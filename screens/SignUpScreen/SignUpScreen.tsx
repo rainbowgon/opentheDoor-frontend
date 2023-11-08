@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Button, ScrollView } from "react-native";
-import CustomButton from "../../components/Button/Button";
+import CustomButton from "../../components/Button/CustomButton";
 import Input from "../../components/Input/Input";
+import PageContainer from "../../styles/commonStyles";
 
 const SignUpScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <Input />
       <Input />
       <CustomButton
@@ -13,7 +14,7 @@ const SignUpScreen = () => {
       <Input />
       <Input />
       <Input />
-    </ScrollView>
+    </PageContainer>
   );
 };
 

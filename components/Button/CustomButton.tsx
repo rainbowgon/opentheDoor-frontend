@@ -29,6 +29,9 @@ const CustomButton = ({
   const handleButtonPress = () => {
     console.log(`${value} 버튼이 눌렸습니다.`);
     // alert(`${value} 버튼이 눌렸습니다.`);
+    if (onPress) {
+      onPress();
+    }
   };
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, ScrollView, Image, Text } from 'react-native';
 
 // components
-import CustomButton from '../../components/Button/Button';
+import CustomButton from '../../components/Button/CustomButton';
 
 // images
 import ImageDefault from "../../assets/images/image-default.png";
@@ -12,10 +12,11 @@ import StarOn from '../../assets/icons/icon-star-on.png';
 import Calendar from '../../components/Calendar/Calendar';
 import BarGraph from '../../components/BarGraph/BarGraph';
 import EscapeInfo from '../../components/EscapeInfo/EscapeInfo';
+import PageContainer from "../../styles/commonStyles";
 
 const ThemeDetailScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <View>
         <Button title="ThemeDetailScreenDemo" />
         <Image source={ImageDefault} />
@@ -112,7 +113,7 @@ const ThemeDetailScreen = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </PageContainer>
   );
 };
 

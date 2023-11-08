@@ -10,7 +10,7 @@ import StarOn from "../../assets/icons/icon-star-on.png";
 import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
 import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
-import CustomButton from "../Button/Button";
+import CustomButton from "../Button/CustomButton";
 
 export interface InfoCardProps {
   image?: string;

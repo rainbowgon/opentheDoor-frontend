@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Button, ScrollView, Image } from 'react-native';
+import Input from '../../components/Input/Input';
+import PageContainer from "../../styles/commonStyles";
 
 // image
 import ImageDefault from "../../assets/images/image-default.png";
-import CustomButton from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
+import CustomButton from '../../components/Button/CustomButton';
 
 const ProfileUpdateScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <Button title="ProfileUpdateScreenDemo" />
       <Image source={ImageDefault} />
       <CustomButton
@@ -25,7 +26,7 @@ const ProfileUpdateScreen = () => {
       <CustomButton
         value="프로필 수정"
       />
-    </ScrollView>
+    </PageContainer>
   );
 };
 

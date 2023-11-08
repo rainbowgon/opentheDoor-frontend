@@ -1,23 +1,23 @@
 import * as React from 'react';
 
 // screens
-import HomeScreen from '../../screens/HomeScreen/HomeScreen';
-import SearchScreen from '../../screens/SearchScreen/SearchScreen';
-import MypageScreen from '../../screens/MypageScreen/MypageScreen';
-import AlarmScreen from "../../screens/AlarmScreen/AlarmScreen";
-import BookmarkListScreen from "../../screens/BookmarkListScreen/BookmarkListScreen";
-import CompareThemeScreen from "../../screens/CompareThemeScreen/CompareThemeScreen";
-import LoginScreen from "../../screens/LoginScreen/LoginScreen";
-import ProfileUpdateScreen from "../../screens/ProfileUpdateScreen/ProfileUpdateScreen";
-import RankingScreen from "../../screens/RankingScreen/RankingScreen";
-import RecordScreen from "../../screens/RecordScreen/RecordScreen";
-import ReservationListScreen from "../../screens/ReservationListScreen/ReservationListScreen";
-import ReservationScreen from "../../screens/ReservationScreen/ReservationScreen";
-import ReservationWaitingScreen from "../../screens/ReservationWaitingScreen/ReservationWaitingScreen";
-import ReviewScreen from "../../screens/ReviewScreen/ReviewScreen";
-import SettingScreen from "../../screens/SettingScreen/SettingScreen";
-import SignUpScreen from "../../screens/SignUpScreen/SignUpScreen";
-import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen";
+import HomeScreen from '../../../screens/HomeScreen/HomeScreen';
+import SearchScreen from '../../../screens/SearchScreen/SearchScreen';
+import MypageScreen from '../../../screens/MypageScreen/MypageScreen';
+import AlarmScreen from "../../../screens/AlarmScreen/AlarmScreen";
+import BookmarkListScreen from "../../../screens/BookmarkListScreen/BookmarkListScreen";
+import CompareThemeScreen from "../../../screens/CompareThemeScreen/CompareThemeScreen";
+import LoginScreen from "../../../screens/LoginScreen/LoginScreen";
+import ProfileUpdateScreen from "../../../screens/ProfileUpdateScreen/ProfileUpdateScreen";
+import RankingScreen from "../../../screens/RankingScreen/RankingScreen";
+import RecordScreen from "../../../screens/RecordScreen/RecordScreen";
+import ReservationListScreen from "../../../screens/ReservationListScreen/ReservationListScreen";
+import ReservationScreen from "../../../screens/ReservationScreen/ReservationScreen";
+import ReservationWaitingScreen from "../../../screens/ReservationWaitingScreen/ReservationWaitingScreen";
+import ReviewScreen from "../../../screens/ReviewScreen/ReviewScreen";
+import SettingScreen from "../../../screens/SettingScreen/SettingScreen";
+import SignUpScreen from "../../../screens/SignUpScreen/SignUpScreen";
+import ThemeDetailScreen from "../../../screens/ThemeDetailScreen/ThemeDetailScreen";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
