@@ -17,6 +17,9 @@ const ReviewAPI = "/reviews";
 // 배포용
 // const accessToken = localStorage.getItem("accessToken");
 
+// FIXME 테스트용
+const accessToken = "testToken";
+
 // export async function getPosts() {
 //   const response = await axios.get<Post[]>(
 //     'https://jsonplaceholder.typicode.com/posts',
@@ -45,14 +48,18 @@ const ReviewAPI = "/reviews";
  * /member-service/members/signup
  */
 export async function postSignup() {
+
+  // FIXME - 데이터 삽입
+  const data = {
+    name: "test",
+    phoneNumber: "01012345678",
+    nickname: "테스트",
+  };
+
   const response = await axios
     .post(
-      `${MemberServicePath}${MemberAPI}/signup`
-      // , Data
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${MemberAPI}/signup`,
+      data,
     )
     .then((response) => {
       console.log("회원가입 성공", response.data);
@@ -67,14 +74,16 @@ export async function postSignup() {
  * /member-service/members/phone
  */
 export async function postCheckPhoneNumber() {
+  console.log("postCheckPhoneNumber");
+  // FIXME - 데이터 삽입
+  const data = {
+    phoneNumber: "01012345678",
+  };
+
   const response = await axios
     .post(
-      `${MemberServicePath}${MemberAPI}/phone`
-      // , Data
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${MemberAPI}/phone`,
+      data,
     )
     .then((response) => {
       console.log("전화번호 본인 인증 성공", response.data);
@@ -89,13 +98,27 @@ export async function postCheckPhoneNumber() {
  * /member-service/members
  */
 export async function patchMemberInfo() {
+
+  // FIXME - 데이터 삽입
+  const formData = new FormData();
+
+  formData.append("profileId", 1);
+  formData.append("name", "변경함");
+  formData.append("nickname", "수정테스트");
+
+  // 나중에 이미지 추가할 때 쓸 것
+  // formData.append("profileImage", profileImage);
+
   const response = await axios
     .patch(
-      `${MemberServicePath}${MemberAPI}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${MemberAPI}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("개인 정보 수정 성공", response.data);
@@ -112,17 +135,18 @@ export async function patchMemberInfo() {
 export async function getMemberCheckMyself() {
   const response = await axios
     .get(
-      `${MemberServicePath}${MemberAPI}/me`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${MemberAPI}/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
-      console.log("개인 정보 수정 성공", response.data);
+      console.log("개인 정보 조회 성공", response.data);
     })
     .catch((error) => {
-      console.error("개인 정보 수정 실패", error);
+      console.error("개인 정보 조회 실패", error);
     });
 }
 
@@ -133,11 +157,12 @@ export async function getMemberCheckMyself() {
 export async function deleteMember() {
   const response = await axios
     .delete(
-      `${MemberServicePath}${MemberAPI}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${MemberAPI}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("회원 탈퇴 성공", response.data);
@@ -157,11 +182,12 @@ export async function deleteMember() {
 export async function patchAllNotification() {
   const response = await axios
     .patch(
-      `${MemberServicePath}${ProfileAPI}/notifications`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ProfileAPI}/notifications`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("앱 전체 알림 on/off	성공", response.data);
@@ -178,11 +204,12 @@ export async function patchAllNotification() {
 export async function patchBookmarkNotification() {
   const response = await axios
     .patch(
-      `${MemberServicePath}${ProfileAPI}/bookmark`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ProfileAPI}/bookmark`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("PROFILE	북마크 시 자동 알림 on/off 성공", response.data);
@@ -200,11 +227,12 @@ export async function patchBookmarkNotification() {
 export async function getNotification() {
   const response = await axios
     .get(
-      `${NotificatiomServicePath}${NotificationAPI}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${NotificatiomServicePath}${NotificationAPI}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("알림 전체보기 성공", response.data);
@@ -224,11 +252,12 @@ export async function patchNotification() {
 
   const response = await axios
     .patch(
-      `${NotificatiomServicePath}${NotificationAPI}/${notificationId}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${NotificatiomServicePath}${NotificationAPI}/${notificationId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("알림 확인하기 성공", response.data);
@@ -245,11 +274,12 @@ export async function patchNotification() {
 export async function patchNotificationAll() {
   const response = await axios
     .patch(
-      `${NotificatiomServicePath}${NotificationAPI}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${NotificatiomServicePath}${NotificationAPI}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("알림 전체 확인하기 성공", response.data);
@@ -273,8 +303,8 @@ export async function getReservation() {
 
   const response = await axios
     .get(
-      `${ReservationServicePath}${ReservationAPI}/${themeId}`
-      // , {
+      `${ReservationServicePath}${ReservationAPI}/${themeId}`,
+      // {
       //   headers: {
       //     Authorization: `Bearer ${accessToken}`,
       //   },
@@ -297,9 +327,9 @@ export async function postReservation() {
 
   const response = await axios
     .post(
-      `${ReservationServicePath}${ReservationAPI}/${themeId}`
-      // , Data
-      // , {
+      `${ReservationServicePath}${ReservationAPI}/${themeId}`,
+      // Data,
+      // {
       //   headers: {
       //     Authorization: `Bearer ${accessToken}`,
       //   },
@@ -328,10 +358,6 @@ export async function getThemeSort() {
   const response = await axios
     .get(
       `${SearchServicePath}${ThemeAPI}/sorts?keyword=${keyword}&sortBy=${sortBy}&page=${page}&size=${size}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
     )
     .then((response) => {
       console.log("테마 정렬 성공", response.data);
@@ -356,10 +382,6 @@ export async function getThemeSearch() {
   const response = await axios
     .get(
       `${SearchServicePath}${ThemeAPI}/searches?keyword=${keyword}&sortBy=${sortBy}&page=${page}&size=${size}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
     )
     .then((response) => {
       console.log("테마 검색 성공", response.data);
@@ -381,10 +403,6 @@ export async function getThemeDetail() {
   const response = await axios
     .get(
       `${SearchServicePath}${ThemeAPI}/${themeId}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
     )
     .then((response) => {
       console.log("테마 상세 조회 성공", response.data);
@@ -402,13 +420,21 @@ export async function getThemeDetail() {
  * /member-service/bookmarks
  */
 export async function putBookmarkToggle() {
+
+  // FIXME - 데이터 삽입
+  const data = {
+    bookmarkThemeIdList: [1, 2, 3, 4, 5]
+  };
+
   const response = await axios
     .put(
-      `${MemberServicePath}${BookmarksPath}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${BookmarksPath}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("리뷰 작성 성공", response.data);
@@ -425,12 +451,12 @@ export async function putBookmarkToggle() {
 export async function getReviewCreateHome() {
   const response = await axios
     .get(
-      `${MemberServicePath}${BookmarksPath}`
-      // , Data
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${BookmarksPath}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("북마크 내역 조회 (홈) 성공", response.data);
@@ -447,11 +473,12 @@ export async function getReviewCreateHome() {
 export async function getBookmarkListMypage() {
   const response = await axios
     .get(
-      `${MemberServicePath}${BookmarksPath}/detail`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${BookmarksPath}/detail`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("북마크 내역 조회 (마이페이지) 성공", response.data);
@@ -472,10 +499,11 @@ export async function patchBookmarkNotificationToggle() {
   const response = await axios
     .patch(
       `${MemberServicePath}${BookmarksPath}/notifications/${themeId}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      , {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("테마 예약 오픈 알림 on/off 성공", response.data);
@@ -489,18 +517,31 @@ export async function patchBookmarkNotificationToggle() {
 // NOTE  [REVIEW] ----------------------------------------------
 
 /**
- * TODO - 리뷰 작성 (POST)
+ * TODO - 리뷰 작성 (POST) - postReviewCreate
  * /member-service/reviews
  */
 export async function postReviewCreate() {
+
+  // FIXME - 데이터 삽입
+  const data = {
+    themeId: 1,
+    rating: 3.6,
+    isEscaped: "SUCCESS",
+    myLevel: 3,
+    content: "재밌었다.",
+    isSpoiler: "NO",
+    performedDate: "2023-11-02",
+  }
+
   const response = await axios
     .post(
-      `${MemberServicePath}${ReviewAPI}`
-      // , Data
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("리뷰 작성 성공", response.data);
@@ -515,13 +556,28 @@ export async function postReviewCreate() {
  * /member-service/reviews
  */
 export async function patchReviewEdit() {
+
+  // FIXME - 데이터 삽입
+  const data = {
+    themeId: 1,
+    rating: 3.6,
+    isEscaped: "SUCCESS",
+    myLevel: 3,
+    content: "재밌었다.",
+    isSpoiler: "NO",
+    performedDate: "2023-11-02",
+    performedTime: "18:30", // NOTE 왜 여기만 performedTime이 추가로 붙을까? 리뷰 생성에는 안붙는데
+  }
+
   const response = await axios
     .patch(
-      `${MemberServicePath}${ReviewAPI}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("리뷰 수정 성공", response.data);
@@ -536,13 +592,12 @@ export async function patchReviewEdit() {
  * /member-service/reviews/themes/one?themeId=1
  */
 export async function getReviewOne() {
+  // FIXME - themeId를 자신의 ID로 등록
+  const themeId = 1;
+
   const response = await axios
     .get(
-      `${MemberServicePath}${ReviewAPI}/themes/one?themeId=1`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`
     )
     .then((response) => {
       console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
@@ -557,19 +612,47 @@ export async function getReviewOne() {
  * /member-service/reviews/themes/all
  */
 export async function getReviewAll() {
+  //NOTE 토큰 필요한가요?
   const response = await axios
     .get(
-      `${MemberServicePath}${ReviewAPI}/themes/all`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}/themes/all`,
+      // data, 
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("테마 리뷰 전체 조회 성공", response.data);
     })
     .catch((error) => {
       console.error("테마 리뷰 전체 조회 실패", error);
+    });
+}
+
+/**
+ * TODO - 테마의 내가 쓴 리뷰 조회 (GET) - getReviewAll
+ * /member-service/reviews/themes/my?themeId=1
+ */
+export async function getMyReviewInTheme() {
+
+  // FIXME - themeId를 자신의 ID로 등록
+  const themeId = 1;
+  const response = await axios
+    .get(
+      `${MemberServicePath}${ReviewAPI}/themes/my?themeId=${themeId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
+    .then((response) => {
+      console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
+    })
+    .catch((error) => {
+      console.error("테마의 내가 쓴 리뷰 조회 실패", error);
     });
 }
 
@@ -583,17 +666,18 @@ export async function deleteReview() {
 
   const response = await axios
     .delete(
-      `${MemberServicePath}${ReviewAPI}/${reviewId}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}/${reviewId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
-      console.log("내가 쓴 리뷰 전체 조회 성공", response.data);
+      console.log("리뷰 삭제 성공", response.data);
     })
     .catch((error) => {
-      console.error("내가 쓴 리뷰 전체 조회 실패", error);
+      console.error("리뷰 삭제 실패", error);
     });
 }
 
@@ -604,11 +688,12 @@ export async function deleteReview() {
 export async function getReviewCheckMyself() {
   const response = await axios
     .get(
-      `${MemberServicePath}${ReviewAPI}/my`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}/my`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("내가 쓴 리뷰 전체 조회 성공", response.data);
@@ -628,11 +713,12 @@ export async function getHistory() {
 
   const response = await axios
     .get(
-      `${MemberServicePath}${ReviewAPI}/history/${profileId}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${accessToken}`,
-      //   },
+      `${MemberServicePath}${ReviewAPI}/history/${profileId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     .then((response) => {
       console.log("방탈출 기록 조회 성공", response.data);

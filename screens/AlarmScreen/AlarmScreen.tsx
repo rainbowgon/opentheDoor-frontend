@@ -4,10 +4,14 @@ import { View, Button, ScrollView } from "react-native";
 // components
 import Header from "../../components/Header/Header";
 import ListItem from "../../components/ListItem/ListItem";
+import AdminAxiosTestBox from "../../components/_admin/_AdminAxiosTestBox/AdminAxiosTestBox";
+import PageContainer from "../../styles/commonStyles";
 
 const AlarmScreen = () => {
   return (
-    <View>
+    <PageContainer>
+      {/* FIXME - Admin 기능입니다 */}
+      <AdminAxiosTestBox />
       <Header />
       <Button title="AlarmScreenDemo" />
       <ScrollView>
@@ -20,7 +24,7 @@ const AlarmScreen = () => {
           ))
         }
       </ScrollView>
-    </View>
+    </PageContainer>
   );
 };
 

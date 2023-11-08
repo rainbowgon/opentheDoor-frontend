@@ -3,9 +3,10 @@ import { Text, Image, View, Button, ScrollView } from 'react-native';
 
 // components
 import Header from '../../components/Header/Header';
-import CustomButton from '../../components/Button/Button';
+import CustomButton from '../../components/Button/CustomButton';
 import EscapeInfo from '../../components/EscapeInfo/EscapeInfo';
 import Input from '../../components/Input/Input';
+import PageContainer from "../../styles/commonStyles";
 
 // images
 import ImageDefault from "../../assets/images/image-default.png";
@@ -15,7 +16,7 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 
 const ReservationScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <Button title="ReservationScreenDemo" />
       <Header />
       <View>
@@ -71,7 +72,7 @@ const ReservationScreen = () => {
         <Text>방탈출 이용약관</Text>
         <Dropdown />
       </View>
-    </ScrollView>
+    </PageContainer>
   );
 };
 

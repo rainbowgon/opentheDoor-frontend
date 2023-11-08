@@ -20,7 +20,7 @@ const ReviewContent = () => {
         onPress={toggleReviewEnabled}
       />
       <Input
-        label="여기에 리뷰 내용을 작성하세요"
+        placeholder="여기에 리뷰 내용을 작성하세요"
         multiline={true}
         disabled={!isEnabled}
       />

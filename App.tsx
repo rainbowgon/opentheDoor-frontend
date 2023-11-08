@@ -14,12 +14,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
 
 // components
-import AdminRightNavigation from "./components/_AdminRightNavigation/AdminRightNavigation";
+import AdminRightNavigation from "./components/_admin/_AdminRightNavigation/AdminRightNavigation";
 
 // screens
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import MypageScreen from "./screens/MypageScreen/MypageScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 
 // type RootStackParamList = {
@@ -35,7 +36,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log("[Background Remote Message]", remoteMessage);
 });
 
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
@@ -52,29 +53,62 @@ const App = () => {
     return unsubscribe;
   }, []);
 
+  // TODO - stack navigation
+
+  function HomeStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+        />
+      </Stack.Navigator>
+    );
+  }
+  function SearchStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="search"
+          component={SearchScreen}
+        />
+      </Stack.Navigator>
+    );
+  }
+  function MypageStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="mypage"
+          component={MypageScreen}
+        />
+      </Stack.Navigator>
+    );
+  }
+
   return (
     <RecoilRoot>
       <NavigationContainer>
-        {/* <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: 'home',
-          }}
-        />
-        <Tab.Screen
-          name="Search"
-          component={SearchScreen}
-          options={{ title: 'search' }}
-        />
-        <Tab.Screen
-          name="Mypage"
-          component={MypageScreen}
-          options={{ title: 'mypage' }}
-        />
-      </Tab.Navigator> */}
-        <AdminRightNavigation />
+
+        <Tab.Navigator>
+          <Tab.Screen
+            name="homeStack"
+            component={HomeStack}
+            options={{ title: 'homeStack' }}
+          />
+          <Tab.Screen
+            name="searchStack"
+            component={SearchStack}
+            options={{ title: 'searchStack' }}
+          />
+          <Tab.Screen
+            name="mypageStack"
+            component={MypageStack}
+            options={{ title: 'mypageStack' }}
+          />
+        </Tab.Navigator>
+        {/* FIXME - 어드민 기능 사용 (주석 필수) */}
+        {/* <AdminRightNavigation /> */}
       </NavigationContainer>
     </RecoilRoot>
   );

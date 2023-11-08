@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 
 // components
-import CustomButton from "../../../../components/Button/Button";
+import CustomButton from "../../../../components/Button/CustomButton";
 
 // images
 import ImageDefault from "../../../../assets/images/image-default.png";
