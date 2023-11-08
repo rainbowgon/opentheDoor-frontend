@@ -62,11 +62,6 @@ const NearByTheme = () => {
   }, []);
   const navigation = useNavigation();
 
-  const handleFABClick = () => {
-    // navigation.navigate("SearchScreen");
-    console.log("FAB 버튼이 눌렸습니다.");
-  };
-
   return (
     <View style={styles.container}>
       <Text>내 주변</Text>
@@ -74,11 +69,10 @@ const NearByTheme = () => {
         <CustomMap region={region}>
           <Marker coordinate={region} title={"내 위치"} />
         </CustomMap>
-        {/* <Button style={styles.buttonContainer} /> */}
         <CustomFab
           icon={Zoomicon}
           style={styles.buttonContainer}
-          onPress={handleFABClick}
+          onPress={() => navigation.navigate("searchStack")}
         />
       </View>
     </View>
