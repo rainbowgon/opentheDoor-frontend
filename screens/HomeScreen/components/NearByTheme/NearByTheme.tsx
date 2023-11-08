@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Button, View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
 // import Input from "../../../../components/Input/Input";
 import Geolocation from "@react-native-community/geolocation";
 import CustomMap from "../../../../components/Maps/Map";
+import { useNavigation } from "@react-navigation/native";
+import CustomFab from "../../../../components/Fab/Fab";
+import Zoomicon from "../../../../assets/icons/icon-zoom.png";
+import SearchScreen from "../../../SearchScreen/SearchScreen";
 
 import { PermissionsAndroid } from "react-native";
 import { Region, Marker } from "react-native-maps";
@@ -56,6 +60,13 @@ const NearByTheme = () => {
       { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
     );
   }, []);
+  const navigation = useNavigation();
+
+  const handleFABClick = () => {
+    // navigation.navigate("SearchScreen");
+    console.log("FAB 버튼이 눌렸습니다.");
+  };
+
   return (
     <View style={styles.container}>
       <Text>내 주변</Text>
@@ -63,6 +74,12 @@ const NearByTheme = () => {
         <CustomMap region={region}>
           <Marker coordinate={region} title={"내 위치"} />
         </CustomMap>
+        {/* <Button style={styles.buttonContainer} /> */}
+        <CustomFab
+          icon={Zoomicon}
+          style={styles.buttonContainer}
+          onPress={handleFABClick}
+        />
       </View>
     </View>
   );
@@ -79,6 +96,12 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+  },
+  buttonContainer: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    zIndex: 10,
   },
 });
 
