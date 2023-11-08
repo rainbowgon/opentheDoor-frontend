@@ -5,7 +5,7 @@ import {
   selector,
   useRecoilState,
   useRecoilValue,
-} from 'recoil';
+} from "recoil";
 import messaging from "@react-native-firebase/messaging";
 import { NavigationContainer } from "@react-navigation/native";
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -21,7 +21,6 @@ import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import MypageScreen from "./screens/MypageScreen/MypageScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 
 // type RootStackParamList = {
 //   Home: undefined;
@@ -61,6 +60,7 @@ const App = () => {
         <Stack.Screen
           name="home"
           component={HomeScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     );
@@ -71,6 +71,7 @@ const App = () => {
         <Stack.Screen
           name="search"
           component={SearchScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     );
@@ -81,6 +82,7 @@ const App = () => {
         <Stack.Screen
           name="mypage"
           component={MypageScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     );
@@ -89,22 +91,21 @@ const App = () => {
   return (
     <RecoilRoot>
       <NavigationContainer>
-
         <Tab.Navigator>
           <Tab.Screen
             name="homeStack"
             component={HomeStack}
-            options={{ title: 'homeStack' }}
+            options={{ title: "homeStack", headerShown: false }}
           />
           <Tab.Screen
             name="searchStack"
             component={SearchStack}
-            options={{ title: 'searchStack' }}
+            options={{ title: "searchStack", headerShown: false }}
           />
           <Tab.Screen
             name="mypageStack"
             component={MypageStack}
-            options={{ title: 'mypageStack' }}
+            options={{ title: "mypageStack", headerShown: false }}
           />
         </Tab.Navigator>
         {/* FIXME - 어드민 기능 사용 (주석 필수) */}

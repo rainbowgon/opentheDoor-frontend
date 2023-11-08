@@ -12,9 +12,10 @@ import { PermissionsAndroid } from "react-native";
 import { Region, Marker } from "react-native-maps";
 
 const NearByTheme = () => {
+  // default를 서울로 지정했습니다!
   const [region, setRegion] = useState<Region>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 37.5665,
+    longitude: 126.978,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -57,7 +58,7 @@ const NearByTheme = () => {
       error => {
         console.error(error);
       },
-      { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
+      { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
     );
   }, []);
   const navigation = useNavigation();
@@ -66,7 +67,7 @@ const NearByTheme = () => {
     <View style={styles.container}>
       <Text>내 주변</Text>
       <View style={styles.mapContainer}>
-        <CustomMap region={region}>
+        <CustomMap region={region} style={styles.map}>
           <Marker coordinate={region} title={"내 위치"} />
         </CustomMap>
         <CustomFab
@@ -79,7 +80,7 @@ const NearByTheme = () => {
   );
 };
 
-// 레이아웃을 보기 위한 임시 css입니다.
+// 레이아웃을 보기 위한 임시 css입니다
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,6 +91,10 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+  },
+  map: {
+    minHeight: 300,
+    minWidth: 400,
   },
   buttonContainer: {
     position: "absolute",
