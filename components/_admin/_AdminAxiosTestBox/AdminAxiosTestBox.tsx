@@ -1,9 +1,23 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import CustomButton from "../../Button/CustomButton";
-import { deleteMember, deleteReview, getBookmarkListMypage, getHistory, getMemberCheckMyself, getNotification, getReservation, getReviewAll, getReviewCheckMyself, getReviewCreateHome, getReviewOne, getThemeDetail, getThemeSearch, getThemeSort, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchMemberInfo, patchNotification, patchNotificationAll, patchReviewEdit, postCheckPhoneNumber, postReservation, postReviewCreate, postSignup, putBookmarkToggle } from "../../../recoil/selector/selector";
+import { deleteMember, getBookmarkListMypage, getMemberCheckMyself, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchMemberInfo, patchNotification, patchNotificationAll, postCheckPhoneNumber, postReservation, postSignup, putBookmarkToggle } from "../../../recoil/selector/selector";
+import { deleteReview, getHistory, getReviewAll, getReviewCheckMyself, getReviewOne, patchReviewEdit, postReviewCreate } from "../../../recoil/review/reviewFeature";
+import { getThemeDetail, getThemeSearch, getThemeSort } from "../../../recoil/theme/themeFeature";
 
 const AdminAxiosTestBox = () => {
+  const onGetThemeSort = () => {
+    getThemeSort({});
+  }
+
+  const onGetThemeSearch = () => {
+    getThemeSearch({});
+  }
+
+  const onGetThemeDetail = () => {
+    getThemeDetail("1");
+  }
+
   return (
     <View>
       <Text>[MEMBER]</Text>
@@ -102,19 +116,19 @@ const AdminAxiosTestBox = () => {
       {/* TODO - 테마 정렬 (GET) test - getThemeSort */}
       <CustomButton
         value="TODO - 테마 정렬 (GET) - getThemeSort"
-        onPress={getThemeSort}
+        onPress={onGetThemeSort}
       />
 
       {/* TODO - 테마 검색 (GET) test - getThemeSearch */}
       <CustomButton
         value="TODO - 테마 검색 (GET) - getThemeSearch"
-        onPress={getThemeSearch}
+        onPress={onGetThemeSearch}
       />
 
       {/* TODO - 테마 상세 조회 (GET) test - getThemeDetail */}
       <CustomButton
         value="TODO - 테마 상세 조회 (GET) - getThemeDetail"
-        onPress={getThemeDetail}
+        onPress={onGetThemeDetail}
       />
 
       <Text>[BOOKMARK]</Text>
@@ -124,10 +138,10 @@ const AdminAxiosTestBox = () => {
         onPress={putBookmarkToggle}
       />
 
-      {/* TODO - 북마크 내역 조회 (홈) (GET) test - getReviewCreateHome */}
+      {/* TODO - 북마크 내역 조회 (홈) (GET) test - getBookmarkCreateHome */}
       <CustomButton
-        value="TODO - 북마크 내역 조회 (홈) (GET) - getReviewCreateHome"
-        onPress={getReviewCreateHome}
+        value="TODO - 북마크 내역 조회 (홈) (GET) - getBookmarkCreateHome"
+        onPress={getBookmarkCreateHome}
       />
 
       {/* TODO - 북마크 내역 조회 (마이페이지) (GET) test - getBookmarkListMypage */}

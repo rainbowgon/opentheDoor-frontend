@@ -1,8 +1,8 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 interface MemberInfoType {
   name: string;
-  phoneNumber: number;
+  phoneNumber: string;
   nickname: string;
   profileImage: string;
 }
@@ -11,8 +11,20 @@ export const memberState = atom<MemberInfoType>({
   key: 'memberState',
   default: {
     name: "",
-    phoneNumber: NaN,
+    phoneNumber: "",
     nickname: "",
     profileImage: "",
   },
 });
+
+
+export const editMemberState = selector<MemberInfoType>({
+  key: "editMemberState",
+  get: ({ get }) => {
+    const editMemberState = get(memberState);
+    return editMemberState;
+  },
+  set: ({ set }, newValue) => {
+    set(memberState, newValue);
+  }
+})
