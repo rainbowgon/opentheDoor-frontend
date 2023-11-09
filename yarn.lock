@@ -3842,6 +3842,11 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+fresco@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/fresco/-/fresco-0.0.0.tgz#b0bc2ef3da0feadfe35ee81b5f06f76dd0341d0c"
+  integrity sha512-c1Y3Dkk9fydm84Jf2OGLyD+7qKA71iW1N7vN3WQ6cn5Lr39odQSaPhrYiJ2QY87t2hLyL2BmaEZ3sjsbb2p1zg==
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import { getThemeSort } from "../../../../recoil/selector/selector";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import ListItem from "../../../../components/ListItem/ListItem"; // 'ListItem' 컴포넌트의 실제 경로로 대체하세요
+import { themeListState } from "../../../../recoil/member/theme"; // 'themeState'의 실제 경로로 대체하세요
 // import Input from "../../../components/Input/Input";
 
 interface Poster {
@@ -52,16 +54,46 @@ const WeeklyTheme = () => {
   //     content = <Text>Error: {postersLoadable.contents.message}</Text>;
   //     break;
   // }
+  // return (
+  //   <View>
+  //     <Text>
+  //       {}월 {}주차 인기 테마
+  //     </Text>
+  //     {/* {content} */}
+  //     <View style={styles}>
+  //       <Text>크롤링한 포스터가 들어올 공간입니다</Text>
+  //     </View>
+  //   </View>
+  // );
+  // 테마 데이터 리스트를 렌더링하는 컴포넌트
+  // const ThemeList = () => {
+  // `themeListState`에서 데이터를 가져옵니다 (여기서는 직접 더미 데이터를 사용합니다).
+  const themeList = themeListState; // 실제 앱에서는 Recoil의 useRecoilValue 훅을 사용하여 상태를 가져옵니다.
+
+  // 리스트 아이템 렌더링 함수
+  const renderListItem = ({ item }) => {
+    // 아이콘 타입을 결정합니다. (예: minHeadcount가 1이면 'person', 그 외는 'personGroup')
+    const iconType = item.minHeadcount === 1 ? "person" : "personGroup";
+    // 체크박스는 예제로 항상 포함시켰습니다. 실제 사용에서는 조건에 맞게 조정하세요.
+    const rightType = "checkbox";
+
+    return (
+      <ListItem
+        icon={iconType}
+        title={item.title}
+        subTitle={item.explanation}
+        right={rightType}
+        // onPress 핸들러 추가 가능
+      />
+    );
+  };
+
   return (
-    <View>
-      <Text>
-        {}월 {}주차 인기 테마
-      </Text>
-      {/* {content} */}
-      <View style={styles}>
-        <Text>크롤링한 포스터가 들어올 공간입니다</Text>
-      </View>
-    </View>
+    <FlatList
+      data={themeList}
+      renderItem={renderListItem}
+      keyExtractor={item => item.id}
+    />
   );
 };
 
@@ -71,3 +103,4 @@ const styles = StyleSheet.create({
 });
 
 export default WeeklyTheme;
+// export default ThemeList;

@@ -8,14 +8,14 @@ import { ScrollView, View } from "react-native";
 // components
 import Input from "../../components/Input/Input";
 import HomeTitle from "./components/HomeTitle/HomeTitle";
-import WeeklyTheme from "./components/WeeklyTheme/WeeklyTheme";
+import WeeklyTheme from "./components/WeeklyTheme/WeeklyThemeTest";
 import NearByTheme from "./components/NearByTheme/NearByTheme";
 import BookmarkedTheme from "./components/BookmarkedTheme/BookmarkedTheme";
 import Header from "../../components/Header/Header";
 import CustomButton from "../../components/Button/CustomButton";
 import PageContainer from "../../styles/commonStyles";
 
-const HomeScreen = ({ }) => {
+const HomeScreen = ({}) => {
   return (
     <PageContainer>
       <ScrollView>
