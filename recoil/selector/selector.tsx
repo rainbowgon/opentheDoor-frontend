@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from "../../constants/urls";
 
 // apis
 const MemberServicePath = `/member-service`;
@@ -12,7 +13,6 @@ const ProfileAPI = "/profiles";
 const NotificationAPI = "/notifications";
 const ReservationAPI = "/reservations";
 const ThemeAPI = "/themes";
-const ReviewAPI = "/reviews";
 
 // 배포용
 // const accessToken = localStorage.getItem("accessToken");
@@ -58,7 +58,7 @@ export async function postSignup() {
 
   const response = await axios
     .post(
-      `${MemberServicePath}${MemberAPI}/signup`,
+      `${API_URL}${MemberServicePath}${MemberAPI}/signup`,
       data,
     )
     .then((response) => {
@@ -77,13 +77,18 @@ export async function postCheckPhoneNumber() {
   console.log("postCheckPhoneNumber");
   // FIXME - 데이터 삽입
   const data = {
-    phoneNumber: "01012345678",
+    phoneNumber: "01045344955"
   };
 
   const response = await axios
     .post(
-      `${MemberServicePath}${MemberAPI}/phone`,
+      `${API_URL}${MemberServicePath}${MemberAPI}/phone`,
       data,
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // }
     )
     .then((response) => {
       console.log("전화번호 본인 인증 성공", response.data);
@@ -105,13 +110,11 @@ export async function patchMemberInfo() {
   formData.append("profileId", 1);
   formData.append("name", "변경함");
   formData.append("nickname", "수정테스트");
-
-  // 나중에 이미지 추가할 때 쓸 것
-  // formData.append("profileImage", profileImage);
+  formData.append("profileImage", null);
 
   const response = await axios
     .patch(
-      `${MemberServicePath}${MemberAPI}`,
+      `${API_URL}${MemberServicePath}${MemberAPI}`,
       formData,
       {
         headers: {
@@ -135,7 +138,7 @@ export async function patchMemberInfo() {
 export async function getMemberCheckMyself() {
   const response = await axios
     .get(
-      `${MemberServicePath}${MemberAPI}/me`,
+      `${API_URL}${MemberServicePath}${MemberAPI}/me`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -157,7 +160,7 @@ export async function getMemberCheckMyself() {
 export async function deleteMember() {
   const response = await axios
     .delete(
-      `${MemberServicePath}${MemberAPI}`,
+      `${API_URL}${MemberServicePath}${MemberAPI}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -182,7 +185,7 @@ export async function deleteMember() {
 export async function patchAllNotification() {
   const response = await axios
     .patch(
-      `${MemberServicePath}${ProfileAPI}/notifications`,
+      `${API_URL}${MemberServicePath}${ProfileAPI}/notifications`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -204,7 +207,7 @@ export async function patchAllNotification() {
 export async function patchBookmarkNotification() {
   const response = await axios
     .patch(
-      `${MemberServicePath}${ProfileAPI}/bookmark`,
+      `${API_URL}${MemberServicePath}${ProfileAPI}/bookmark`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -227,7 +230,7 @@ export async function patchBookmarkNotification() {
 export async function getNotification() {
   const response = await axios
     .get(
-      `${NotificatiomServicePath}${NotificationAPI}`,
+      `${API_URL}${NotificatiomServicePath}${NotificationAPI}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -252,7 +255,7 @@ export async function patchNotification() {
 
   const response = await axios
     .patch(
-      `${NotificatiomServicePath}${NotificationAPI}/${notificationId}`,
+      `${API_URL}${NotificatiomServicePath}${NotificationAPI}/${notificationId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -274,7 +277,7 @@ export async function patchNotification() {
 export async function patchNotificationAll() {
   const response = await axios
     .patch(
-      `${NotificatiomServicePath}${NotificationAPI}`,
+      `${API_URL}${NotificatiomServicePath}${NotificationAPI}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -303,7 +306,7 @@ export async function getReservation() {
 
   const response = await axios
     .get(
-      `${ReservationServicePath}${ReservationAPI}/${themeId}`,
+      `${API_URL}${ReservationServicePath}${ReservationAPI}/${themeId}`,
       // {
       //   headers: {
       //     Authorization: `Bearer ${accessToken}`,
@@ -327,7 +330,7 @@ export async function postReservation() {
 
   const response = await axios
     .post(
-      `${ReservationServicePath}${ReservationAPI}/${themeId}`,
+      `${API_URL}${ReservationServicePath}${ReservationAPI}/${themeId}`,
       // Data,
       // {
       //   headers: {
@@ -341,77 +344,6 @@ export async function postReservation() {
       console.error("예약 하기 실패", error);
     });
 }
-
-
-// NOTE  [SEARCH] ----------------------------------------------
-/**
- * TODO - 테마 정렬 (GET) - getThemeSort
- * /search-service/themes/sorts?keyword={keyword}&sortBy={sort-by}&page={page}&size={size}
- */
-export async function getThemeSort() {
-  // FIXME - 각각의 정보를 변수로 변경
-  const keyword = 0;
-  const sortBy = 0;
-  const page = 0;
-  const size = 0;
-
-  const response = await axios
-    .get(
-      `${SearchServicePath}${ThemeAPI}/sorts?keyword=${keyword}&sortBy=${sortBy}&page=${page}&size=${size}`
-    )
-    .then((response) => {
-      console.log("테마 정렬 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마 정렬 실패", error);
-    });
-}
-
-
-/**
- * TODO - 테마 검색 (GET) - getThemeSearch
- * /search-service/themes/searches?keyword={keyword}&page={page}&size={size}
- */
-export async function getThemeSearch() {
-  // FIXME - 각각의 정보를 변수로 변경
-  const keyword = 0;
-  const sortBy = 0;
-  const page = 0;
-  const size = 0;
-
-  const response = await axios
-    .get(
-      `${SearchServicePath}${ThemeAPI}/searches?keyword=${keyword}&sortBy=${sortBy}&page=${page}&size=${size}`
-    )
-    .then((response) => {
-      console.log("테마 검색 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마 검색 실패", error);
-    });
-}
-
-
-/**
- * TODO - 테마 상세 조회 (GET) - getThemeDetail
- * /search-service/themes/{theme-id}
- */
-export async function getThemeDetail() {
-  // FIXME - themeId를 자신의 ID로 등록
-  const themeId = 0;
-
-  const response = await axios
-    .get(
-      `${SearchServicePath}${ThemeAPI}/${themeId}`
-    )
-    .then((response) => {
-      console.log("테마 상세 조회 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마 상세 조회 실패", error);
-    });
-}
-
 
 // NOTE  [BOOKMARK] ----------------------------------------------
 
@@ -428,7 +360,7 @@ export async function putBookmarkToggle() {
 
   const response = await axios
     .put(
-      `${MemberServicePath}${BookmarksPath}`,
+      `${API_URL}${MemberServicePath}${BookmarksPath}`,
       data,
       {
         headers: {
@@ -437,21 +369,21 @@ export async function putBookmarkToggle() {
       }
     )
     .then((response) => {
-      console.log("리뷰 작성 성공", response.data);
+      console.log("북마크 등록/해제 성공", response.data);
     })
     .catch((error) => {
-      console.error("리뷰 작성 실패", error);
+      console.error("북마크 등록/해제 실패", error);
     });
 }
 
 /**
- * TODO - 북마크 내역 조회 (홈) (GET) - getReviewCreateHome
+ * TODO - 북마크 내역 조회 (홈) (GET) - getBookmarkCreateHome
  * /member-service/bookmarks
  */
-export async function getReviewCreateHome() {
+export async function getBookmarkCreateHome() {
   const response = await axios
     .get(
-      `${MemberServicePath}${BookmarksPath}`,
+      `${API_URL}${MemberServicePath}${BookmarksPath}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -473,7 +405,7 @@ export async function getReviewCreateHome() {
 export async function getBookmarkListMypage() {
   const response = await axios
     .get(
-      `${MemberServicePath}${BookmarksPath}/detail`,
+      `${API_URL}${MemberServicePath}${BookmarksPath}/detail`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -498,7 +430,7 @@ export async function patchBookmarkNotificationToggle() {
 
   const response = await axios
     .patch(
-      `${MemberServicePath}${BookmarksPath}/notifications/${themeId}`
+      `${API_URL}${MemberServicePath}${BookmarksPath}/notifications/${themeId}`
       , {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -512,226 +444,3 @@ export async function patchBookmarkNotificationToggle() {
       console.error("테마 예약 오픈 알림 on/off 실패", error);
     });
 }
-
-
-// NOTE  [REVIEW] ----------------------------------------------
-
-/**
- * TODO - 리뷰 작성 (POST) - postReviewCreate
- * /member-service/reviews
- */
-export async function postReviewCreate() {
-
-  // FIXME - 데이터 삽입
-  const data = {
-    themeId: 1,
-    rating: 3.6,
-    isEscaped: "SUCCESS",
-    myLevel: 3,
-    content: "재밌었다.",
-    isSpoiler: "NO",
-    performedDate: "2023-11-02",
-  }
-
-  const response = await axios
-    .post(
-      `${MemberServicePath}${ReviewAPI}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("리뷰 작성 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("리뷰 작성 실패", error);
-    });
-}
-
-/**
- * TODO - 리뷰 수정 (PATCH) - patchReviewEdit
- * /member-service/reviews
- */
-export async function patchReviewEdit() {
-
-  // FIXME - 데이터 삽입
-  const data = {
-    themeId: 1,
-    rating: 3.6,
-    isEscaped: "SUCCESS",
-    myLevel: 3,
-    content: "재밌었다.",
-    isSpoiler: "NO",
-    performedDate: "2023-11-02",
-    performedTime: "18:30", // NOTE 왜 여기만 performedTime이 추가로 붙을까? 리뷰 생성에는 안붙는데
-  }
-
-  const response = await axios
-    .patch(
-      `${MemberServicePath}${ReviewAPI}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("리뷰 수정 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("리뷰 수정 실패", error);
-    });
-}
-
-/**
- * TODO - 테마 리뷰 1건 조회 (비회원) (GET) - getReviewOne
- * /member-service/reviews/themes/one?themeId=1
- */
-export async function getReviewOne() {
-  // FIXME - themeId를 자신의 ID로 등록
-  const themeId = 1;
-
-  const response = await axios
-    .get(
-      `${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`
-    )
-    .then((response) => {
-      console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마 리뷰 1건 조회 (비회원) 실패", error);
-    });
-}
-
-/**
- * TODO - 테마 리뷰 전체 조회 (GET) - getReviewAll
- * /member-service/reviews/themes/all
- */
-export async function getReviewAll() {
-  //NOTE 토큰 필요한가요?
-  const response = await axios
-    .get(
-      `${MemberServicePath}${ReviewAPI}/themes/all`,
-      // data, 
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("테마 리뷰 전체 조회 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마 리뷰 전체 조회 실패", error);
-    });
-}
-
-/**
- * TODO - 테마의 내가 쓴 리뷰 조회 (GET) - getReviewAll
- * /member-service/reviews/themes/my?themeId=1
- */
-export async function getMyReviewInTheme() {
-
-  // FIXME - themeId를 자신의 ID로 등록
-  const themeId = 1;
-  const response = await axios
-    .get(
-      `${MemberServicePath}${ReviewAPI}/themes/my?themeId=${themeId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("테마의 내가 쓴 리뷰 조회 실패", error);
-    });
-}
-
-/**
- * TODO - 리뷰 삭제 (DELETE) - deleteReview
- * member-service/reviews/{review-id}
- */
-export async function deleteReview() {
-  // FIXME - reviewId를 자신의 ID로 등록
-  const reviewId = 0;
-
-  const response = await axios
-    .delete(
-      `${MemberServicePath}${ReviewAPI}/${reviewId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("리뷰 삭제 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("리뷰 삭제 실패", error);
-    });
-}
-
-/**
- * TODO - 내가 쓴 리뷰 전체 조회 (GET) - getReviewCheckMyself
- * member-service/reviews/my
- */
-export async function getReviewCheckMyself() {
-  const response = await axios
-    .get(
-      `${MemberServicePath}${ReviewAPI}/my`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("내가 쓴 리뷰 전체 조회 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("내가 쓴 리뷰 전체 조회 실패", error);
-    });
-}
-
-/**
- * TODO - 방탈출 기록 조회 (빌딩) (GET) - getHistory
- * /member-service/reviews/history/{profile-id}
- */
-export async function getHistory() {
-  // FIXME - profileId를 자신의 ID로 등록
-  const profileId = 0;
-
-  const response = await axios
-    .get(
-      `${MemberServicePath}${ReviewAPI}/history/${profileId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-    .then((response) => {
-      console.log("방탈출 기록 조회 성공", response.data);
-    })
-    .catch((error) => {
-      console.error("방탈출 기록 조회 실패", error);
-    });
-}
-
-/**
- * TODO - 리뷰 신고		
- */
-
-/**
- * TODO - 회원 차단		
- */
