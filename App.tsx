@@ -91,7 +91,7 @@ const App = () => {
   return (
     <RecoilRoot>
       <NavigationContainer>
-        <Tab.Navigator>
+        {/* <Tab.Navigator>
           <Tab.Screen
             name="homeStack"
             component={HomeStack}
@@ -107,9 +107,9 @@ const App = () => {
             component={MypageStack}
             options={{ title: "mypageStack", headerShown: false }}
           />
-        </Tab.Navigator>
+        </Tab.Navigator> */}
         {/* FIXME - 어드민 기능 사용 (주석 필수) */}
-        {/* <AdminRightNavigation /> */}
+        <AdminRightNavigation />
       </NavigationContainer>
     </RecoilRoot>
   );
