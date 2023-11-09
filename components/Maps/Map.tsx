@@ -1,16 +1,20 @@
 import React, { Children } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Region } from "react-native-maps";
 
 interface CustomMapProps {
   region?: Region;
   children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 
-const CustomMap: React.FC<CustomMapProps> = ({ region, children }) => {
+const CustomMap: React.FC<CustomMapProps> = ({ region, children, style }) => {
   return (
-    <View style={styles.mapContainer}>
-      <MapView style={styles.map} provider={PROVIDER_GOOGLE} region={region}>
+    <View>
+      <MapView
+        style={[styles.map, style]}
+        provider={PROVIDER_GOOGLE}
+        region={region}>
         {children}
       </MapView>
     </View>
