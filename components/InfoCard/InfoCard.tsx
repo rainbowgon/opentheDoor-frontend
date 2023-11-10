@@ -1,6 +1,7 @@
 //TODO - create InfoCard Custom Style
 
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
+import { CardView, ContentImage, ContentInfo, ContentInfoList, ContentText, IconImage, SubTitleText, TitleText } from "./InfoCardStyle";
 
 // image
 import ImageDefault from "../../assets/images/image-default.png";
@@ -39,35 +40,32 @@ const InfoCard = ({
   onPress,
   memberCount,
 }: InfoCardProps) => (
-  <ScrollView>
-    <Image source={image || ImageDefault} />
+  <CardView>
+    <ContentImage source={image || ImageDefault} />
+    <ContentInfo>
+      <TitleText> {theme || "테마 명"}</TitleText>
+      <ContentText>{branch || "지점 명"}</ContentText>
+      <ContentText>
+        {difficulty || "난이도"} {(difficulty && time) && "|"} {time || "소요시간"}
+      </ContentText>
+      <SubTitleText>{price || 0}원({memberCount || "0"}명)</SubTitleText>
+      <ContentInfoList>
+        <IconImage source={StarOn}></IconImage>
+        <ContentText>{star || 5}</ContentText>
+        <ContentText>({reviewCount || 0})</ContentText>
+      </ContentInfoList>
+    </ContentInfo>
     <View>
-      <Text> {theme}</Text>
-      <Text>{branch}</Text>
-      <Text>
-        {difficulty} {(difficulty && time) || "|"} {time}
-      </Text>
       <View>
-        <Image source={StarOn}></Image>
-        <Text>{star}</Text>
-        <Text>({reviewCount})</Text>
+        {/* <IconImage source={BookmarkDisable} />
+        <IconImage source={BookmarkOn} /> */}
+        <IconImage source={BookmarkOff} />
       </View>
-      <View>
-        <Text>{price}원</Text>
-        <Text>({memberCount}명)</Text>
-      </View>
-      <View>
-        <Image source={BookmarkDisable} />
-        <Image source={BookmarkOn} />
-        <Image source={BookmarkOff} />
-      </View>
-      <View>
-        <CustomButton value="예약 취소" />
-        <CustomButton value="예약 대기 취소" />
-      </View>
-      <CustomButton value="오픈 알람 받기" />
+      <CustomButton size="xsmall" value="예약 취소" />
+      <CustomButton size="xsmall" value="예약 대기 취소" />
+      <CustomButton size="xsmall" value="오픈 알람 받기" />
     </View>
-  </ScrollView>
+  </CardView>
 );
 
 export default InfoCard;
