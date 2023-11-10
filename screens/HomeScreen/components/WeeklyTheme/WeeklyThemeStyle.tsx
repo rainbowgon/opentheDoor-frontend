@@ -4,21 +4,23 @@ import styled from "styled-components/native";
 // export const WeeklyThemeStyle = styled.TouchableOpacity``;
 
 export const Header = styled.Text`
-  color: ${theme.primary3_main};
+  color: ${theme.primary1};
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 800;
   padding: 15px 0px;
 `;
 
 export const Title = styled.Text`
-  color: ${theme.primary3_main};
+  color: ${theme.primary1};
   font-size: 16px;
+  font-weight: bold;
 `;
 
 export const Venue = styled.Text`
-  color: ${theme.primary3_main};
+  color: ${theme.font1_main};
   font-size: 12px;
   margin-top: 5px;
+  font-weight: bold;
 `;
 
 export const PageContainer = styled.Text`

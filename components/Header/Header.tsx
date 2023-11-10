@@ -10,8 +10,6 @@ const Header = () => {
   const handleAlarm = () => console.log("Alarm");
 
   return (
-    // <Appbar.Header style={{ backgroundColor: 'transparent' }}> ---> 배경 투명
-    // <Appbar.Header>
     <Appbar.Header style={{ backgroundColor: "transparent" }}>
       <Appbar.Action
         icon={props => (

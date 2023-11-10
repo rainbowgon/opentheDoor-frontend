@@ -48,12 +48,6 @@ const NearByTheme = () => {
 
     Geolocation.getCurrentPosition(
       position => {
-        console.log(
-          "Latitude: " +
-            position.coords.latitude +
-            ", Longitude: " +
-            position.coords.longitude,
-        );
         setRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,

@@ -1,106 +1,103 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
-import { getThemeSort } from "../../../../recoil/selector/selector";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import ListItem from "../../../../components/ListItem/ListItem"; // 'ListItem' 컴포넌트의 실제 경로로 대체하세요
-import { themeListState } from "../../../../recoil/member/theme"; // 'themeState'의 실제 경로로 대체하세요
-// import Input from "../../../components/Input/Input";
+import React from "react";
+import { View, Text, FlatList, Image, StyleSheet } from "react-native";
+import { useRecoilValue } from "recoil";
+import { themeListState } from "../../../../recoil/theme/theme";
 
-interface Poster {
-  id: string;
-  venue: string;
-  title: string;
-  poster: string;
-  explanation: string;
-  level: number;
-  minHeadcount: number;
-  maxHeadcount: number;
-}
-
-// NOTE useState로도 해보고 recoil에서도 import 해보고 써보려는데
-// NOTE getThemeSort axios 자체가 지금 제대로 안 적힌 것 같아 void로 나와용
+// styles
+import { Header, Title, Venue, CardView } from "./WeeklyThemeStyle";
 
 const WeeklyTheme = () => {
-  // const postersLoadable = useRecoilValueLoadable(getThemeSort);
+  const themeList = useRecoilValue(themeListState);
+  const getCurrentMonthAndWeek = (): string => {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const dayOfWeek = firstDayOfMonth.getDay();
+    const pastDaysOfMonth = now.getDate() - 1 + dayOfWeek;
 
-  // const renderItem = ({ item }: { item: Poster }) => (
-  //   <View>
-  //     <Image source={{ uri: item.poster }} />
-  //     <Text>{item.title}</Text>
-  //     <Text>{item.venue}</Text>
-  //   </View>
-  // );
+    const currentWeek = Math.ceil(pastDaysOfMonth / 7);
+    const currentMonth = now.getMonth() + 1;
 
-  // let content;
-
-  // // TODO hasValue가 null일 때 에러가 나는지, axios 통신으로 Data가 받아오는지
-  // // TODO Test가 미비한 상태입니다.
-  // switch (postersLoadable.state) {
-  //   case "hasValue":
-  //     content = (
-  //       <FlatList
-  //         data={postersLoadable.contents.data}
-  //         renderItem={renderItem}
-  //         keyExtractor={item => item.id}
-  //         horizontal
-  //         showsHorizontalScrollIndicator={false}
-  //       />
-  //     );
-  //     break;
-  //   case "loading":
-  //     content = <Text>Loading...</Text>;
-  //     break;
-  //   case "hasError":
-  //     content = <Text>Error: {postersLoadable.contents.message}</Text>;
-  //     break;
-  // }
-  // return (
-  //   <View>
-  //     <Text>
-  //       {}월 {}주차 인기 테마
-  //     </Text>
-  //     {/* {content} */}
-  //     <View style={styles}>
-  //       <Text>크롤링한 포스터가 들어올 공간입니다</Text>
-  //     </View>
-  //   </View>
-  // );
-  // 테마 데이터 리스트를 렌더링하는 컴포넌트
-  // const ThemeList = () => {
-  // `themeListState`에서 데이터를 가져옵니다 (여기서는 직접 더미 데이터를 사용합니다).
-  const themeList = themeListState; // 실제 앱에서는 Recoil의 useRecoilValue 훅을 사용하여 상태를 가져옵니다.
-
-  // 리스트 아이템 렌더링 함수
-  const renderListItem = ({ item }) => {
-    // 아이콘 타입을 결정합니다. (예: minHeadcount가 1이면 'person', 그 외는 'personGroup')
-    const iconType = item.minHeadcount === 1 ? "person" : "personGroup";
-    // 체크박스는 예제로 항상 포함시켰습니다. 실제 사용에서는 조건에 맞게 조정하세요.
-    const rightType = "checkbox";
-
-    return (
-      <ListItem
-        icon={iconType}
-        title={item.title}
-        subTitle={item.explanation}
-        right={rightType}
-        // onPress 핸들러 추가 가능
-      />
-    );
+    return `${currentMonth}월 ${currentWeek}주차 인기 테마`;
   };
 
+  const renderThemeItem = ({ item }: any) => (
+    <CardView>
+      <Image
+        source={{
+          uri: "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_23761838.gif",
+        }}
+        // source={{uri: item.poster}} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
+        style={styles.poster}
+        onError={error => console.error(error, "포스터 가져오기 실패")}
+      />
+      <View style={styles.textContainer}>
+        <Title>{item.title}</Title>
+        <Venue>{item.venue}</Venue>
+      </View>
+    </CardView>
+  );
+
   return (
-    <FlatList
-      data={themeList}
-      renderItem={renderListItem}
-      keyExtractor={item => item.id}
-    />
+    <View>
+      <Header>{getCurrentMonthAndWeek()}</Header>
+      <FlatList
+        data={themeList}
+        renderItem={renderThemeItem}
+        keyExtractor={item => item.id}
+        horizontal={true} // 가로 스크롤
+        showsHorizontalScrollIndicator={false} // 스크롤바 안보이게
+        style={styles.list}
+      />
+    </View>
   );
 };
 
-// 레이아웃을 보기 위한 임시 css입니다.
 const styles = StyleSheet.create({
-  padding: 120,
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  list: {
+    // FlatList 스타일링 (필요에 따라 추가)
+  },
+  card: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5, // for Android
+    backgroundColor: "#000",
+    borderRadius: 10,
+    overflow: "hidden",
+    marginRight: 16,
+  },
+  poster: {
+    width: 170,
+    height: 225,
+    resizeMode: "cover",
+    backgroundColor: "#000",
+  },
+  textContainer: {
+    padding: 10,
+    width: 170,
+    backgroundColor: "#000",
+  },
+  title: {
+    fontSize: 12,
+    color: "grey",
+    fontWeight: "bold",
+  },
+  venue: {
+    fontSize: 8,
+    color: "grey",
+    fontWeight: "bold",
+    marginTop: 4,
+  },
 });
 
 export default WeeklyTheme;
-// export default ThemeList;
