@@ -78,8 +78,8 @@ android {
         applicationId "com.openthedoor"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.2"
         // API key를 숨기기 위한 설정
         manifestPlaceholders = [googleMapApiKey:googleMapApiKey] 
     }
