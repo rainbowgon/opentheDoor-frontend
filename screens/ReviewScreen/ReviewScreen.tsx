@@ -20,6 +20,7 @@ import UseHint from "./components/UseHint/UseHint";
 import Input from "../../components/Input/Input";
 import ReviewContent from "./components/ReviewContent/ReviewContent";
 import { Alert } from "react-native";
+import PageContainer from "../../styles/commonStyles";
 // import { ImageBackground } from "react-native";
 
 // export interface BackgroundImgProps = {

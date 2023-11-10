@@ -3,29 +3,43 @@ import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 
+// styles
+import { Header, Title, Venue, CardView } from "./WeeklyThemeStyle";
+
 const WeeklyTheme = () => {
   const themeList = useRecoilValue(themeListState);
+  const getCurrentMonthAndWeek = (): string => {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const dayOfWeek = firstDayOfMonth.getDay();
+    const pastDaysOfMonth = now.getDate() - 1 + dayOfWeek;
+
+    const currentWeek = Math.ceil(pastDaysOfMonth / 7);
+    const currentMonth = now.getMonth() + 1;
+
+    return `${currentMonth}월 ${currentWeek}주차 인기 테마`;
+  };
 
   const renderThemeItem = ({ item }: any) => (
-    <View style={styles.card}>
+    <CardView>
       <Image
         source={{
-          uri: "https://img.extmovie.com/files/attach/images/148/954/947/083/c68e07c499dce34b787b25dfe989704d.gif",
+          uri: "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_23761838.gif",
         }}
         // source={{uri: item.poster}} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
         style={styles.poster}
         onError={error => console.error(error, "포스터 가져오기 실패")}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.venue}</Text>
+        <Title>{item.title}</Title>
+        <Venue>{item.venue}</Venue>
       </View>
-    </View>
+    </CardView>
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>10월 3주차 인기 테마</Text>
+    <View>
+      <Header>{getCurrentMonthAndWeek()}</Header>
       <FlatList
         data={themeList}
         renderItem={renderThemeItem}
@@ -57,26 +71,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5, // for Android
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     borderRadius: 10,
     overflow: "hidden",
     marginRight: 16,
   },
   poster: {
-    width: 150,
+    width: 170,
     height: 225,
     resizeMode: "cover",
+    backgroundColor: "#000",
   },
   textContainer: {
     padding: 10,
+    width: 170,
+    backgroundColor: "#000",
   },
   title: {
-    fontSize: 16,
+    fontSize: 12,
+    color: "grey",
     fontWeight: "bold",
   },
-  description: {
-    fontSize: 14,
+  venue: {
+    fontSize: 8,
     color: "grey",
+    fontWeight: "bold",
     marginTop: 4,
   },
 });
