@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Button, ScrollView } from "react-native";
 import Header from "../../components/Header/Header";
 import InfoCard from "../../components/InfoCard/InfoCard";
+import PageContainer from "../../styles/commonStyles";
 
 const ReservationListScreen = () => {
   // const [reservations, setReservations] = useState([]);
@@ -17,7 +18,7 @@ const ReservationListScreen = () => {
   //     });
   // }, []);
   return (
-    <ScrollView>
+    <PageContainer>
       <Button title="ReservationListScreenDemo" />
       <Header />
       {/* {reservations.map((reservation, index) => (
@@ -31,7 +32,7 @@ const ReservationListScreen = () => {
         price={120000}
         memberCount={4}
       />
-    </ScrollView>
+    </PageContainer>
   );
 };
 

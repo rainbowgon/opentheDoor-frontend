@@ -92,16 +92,18 @@ export async function postCheckPhoneNumber() {
     )
     .then((response) => {
       console.log("전화번호 본인 인증 성공", response.data);
+      alert(response.data.data);
     })
     .catch((error) => {
       console.error("전화번호 본인 인증 실패", error);
+      alert(error);
     });
 }
 
 /**
  * TODO - 개인 정보 수정 (PATCH) - patchMemberInfo
  * /member-service/members
- */
+*/
 export async function patchMemberInfo() {
 
   // FIXME - 데이터 삽입

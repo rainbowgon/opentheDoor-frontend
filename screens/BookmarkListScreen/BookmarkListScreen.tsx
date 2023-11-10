@@ -3,10 +3,11 @@ import { View, Button, ScrollView } from "react-native";
 
 // components
 import InfoCard from "../../components/InfoCard/InfoCard";
+import PageContainer from "../../styles/commonStyles";
 
 const BookmarkListScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <Button title="BookmarkListScreenDemo" />
       <View>
         {
@@ -15,7 +16,7 @@ const BookmarkListScreen = () => {
           ))
         }
       </View>
-    </ScrollView>
+    </PageContainer>
   );
 };
 

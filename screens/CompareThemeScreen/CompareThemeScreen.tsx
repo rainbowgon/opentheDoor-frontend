@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Button, ScrollView } from 'react-native';
+import PageContainer from "../../styles/commonStyles";
 
 const CompareThemeScreen = () => {
   return (
-    <ScrollView>
+    <PageContainer>
       <Button title="CompareThemeScreenDemo" />
-    </ScrollView>
+    </PageContainer>
   );
 };
 
