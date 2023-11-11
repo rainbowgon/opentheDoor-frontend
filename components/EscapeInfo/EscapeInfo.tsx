@@ -1,5 +1,6 @@
 import * as React from "react";
 import { View, Text } from "react-native";
+import { EscapeInfoContent, EscapeInfoTitle, EscapeInfoView, EscapeInfoViewRow } from "./EscapeInfoStyle";
 
 export interface EscapeInfoProps {
   price?: number;
@@ -17,39 +18,39 @@ const EscapeInfo = ({
   time,
 }: EscapeInfoProps) => {
   return (
-    <View>
+    <EscapeInfoView>
       {price && (
-        <View>
-          <Text>금액</Text>
-          <Text>
+        <EscapeInfoViewRow>
+          <EscapeInfoTitle>금액</EscapeInfoTitle>
+          <EscapeInfoContent>
             최대 {price}원 (1인 당 {price}원)
-          </Text>
-        </View>
+          </EscapeInfoContent>
+        </EscapeInfoViewRow>
       )}
       {date && (
-        <View>
-          <Text>날짜</Text>
-          <Text>
+        <EscapeInfoViewRow>
+          <EscapeInfoTitle>날짜</EscapeInfoTitle>
+          <EscapeInfoContent>
             {date.getFullYear()}.{date.getMonth()}.{date.getDate()} (
             {date.getDay()})
-          </Text>
-        </View>
+          </EscapeInfoContent>
+        </EscapeInfoViewRow>
       )}
       {(minPerson || maxPerson) && (
-        <View>
-          <Text>인원</Text>
-          <Text>
+        <EscapeInfoViewRow>
+          <EscapeInfoTitle>인원</EscapeInfoTitle>
+          <EscapeInfoContent>
             {minPerson} {minPerson && maxPerson && "~"} {maxPerson} 명
-          </Text>
-        </View>
+          </EscapeInfoContent>
+        </EscapeInfoViewRow>
       )}
       {time && (
-        <View>
-          <Text>소요시간</Text>
-          <Text>{time} 분 (최대)</Text>
-        </View>
+        <EscapeInfoViewRow>
+          <EscapeInfoTitle>소요시간</EscapeInfoTitle>
+          <EscapeInfoContent>{time} 분 (최대)</EscapeInfoContent>
+        </EscapeInfoViewRow>
       )}
-    </View>
+    </EscapeInfoView>
   );
 };
 
