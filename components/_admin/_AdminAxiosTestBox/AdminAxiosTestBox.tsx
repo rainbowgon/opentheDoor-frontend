@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Text, View } from 'react-native';
 import CustomButton from "../../Button/CustomButton";
 import { deleteMember, getBookmarkListMypage, getMemberCheckMyself, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchMemberInfo, patchNotification, patchNotificationAll, postCheckPhoneNumber, postReservation, postSignup, putBookmarkToggle } from "../../../recoil/selector/selector";
@@ -11,7 +10,11 @@ const AdminAxiosTestBox = () => {
   }
 
   const onGetThemeSearch = () => {
-    getThemeSearch({});
+    getThemeSearch({
+      keyword: "1",
+      page: 1,
+      size: 1,
+    });
   }
 
   const onGetThemeDetail = () => {
