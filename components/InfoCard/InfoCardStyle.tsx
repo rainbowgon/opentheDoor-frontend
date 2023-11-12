@@ -22,7 +22,8 @@ export const ContentImage = styled.Image`
 
 export const ContentInfo = styled.View`
   flex: 1;
-  margin: auto 0;
+  margin: 10px 0;
+  justify-content: space-evenly;
 `;
 
 export const ContentButtonList = styled.View`
@@ -32,10 +33,14 @@ export const ContentButtonList = styled.View`
   `
 
 export const BookmarkItem = styled.View`
-  height: auto;
   display: flex;
-  background-color: red;
-  justify-content: right;
+  flex-direction: row-reverse;
+  `
+
+export const Bookmark1 = styled.View`
+  display: flex;
+  align-items: center;
+  margin: 10px;
 `
 
 export const TitleText = styled.Text`

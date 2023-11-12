@@ -13,6 +13,10 @@ export const FixedPageContainer = styled.View`
     background-color: ${theme.background5_main};
 `;
 
+export const SafeAreaView = styled.View`
+    height: 60px;
+`;
+
 export const Container = styled.View`
     height: ${Dimensions.get("window").height + 60};
     background-color: ${theme.background5_main};

@@ -1,9 +1,12 @@
 //TODO - create InfoCard Custom Style
 
 import { Image, Text, View } from "react-native";
-import { BookmarkItem, CardView, ContentButtonList, ContentImage, ContentInfo, ContentInfoList, ContentText, IconImage, SubTitleText, TitleText } from "./InfoCardStyle";
+import { Bookmark1, BookmarkItem, CardView, ContentButtonList, ContentImage, ContentInfo, ContentInfoList, ContentText, IconImage, SubTitleText, TitleText } from "./InfoCardStyle";
 
-// image
+// components
+import CustomButton from "../Button/CustomButton";
+
+// images
 import ImageDefault from "../../assets/images/image-default.png";
 
 // icons
@@ -11,73 +14,90 @@ import StarOn from "../../assets/icons/icon-star-on.png";
 import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
 import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
-import CustomButton from "../Button/CustomButton";
+import { ThemeType } from "../../recoil/theme/theme";
 
-export interface InfoCardProps {
-  image?: string;
-  theme?: string;
-  branch?: string;
-  difficulty?: string;
-  price?: number;
-  time?: string;
-  categorys?: string[];
-  star?: number;
-  reviewCount?: number;
-  bookmarkCount?: number;
-  style?: string;
-  onPress?: any;
-  memberCount?: number;
-}
 
 // TODO - 미사용 태그는 비활성화 진행 
 
 const InfoCard = ({
-  image,
-  theme,
-  branch,
-  difficulty,
-  price,
-  time,
-  categorys,
-  star,
-  reviewCount,
-  bookmarkCount,
-  style,
-  onPress,
-  memberCount,
-}: InfoCardProps) => (
+  id,
+  venue = null,
+  title = null,
+  poster = null,
+  level = null,
+  minHeadcount = null,
+  maxHeadcount = null,
+  price = null,
+  timeLimit = null,
+  latitude = null,
+  longitude = null,
+  location = null,
+  explanation = null,
+  reservationNotice = null,
+  tel = null,
+  genre = null,
+  // activity = null,
+  // lockRatio = null,
+  // horror = null,
+  starrate = null,
+}: ThemeType,
+  style?: null | string,
+  reviewCount?: null | number,
+  bookmarkCount?: null | number,
+  onPress?: () => {}) => (
   <>
     <CardView>
-      <ContentImage source={image || ImageDefault} />
+      <ContentImage source={poster || ImageDefault} />
       <ContentInfo>
-        <TitleText> {theme || "테마 명"}</TitleText>
-        <ContentText>{branch || "지점 명"}</ContentText>
-        <ContentText>
-          {difficulty || "난이도"} {(difficulty && time) && "|"} {time || "소요시간"}
-        </ContentText>
-        <SubTitleText>{price || 0}원({memberCount || "0"}명)</SubTitleText>
-        <ContentInfoList>
-          {
-            categorys &&
-            categorys.map((category) => (
-              <CustomButton value={category} size="xsmall" border="round" mode="inactive" />
-            ))
-          }
-          <CustomButton value="category1" size="xsmall" border="round" mode="inactive" />
-          <CustomButton value="category2" size="xsmall" border="round" mode="inactive" />
-        </ContentInfoList>
-        <ContentInfoList>
-          <IconImage source={StarOn}></IconImage>
-          <ContentText>{star || 5}</ContentText>
-          <ContentText>({reviewCount || 0})</ContentText>
-        </ContentInfoList>
+        {
+          title &&
+          <TitleText> {title}</TitleText>
+        }
+        {
+          venue &&
+          <ContentText>{venue}</ContentText>
+        }
+        {
+          (level || timeLimit) &&
+          <ContentText>
+            {level && `난이도 : ${level}`} {(level && timeLimit) && "|"} {timeLimit && `소요시간 : ${timeLimit}분`}
+          </ContentText>
+        }
+        {
+          tel &&
+          <SubTitleText>{tel}명</SubTitleText>
+        }
+        {
+          (price && minHeadcount && maxHeadcount) &&
+          <SubTitleText>{price || 0}원({minHeadcount || "0"}{(minHeadcount && maxHeadcount) && " ~ "}{maxHeadcount || "0"}명)</SubTitleText>
+        }
+        {
+          genre &&
+          <ContentInfoList>
+            {
+              genre.map((category) => (
+                <CustomButton value={category} size="xsmall" border="round" mode="inactive" />
+              ))
+            }
+          </ContentInfoList>
+        }
+        {
+          starrate &&
+          <ContentInfoList>
+            <IconImage source={StarOn}></IconImage>
+            <ContentText>{starrate || 5}</ContentText>
+            <ContentText>({reviewCount || 0})</ContentText>
+          </ContentInfoList>
+        }
       </ContentInfo>
       <ContentButtonList>
         <BookmarkItem>
           {/* <IconImage source={BookmarkDisable} />
         <IconImage source={BookmarkOn} /> */}
-          <IconImage source={BookmarkOff} />
-          <ContentText>{bookmarkCount || 0}</ContentText>
+          <Bookmark1>
+            <IconImage source={BookmarkOff} />
+            <ContentText>{bookmarkCount || 0}</ContentText>
+          </Bookmark1>
         </BookmarkItem>
         <View>
           <CustomButton size="xsmall" mode="outlined" value="예약 취소" />
