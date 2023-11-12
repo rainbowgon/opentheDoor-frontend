@@ -10,12 +10,13 @@ import ExplanationDifficulty from '../../../../assets/icons/icon-explanation-dif
 import ExplanationFear from '../../../../assets/icons/icon-explanation-fear.png';
 import ExplanationHint from '../../../../assets/icons/icon-explanation-hint.png';
 import ExplanationMachine from '../../../../assets/icons/icon-explanation-machine.png';
+import { BarGraphIcon } from "./BarGraphItemStyle";
 
 const BarGraphItem = () => {
   return (
     <View>
       {/* TODO - 수신된 데이터로 그래프 및 아이콘 선택 */}
-      <Image source={DoorOpen} />
+      <BarGraphIcon source={DoorOpen} />
       <Text>text test</Text>
       <ProgressBar progress={0.5} />
     </View>

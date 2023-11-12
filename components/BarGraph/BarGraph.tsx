@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import BarGraphItem from './components/BarGraphItem/BarGraphItem';
+import { BarGraphView } from "./BarGraphStyle";
 
 const BarGraph = () => {
   return (
-    <View>
+    <BarGraphView>
       <View>
         {/* TODO - 데이터 수신 */}
         {
@@ -13,7 +14,7 @@ const BarGraph = () => {
           ))
         }
       </View>
-    </View>
+    </BarGraphView>
   );
 };
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import { theme } from "../../styles/colors";
+import { theme } from "../../../../styles/colors";
 
-export const ListItemView = styled.TouchableOpacity`
+export const BarGraphView = styled.TouchableOpacity`
   margin: 5px;
   height: 60px;
   display: flex;
@@ -9,6 +9,13 @@ export const ListItemView = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
   background-color: ${theme.background4};
+`;
+
+export const BarGraphIcon = styled.Image`
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  tint-color: ${theme.font5};
 `;
 
 export const ListItemItem = styled.View`
