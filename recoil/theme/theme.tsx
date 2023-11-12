@@ -22,26 +22,47 @@ import { atom, useRecoilState } from "recoil";
  * 경도           Double    longitude;
  */
 
-interface ThemeType {
+export interface ThemeType {
+  /**테마 ID (필수)*/
   id: string;
+  /**테마 포스터*/
   poster?: null | string;
+  /**테마명*/
   title?: null | string;
+  /**지점명*/
   venue?: null | string;
+  /**지점 위치*/
   location?: null | string;
+  /**설명*/
   explanation?: null | string;
+  /**예약 사항*/
   reservationNotice?: null | string;
+  /**전화 번호*/
   tel?: null | string;
+  /**장르*/
   genre?: null | string[];
+  /**최대 인원 수*/
   maxHeadcount?: null | number;
+  /**최소 인원 수*/
   minHeadcount?: null | number;
+  /**가격*/
   price?: null | number;
+  /**소요 시간 (분 단위)*/
   timeLimit?: null | number;
+  /**난이도*/
   level?: null | number;
+  /**활동성*/
   activity?: null | number;
+  /**장치 비율*/
   lockRatio?: null | number;
+  /**공포도*/
   horror?: null | number;
+  /**위도*/
   latitude?: null | number;
+  /**경도*/
   longitude?: null | number;
+  /**별점*/
+  starrate?: null | number;
 }
 
 export interface ThemeDetailInfoType extends ThemeType {
@@ -64,6 +85,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   horror: null | number;
   latitude: null | number;
   longitude: null | number;
+  starrate: null | number;
 }
 
 export interface ThemeSimpleInfoType extends ThemeType {
@@ -71,6 +93,7 @@ export interface ThemeSimpleInfoType extends ThemeType {
   poster: null | string;
   title: null | string;
   venue: null | string;
+  level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
   price: null | number;
@@ -105,6 +128,7 @@ export const themeState = atom<ThemeDetailInfoType>({
     horror: null,
     latitude: 35.8195613,
     longitude: 127.145661,
+    starrate: 3.4,
   },
 });
 
