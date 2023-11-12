@@ -19,7 +19,7 @@ const AlarmScreen = () => {
           [...Array(3)].map((key) => (
             <ListItem
               title={key}
-              subTitle={key}
+              content={key}
             />
           ))
         }
