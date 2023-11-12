@@ -40,7 +40,7 @@ const getBackgroundColor = (props) => {
     || props.mode === "outlined"
   ) return theme.transparent;
   if (props.mode === "static") return theme.font2;
-  if (props.mode === "selected") return theme.primary4;
+  if (props.mode === "selected") return theme.primary3_main;
   if (props.mode === "inactive") return theme.background3;
   if (props.mode === "error") return theme.semantic_error;
   return theme.transparent;
