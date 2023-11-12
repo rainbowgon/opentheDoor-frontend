@@ -10,6 +10,9 @@ import CustomCheckBox from "../CheckBox/CustomCheckBox";
 // icons
 import IconPersonOff from "../../assets/icons/icon-person-off.png";
 import IconPersonOn from "../../assets/icons/icon-person-on.png";
+import IconNotificationsOn from "../../assets/icons/icon-notifications-on.png";
+import IconNotificationsOff from "../../assets/icons/icon-notifications-off.png";
+import IconNotificationsFill from "../../assets/icons/icon-notifications-fill.png";
 import IconPersonGroup from "../../assets/icons/icon-person-group.png";
 
 //TODO - create ListItem Custom Style
@@ -34,11 +37,20 @@ export interface ListItemProps {
 }
 
 const handleIcon = (value: string) => {
-  if (value === "person") {
+  if (value === "personOff") {
     return <ListItemIcon source={IconPersonOff} />;
   }
   if (value === "personOn") {
     return <ListItemIcon source={IconPersonOn} />;
+  }
+  if (value === "notificationsOn") {
+    return <ListItemIcon source={IconNotificationsOn} />;
+  }
+  if (value === "notificationsOff") {
+    return <ListItemIcon source={IconNotificationsOff} />;
+  }
+  if (value === "notificationsFill") {
+    return <ListItemIcon source={IconNotificationsFill} />;
   }
   if (value === "personGroup") {
     return <ListItemIcon source={IconPersonGroup} />;
@@ -61,7 +73,7 @@ const ListItem = ({
 }: ListItemProps) => (
   <ListItemView>
     <ListItemItem>
-      {handleIcon("person")}
+      {handleIcon("notificationsOn")}
       <View>
         {
           title &&

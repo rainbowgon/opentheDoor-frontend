@@ -11,6 +11,13 @@ export const ListItemView = styled.TouchableOpacity`
   background-color: ${theme.background4};
 `;
 
+export const ListItemIcon = styled.Image`
+  height: 35px;
+  width: 35px;
+  margin-right: 10px;
+  
+`;
+
 export const ListItemItem = styled.View`
   margin: 20px;
   display: flex;

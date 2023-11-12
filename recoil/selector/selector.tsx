@@ -51,9 +51,14 @@ export async function postSignup() {
 
   // FIXME - 데이터 삽입
   const data = {
-    name: "test",
-    phoneNumber: "01012345678",
-    nickname: "테스트",
+    name: "이정명",
+    phoneNumber: "01045344955",
+    birthDate: "1997-04-28",
+    provider: "KAKAO",
+    providerId: "",
+    nickname: "닉네임",
+    profileImage: "profile image s3 url",
+    fcmToken: "cKX0R5rLTwuMwvsg6yF-Ky:APA91bGMYa82U-Fo2Ru8agw8ZsWUgcqM9sLjGvTpfvvqbtUBYzSvlb5EdB7DtS6-bIe36JOeoAS46XQ-051MbxjAv6qk2PzC5R2EO--YaRmwca5OpJgVtDAoZHxHGsmaas2spNPwVBoa"
   };
 
   const response = await axios
