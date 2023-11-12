@@ -100,14 +100,24 @@ const BottomNavigator = () => {
           title: "home",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={HomeOn}
-              style={{
-                width: 30,
-                height: 30,
-                tintColor: focused ? theme.primary3_main : theme.background2
-              }}
-            />
+            focused ?
+              <Image
+                source={HomeOn}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.primary3_main
+                }}
+              />
+              :
+              <Image
+                source={HomeClose}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.background2
+                }}
+              />
           ),
         }}
       />
@@ -118,14 +128,24 @@ const BottomNavigator = () => {
           title: "search",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={DoorOpen}
-              style={{
-                width: 30,
-                height: 30,
-                tintColor: focused ? theme.primary3_main : theme.background2
-              }}
-            />
+            focused ?
+              <Image
+                source={DoorOpen}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.primary3_main
+                }}
+              />
+              :
+              <Image
+                source={DoorClose}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.background2
+                }}
+              />
           ),
         }}
       />
@@ -136,14 +156,24 @@ const BottomNavigator = () => {
           title: "mypage",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={PersonOff}
-              style={{
-                width: 30,
-                height: 30,
-                tintColor: focused ? theme.primary3_main : theme.background2
-              }}
-            />
+            focused ?
+              <Image
+                source={PersonOn}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.primary3_main
+                }}
+              />
+              :
+              <Image
+                source={PersonOff}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: theme.background2
+                }}
+              />
           ),
         }}
       />
