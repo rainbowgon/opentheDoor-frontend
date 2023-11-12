@@ -1,12 +1,18 @@
 import * as React from "react";
-
 import { Image, Text, View } from "react-native";
+
+// styles
+import { ListItemContent, ListItemIcon, ListItemItem, ListItemTitle, ListItemView } from "./ListItemStyle";
 
 // components
 import CustomCheckBox from "../CheckBox/CustomCheckBox";
 
 // icons
+import IconPersonOff from "../../assets/icons/icon-person-off.png";
 import IconPersonOn from "../../assets/icons/icon-person-on.png";
+import IconNotificationsOn from "../../assets/icons/icon-notifications-on.png";
+import IconNotificationsOff from "../../assets/icons/icon-notifications-off.png";
+import IconNotificationsFill from "../../assets/icons/icon-notifications-fill.png";
 import IconPersonGroup from "../../assets/icons/icon-person-group.png";
 
 //TODO - create ListItem Custom Style
@@ -23,45 +29,64 @@ import IconPersonGroup from "../../assets/icons/icon-person-group.png";
 
 export interface ListItemProps {
   icon?: string;
-  title: string;
-  subTitle?: string;
+  title?: string;
+  content?: string;
   right?: string;
   style?: string;
   onPress?: void;
 }
 
 const handleIcon = (value: string) => {
-  if (value === "person") {
-    return <Image source={IconPersonOn} />;
-  } else if (value === "personGroup") {
-    return <Image source={IconPersonGroup} />;
+  if (value === "personOff") {
+    return <ListItemIcon source={IconPersonOff} />;
   }
-  return <View />;
+  if (value === "personOn") {
+    return <ListItemIcon source={IconPersonOn} />;
+  }
+  if (value === "notificationsOn") {
+    return <ListItemIcon source={IconNotificationsOn} />;
+  }
+  if (value === "notificationsOff") {
+    return <ListItemIcon source={IconNotificationsOff} />;
+  }
+  if (value === "notificationsFill") {
+    return <ListItemIcon source={IconNotificationsFill} />;
+  }
+  if (value === "personGroup") {
+    return <ListItemIcon source={IconPersonGroup} />;
+  }
 };
 
 const handleRight = (value: string) => {
   if (value === "checkbox") {
     return <CustomCheckBox />;
   }
-  return <View />;
 };
 
 const ListItem = ({
   icon = "none",
   title,
-  subTitle,
+  content,
   right = "none",
   style,
   onPress,
 }: ListItemProps) => (
-  <View>
-    {icon && handleIcon(icon)}
-    <View>
-      <Text>{title}</Text>
-      <Text>{subTitle}</Text>
-    </View>
-    {right && handleRight(right)}
-  </View>
+  <ListItemView>
+    <ListItemItem>
+      {handleIcon("notificationsOn")}
+      <View>
+        {
+          title &&
+          <ListItemTitle>{title}</ListItemTitle>
+        }
+        {
+          content &&
+          <ListItemContent>{content}</ListItemContent>
+        }
+      </View>
+    </ListItemItem>
+    {handleRight(right)}
+  </ListItemView>
 );
 
 export default ListItem;

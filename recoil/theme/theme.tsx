@@ -14,7 +14,7 @@ import { atom, useRecoilState } from "recoil";
  * 최소 인원 수   Integer   minHeadcount;
  * 가격           Integer   price;
  * 소요 시간      Integer   timeLimit;
- * 난이도         Double    level;
+ * 난이도         Double[]  level;
  * 활동성         Double    activity;
  * 장치 비율      Double    lockRatio;
  * 공포도         Double    horror;
@@ -46,7 +46,7 @@ export interface ThemeType {
   /**최소 인원 수*/
   minHeadcount?: null | number;
   /**가격*/
-  price?: null | number;
+  price?: null | number[];
   /**소요 시간 (분 단위)*/
   timeLimit?: null | number;
   /**난이도*/
@@ -77,7 +77,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   genre: null | string[];
   maxHeadcount: null | number;
   minHeadcount: null | number;
-  price: null | number;
+  price: null | number[];
   timeLimit: null | number;
   level: null | number;
   activity: null | number;
@@ -96,7 +96,7 @@ export interface ThemeSimpleInfoType extends ThemeType {
   level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
-  price: null | number;
+  price: null | number[];
   timeLimit: null | number;
   latitude: null | number;
   longitude: null | number;
