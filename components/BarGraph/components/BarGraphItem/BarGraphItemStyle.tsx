@@ -1,36 +1,33 @@
 import styled from 'styled-components/native';
 import { theme } from "../../../../styles/colors";
 
-export const BarGraphView = styled.TouchableOpacity`
-  margin: 5px;
-  height: 60px;
+const getPercent = (props) => {
+  return props.percent;
+};
+
+export const BarGraphItemView = styled.TouchableOpacity`
+  padding: 5px 0;
+  height: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   background-color: ${theme.background4};
 `;
 
 export const BarGraphIcon = styled.Image`
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-  tint-color: ${theme.font5};
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  tint-color: ${theme.primary3_main};
 `;
 
-export const ListItemItem = styled.View`
-  margin: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+export const ProgressBar = styled.View`
+  width: 80%;
+  height: 6px;
+  background-color: ${theme.background3};
 `;
-
-export const ListItemTitle = styled.Text`
-  color: ${theme.font2};
-  font-weight: 700;
-  `;
-
-export const ListItemContent = styled.Text`
-  color: ${theme.font3};
+export const ProgressBarFill = styled.View`
+  width: ${getPercent}%;
+  height: 6px;
+  background-color: ${theme.primary3_main};
 `;

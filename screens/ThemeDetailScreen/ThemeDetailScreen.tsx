@@ -106,10 +106,8 @@ const ThemeDetailScreen = () => {
               <Text>별점</Text>
               <Text>리뷰 수</Text>
             </View>
-            <Text>총 {}건</Text>
-            <View>
-              <BarGraph />
-            </View>
+            <Text>총 { }건</Text>
+            <BarGraph />
             <View>
               <Text>리뷰 리스트</Text>
             </View>
