@@ -3,11 +3,11 @@ import { View, Text } from "react-native";
 import { EscapeInfoContent, EscapeInfoTitle, EscapeInfoView, EscapeInfoViewRow } from "./EscapeInfoStyle";
 
 export interface EscapeInfoProps {
-  price?: number;
-  date?: Date;
-  minPerson?: number;
-  maxPerson?: number;
-  time?: number;
+  price?: null | number;
+  date?: null | Date;
+  minPerson?: null | number;
+  maxPerson?: null | number;
+  time?: null | number;
 }
 
 const EscapeInfo = ({
