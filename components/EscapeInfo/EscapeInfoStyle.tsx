@@ -8,9 +8,9 @@ export const EscapeInfoView = styled.View`
   height: fit-content;
   width: auto;
   margin: 10px 30px;
-  padding: 15px 30px;
+  padding: 15px;
 
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: ${theme.background4};
 
   color: ${theme.font1_main};
@@ -21,14 +21,16 @@ export const EscapeInfoViewRow = styled.View`
 `;
 
 export const EscapeInfoTitle = styled.Text`
+  font-size: 12px;
   border-radius: 10px;
   font-weight: 700;
   color: ${theme.font1_main};
 
-  width: 60px;
+  width: 50px;
 `;
 
 export const EscapeInfoContent = styled.Text`
+  font-size: 12px;
   border-radius: 10px;
   color: ${theme.font1_main};
 `;
