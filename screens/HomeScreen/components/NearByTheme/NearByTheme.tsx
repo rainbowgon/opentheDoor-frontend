@@ -13,8 +13,11 @@ import { Region, Marker } from "react-native-maps";
 
 // apis
 import getThemeSearch from "../../../../recoil/theme/themeFeature";
+import { useRecoilState } from "recoil";
+import { themeNearByList } from "../../../../recoil/theme/theme";
 
 const NearByTheme = () => {
+  // const [markers, setMarkers] = useRecoilState(themeNearByList);
   const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,6 +28,16 @@ const NearByTheme = () => {
 
   ///dummy
   useEffect(() => {
+    //   const fetchThemeData = async () => {
+    //     getThemeSearch({
+    //       keyword: "원하는 키워드",
+    //       page: 1,
+    //       size: 10,
+    //     });
+    //   };
+
+    //   fetchThemeData();
+    // }, []);
     // 더미 데이터를 사용하여 마커 설정
     const dummyData = {
       data: [
@@ -130,19 +143,6 @@ const NearByTheme = () => {
     };
     setMarkers(dummyData.data);
   }, []);
-
-  ///////////////////////////////axios
-  // useEffect(() => {
-  //   const fetchMarkers = () => {
-  //     // getThemeSearch 함수 호출
-  //     getThemeSearch();
-  //     // keyword: "키워드",
-  //     // page: 1,
-  //     // size: 10,
-  //   };
-
-  //   fetchMarkers();
-  // }, []);
 
   // default를 서울로 지정했습니다!
   const [region, setRegion] = useState<Region>({

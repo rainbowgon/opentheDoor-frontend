@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
 import "react-native-gesture-handler";
-import {
-  RecoilRoot,
-} from "recoil";
+import { RecoilRoot } from "recoil";
 import messaging from "@react-native-firebase/messaging";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
