@@ -29,7 +29,7 @@ const ReservationListScreen = () => {
         venue="역삼 익스케이프"
         time="2023.11.03(금) 19:00 ~"
         reviewCount={5}
-        price={120000}
+        priceList={120000}
         memberCount={4}
       />
     </PageContainer>

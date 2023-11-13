@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Image } from 'react-native';
+import * as React from "react";
+import { Image } from "react-native";
 import "react-native-gesture-handler";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -8,18 +8,17 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "../../styles/colors";
 
 // icons
-import HomeOn from "../../assets/icons/icon-home-on.png"
-import HomeClose from "../../assets/icons/icon-home-off.png"
-import DoorOpen from "../../assets/icons/icon-door-open.png"
-import DoorClose from "../../assets/icons/icon-door-close.png"
-import PersonOn from "../../assets/icons/icon-person-on.png"
-import PersonOff from "../../assets/icons/icon-person-off.png"
-
+import HomeOn from "../../assets/icons/icon-home-on.png";
+import HomeClose from "../../assets/icons/icon-home-off.png";
+import DoorOpen from "../../assets/icons/icon-door-open.png";
+import DoorClose from "../../assets/icons/icon-door-close.png";
+import PersonOn from "../../assets/icons/icon-person-on.png";
+import PersonOff from "../../assets/icons/icon-person-off.png";
 
 // screens
-import HomeScreen from '../../screens/HomeScreen/HomeScreen';
-import SearchScreen from '../../screens/SearchScreen/SearchScreen';
-import MypageScreen from '../../screens/MypageScreen/MypageScreen';
+import HomeScreen from "../../screens/HomeScreen/HomeScreen";
+import SearchScreen from "../../screens/SearchScreen/SearchScreen";
+import MypageScreen from "../../screens/MypageScreen/MypageScreen";
 import AlarmScreen from "../../screens/AlarmScreen/AlarmScreen";
 import BookmarkListScreen from "../../screens/BookmarkListScreen/BookmarkListScreen";
 import CompareThemeScreen from "../../screens/CompareThemeScreen/CompareThemeScreen";
@@ -40,7 +39,6 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
-
   // TODO - stack navigation
 
   function HomeStack() {
@@ -76,6 +74,17 @@ const BottomNavigator = () => {
       </Stack.Navigator>
     );
   }
+  function InfoCardStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="themeDetail"
+          component={ThemeDetailScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    );
+  }
 
   return (
     <Tab.Navigator
@@ -91,34 +100,33 @@ const BottomNavigator = () => {
           paddingBottom: 10,
           bottom: 60,
         },
-      }}
-    >
+      }}>
       <Tab.Screen
         name="homeStack"
         component={HomeStack}
         options={{
           title: "home",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            focused ?
+          tabBarIcon: ({ focused }) =>
+            focused ? (
               <Image
                 source={HomeOn}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.primary3_main
+                  tintColor: theme.primary3_main,
                 }}
               />
-              :
+            ) : (
               <Image
                 source={HomeClose}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.background2
+                  tintColor: theme.background2,
                 }}
               />
-          ),
+            ),
         }}
       />
       <Tab.Screen
@@ -127,26 +135,26 @@ const BottomNavigator = () => {
         options={{
           title: "search",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            focused ?
+          tabBarIcon: ({ focused }) =>
+            focused ? (
               <Image
                 source={DoorOpen}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.primary3_main
+                  tintColor: theme.primary3_main,
                 }}
               />
-              :
+            ) : (
               <Image
                 source={DoorClose}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.background2
+                  tintColor: theme.background2,
                 }}
               />
-          ),
+            ),
         }}
       />
       <Tab.Screen
@@ -155,29 +163,29 @@ const BottomNavigator = () => {
         options={{
           title: "mypage",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            focused ?
+          tabBarIcon: ({ focused }) =>
+            focused ? (
               <Image
                 source={PersonOn}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.primary3_main
+                  tintColor: theme.primary3_main,
                 }}
               />
-              :
+            ) : (
               <Image
                 source={PersonOff}
                 style={{
                   width: 30,
                   height: 30,
-                  tintColor: theme.background2
+                  tintColor: theme.background2,
                 }}
               />
-          ),
+            ),
         }}
       />
-    </Tab.Navigator >
+    </Tab.Navigator>
   );
 };
 

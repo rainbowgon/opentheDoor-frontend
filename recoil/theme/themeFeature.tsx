@@ -5,6 +5,7 @@ import {
   ThemeDetailInfoType,
   ThemeSimpleInfoType,
   themeListState,
+  themeNearByList,
   themeRankListState,
   themeState,
 } from "./theme";
@@ -18,6 +19,7 @@ const accessToken = "testToken";
 const [theme, setTheme] = useRecoilState(themeState);
 const [themeList, setThemeList] = useRecoilState(themeListState);
 const [themeRankList, setThemeRankList] = useRecoilState(themeRankListState);
+const [markers, setMarkers] = useRecoilState(themeNearByList);
 
 /**
  * TODO - 테마 정렬 (GET) - getThemeSort
@@ -80,7 +82,7 @@ export async function getThemeSearch({
     )
     .then(response => {
       console.log("테마 검색 성공", response.data);
-      setThemeList(response.data.data);
+      setMarkers(response.data.data);
       // const checkData: ThemeSimpleInfoType[] = response.data.data;
       // console.log("테마 검색 데이터 형태 비교 성공", checkData);
       // setThemeList(checkData);
