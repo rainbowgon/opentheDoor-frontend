@@ -60,6 +60,11 @@ const BottomNavigator = () => {
           component={SearchScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="themeDetail"
+          component={ThemeDetailScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }
@@ -69,17 +74,6 @@ const BottomNavigator = () => {
         <Stack.Screen
           name="mypage"
           component={MypageScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    );
-  }
-  function InfoCardStack() {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="themeDetail"
-          component={ThemeDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -129,6 +123,14 @@ const BottomNavigator = () => {
             ),
         }}
       />
+      {/* <Tab.Screen
+        name="themeDetail"
+        component={ThemeDetailScreen}
+        options={{
+          title: "themeDetail",
+          headerShown: false,
+        }}
+      /> */}
       <Tab.Screen
         name="searchStack"
         component={SearchStack}
