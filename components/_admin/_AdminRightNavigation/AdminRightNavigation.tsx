@@ -95,6 +95,10 @@ const RightDrawerScreen = () => {
         name="ThemeDetail"
         component={ThemeDetailScreen}
       />
+      <RightDrawer.Screen
+        name="none"
+        component={ThemeDetailScreen}
+      />
     </RightDrawer.Navigator>
   );
 };

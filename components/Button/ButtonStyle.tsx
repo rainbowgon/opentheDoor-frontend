@@ -6,7 +6,7 @@ const getPaddingSize = (props) => {
   if (props.size === "large") return "10px";
   if (props.size === "medium") return "10px 20px";
   if (props.size === "small") return "5px";
-  if (props.size === "xsmall") return "2px";
+  if (props.size === "xsmall") return "2px 10px";
   return "10px";
 }
 
