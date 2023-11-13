@@ -8,7 +8,7 @@ export const API_URL =
   "http://ssafy-openthedoor-alb-595590811.ap-northeast-2.elb.amazonaws.com";
 
 // NOTE 변서버
-// export const API_URL = "70.12.247.254";
+// export const API_URL = "notion에 적혀있어요 이털죽";
 
 // 로컬 서버용
 // export const API_URL = "http://localhost:8080";
