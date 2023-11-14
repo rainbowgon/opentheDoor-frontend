@@ -6,15 +6,31 @@ interface CustomMapProps {
   region?: Region;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  scrollEnabled?: boolean;
+  zoomEnabled?: boolean;
+  rotateEnabled?: boolean;
+  pitchEnabled?: boolean;
 }
 
-const CustomMap: React.FC<CustomMapProps> = ({ region, children, style }) => {
+const CustomMap: React.FC<CustomMapProps> = ({
+  region,
+  children,
+  style,
+  scrollEnabled,
+  zoomEnabled,
+  rotateEnabled,
+  pitchEnabled,
+}) => {
   return (
     <View>
       <MapView
         style={[styles.map, style]}
         provider={PROVIDER_GOOGLE}
-        region={region}>
+        region={region}
+        scrollEnabled={scrollEnabled}
+        zoomEnabled={zoomEnabled}
+        rotateEnabled={rotateEnabled}
+        pitchEnabled={pitchEnabled}>
         {children}
       </MapView>
     </View>
