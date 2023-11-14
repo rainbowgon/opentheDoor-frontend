@@ -84,9 +84,14 @@ const NearByTheme = () => {
     <View style={styles.container}>
       <Text>내 주변</Text>
       <View style={styles.mapContainer}>
-        <CustomMap region={region} style={styles.map}>
+        <CustomMap
+          region={region}
+          style={styles.map}
+          scrollEnabled={false}
+          zoomEnabled={false}
+          rotateEnabled={false}
+          pitchEnabled={false}>
           {region && <Marker coordinate={region} title="내 위치" />}
-          {/* 주변 테마 마커 렌더링 */}
           {themeList.map((markerData, index) => (
             <Marker
               key={index}
@@ -102,7 +107,27 @@ const NearByTheme = () => {
         <CustomFab
           icon={Zoomicon}
           style={styles.buttonContainer}
-          onPress={() => navigation.navigate("searchStack")}
+          onPress={() => {
+            // 현재 위치를 가져와서 데이터 갱신
+            Geolocation.getCurrentPosition(
+              position => {
+                const newRegion = {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                  latitudeDelta: 0.005,
+                  longitudeDelta: 0.005,
+                };
+                setRegion(newRegion);
+              },
+              error => {
+                console.error("위치 정보를 받아오는데 실패했습니다.", error);
+              },
+              { enableHighAccuracy: true, timeout: 300000, maximumAge: 300000 },
+            );
+
+            // 이 상태로 searchScreen으로 이동해요
+            navigation.navigate("searchStack");
+          }}
         />
       </View>
     </View>

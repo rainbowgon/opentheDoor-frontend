@@ -14,7 +14,7 @@ import Header from "../../../../components/Header/Header";
 import PageContainer from "../../../../styles/commonStyles";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
 import CustomButton from "../../../../components/Button/CustomButton";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { useRecoilState } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 import { getThemeDetail } from "../../../../recoil/theme/themeFeature";
@@ -26,6 +26,7 @@ const Stack = createNativeStackNavigator();
 const SearchScreenMap = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
@@ -53,24 +54,6 @@ const SearchScreenMap = () => {
   });
 
   useEffect(() => {
-    //   const fetchThemeData = async () => {
-    //     getThemeSearch({
-    //       keyword: "원하는 키워드",
-    //       page: 1,
-    //       size: 10,
-    //     });
-    //   };
-
-    //   fetchThemeData();
-    // }, []);
-    // 더미 데이터를 사용하여 마커 설정
-    const dummyData = {
-      data: [],
-    };
-    setMarkers(dummyData.data);
-  }, []);
-
-  useEffect(() => {
     async function requestLocationPermission() {
       try {
         const granted = await PermissionsAndroid.request(
@@ -94,23 +77,26 @@ const SearchScreenMap = () => {
       }
     }
 
-    requestLocationPermission();
+    if (isFocused) {
+      requestLocationPermission();
 
-    Geolocation.getCurrentPosition(
-      position => {
-        setRegion({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        });
-      },
-      error => {
-        console.error("위치 정보를 받아오는데 실패했습니다.", error);
-      },
-      { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
-    );
-  }, []);
+      Geolocation.getCurrentPosition(
+        position => {
+          setRegion({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          });
+          console.log("위치 정보 받아오기 성공!");
+        },
+        error => {
+          console.error("위치 정보를 받아오는데 실패했습니다.", error);
+        },
+        { enableHighAccuracy: false, timeout: 30000, maximumAge: 3000 },
+      );
+    }
+  }, [isFocused]);
 
   const [searchResults, setSearchResults] = useState([]);
 
@@ -153,7 +139,8 @@ const SearchScreenMap = () => {
       <Input label="테마 검색" />
       <View>
         <CustomMap region={region} style={{ height: 630 }}>
-          {/* {searchResults.map((location, index) => ( */}
+          {/* {searchResults.map((location, in]6dex) => ( */}
+          <Marker coordinate={region} title="내 위치" />
           {themeList.map((location, index) => (
             <Marker
               key={index}
@@ -162,6 +149,7 @@ const SearchScreenMap = () => {
                 longitude: location.longitude,
               }}
               title={location.title || "검색 위치"}
+              pinColor="#BAB2FFFF"
               onPress={() => handleMarkerPress(location)}
             />
           ))}

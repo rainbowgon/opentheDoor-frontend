@@ -23,14 +23,25 @@ import ZoomIcon from "../../assets/icons/icon-zoom.png";
 
 // styles
 import { SafeAreaView } from "../../styles/commonStyles";
-import { GetImageView, StyledView, ThemeDetailContainer, ThemeDetailContent, ThemeDetailImage, ThemeDetailMapView, ThemeDetailReviewTitle, ThemeDetailReviewTitleButtons, ThemeDetailScrollView, ThemeDetailTitleView, Title } from "./ThemeDetailScreenStyle";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  GetImageView,
+  StyledView,
+  ThemeDetailContainer,
+  ThemeDetailContent,
+  ThemeDetailImage,
+  ThemeDetailMapView,
+  ThemeDetailReviewTitle,
+  ThemeDetailReviewTitleButtons,
+  ThemeDetailScrollView,
+  ThemeDetailTitleView,
+  Title,
+} from "./ThemeDetailScreenStyle";
+import { useRecoilValue } from "recoil";
 import { themeState } from "../../recoil/theme/theme";
 import ThemeStarRate from "./components/ThemeStarRate/ThemeStarRate";
 import MyReview from "./components/MyReview/MyReview";
 import ReviewItem from "../../components/Review/ReviewItem";
 import { reviewListState } from "../../recoil/review/review";
-
 
 const ThemeDetailScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -46,10 +57,18 @@ const ThemeDetailScreen = () => {
 
   return (
     <ThemeDetailContainer>
-      <ThemeDetailImage source={theme.poster || ImageDefault}></ThemeDetailImage>
+      <ThemeDetailImage
+        source={theme.poster || ImageDefault}></ThemeDetailImage>
       <ThemeDetailScrollView>
         <GetImageView>
-          <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)', 'rgba(25, 24, 29, 1)']} style={styles.linearGradient} />
+          <LinearGradient
+            colors={[
+              "rgba(255, 255, 255, 0)",
+              "rgba(255, 255, 255, 0)",
+              "rgba(25, 24, 29, 1)",
+            ]}
+            style={styles.linearGradient}
+          />
         </GetImageView>
         <ThemeDetailContent>
           <ThemeTitleContent />
@@ -79,7 +98,11 @@ const ThemeDetailScreen = () => {
               />
               <CustomMap
                 region={region}
-                style={{ minHeight: 100, minWidth: 300 }}>
+                style={{ minHeight: 100, minWidth: 300 }}
+                scrollEnabled={false}
+                zoomEnabled={false}
+                rotateEnabled={false}
+                pitchEnabled={false}>
                 <Marker coordinate={region} title={"이 가게 위치"} />
               </CustomMap>
             </ThemeDetailMapView>
@@ -96,16 +119,14 @@ const ThemeDetailScreen = () => {
                 <Text>별점</Text>
                 <Text>리뷰 수</Text>
               </View>
-              <Text>총 리뷰 수{ }건</Text>
+              <Text>총 리뷰 수{}건</Text>
             </ThemeDetailTitleView>
             <StyledView />
             <BarGraph />
             <View>
-              {
-                reviewList?.map((review) => (
-                  <ReviewItem review={review} />
-                ))
-              }
+              {reviewList?.map(review => (
+                <ReviewItem review={review} />
+              ))}
             </View>
             <CustomButton mode="selected" value="리뷰 더 보기" />
           </View>
