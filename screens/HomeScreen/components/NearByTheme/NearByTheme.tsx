@@ -18,6 +18,7 @@ import {
   themeListState,
   themeNearByList,
 } from "../../../../recoil/theme/theme";
+import { HomeScreenTitle } from "../../HomeScreenStyle";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
@@ -82,7 +83,7 @@ const NearByTheme = () => {
 
   return (
     <View style={styles.container}>
-      <Text>내 주변</Text>
+      <HomeScreenTitle>내 주변</HomeScreenTitle>
       <View style={styles.mapContainer}>
         <CustomMap region={region} style={styles.map}>
           {region && <Marker coordinate={region} title="내 위치" />}
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    minHeight: 300,
+    minHeight: 200,
     minWidth: 400,
   },
   buttonContainer: {

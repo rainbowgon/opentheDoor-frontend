@@ -22,7 +22,6 @@ import StarOn from "../../assets/icons/icon-star-on.png";
 import ZoomIcon from "../../assets/icons/icon-zoom.png";
 
 // styles
-import { SafeAreaView } from "../../styles/commonStyles";
 import { GetImageView, StyledView, ThemeDetailContainer, ThemeDetailContent, ThemeDetailImage, ThemeDetailMapView, ThemeDetailReviewTitle, ThemeDetailReviewTitleButtons, ThemeDetailScrollView, ThemeDetailTitleView, Title } from "./ThemeDetailScreenStyle";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { themeState } from "../../recoil/theme/theme";
@@ -114,7 +113,6 @@ const ThemeDetailScreen = () => {
             <CustomButton mode="selected" value="예약 or 예약 대기" />
           </View>
         </ThemeDetailContent>
-        <SafeAreaView />
       </ThemeDetailScrollView>
     </ThemeDetailContainer>
   );
