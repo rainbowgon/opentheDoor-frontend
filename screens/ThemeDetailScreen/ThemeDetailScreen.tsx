@@ -24,10 +24,12 @@ import ZoomIcon from "../../assets/icons/icon-zoom.png";
 // styles
 import { SafeAreaView } from "../../styles/commonStyles";
 import { GetImageView, StyledView, ThemeDetailContainer, ThemeDetailContent, ThemeDetailImage, ThemeDetailMapView, ThemeDetailReviewTitle, ThemeDetailReviewTitleButtons, ThemeDetailScrollView, ThemeDetailTitleView, Title } from "./ThemeDetailScreenStyle";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { themeState } from "../../recoil/theme/theme";
 import ThemeStarRate from "./components/ThemeStarRate/ThemeStarRate";
 import MyReview from "./components/MyReview/MyReview";
+import ReviewItem from "../../components/Review/ReviewItem";
+import { reviewListState } from "../../recoil/review/review";
 
 
 const ThemeDetailScreen = () => {
@@ -39,8 +41,8 @@ const ThemeDetailScreen = () => {
     longitudeDelta: 0.004,
   });
 
-
   const navigation = useNavigation();
+  const reviewList = useRecoilValue(reviewListState);
 
   return (
     <ThemeDetailContainer>
@@ -99,7 +101,11 @@ const ThemeDetailScreen = () => {
             <StyledView />
             <BarGraph />
             <View>
-              <Text>리뷰 리스트</Text>
+              {
+                reviewList?.map((review) => (
+                  <ReviewItem review={review} />
+                ))
+              }
             </View>
             <CustomButton mode="selected" value="리뷰 더 보기" />
           </View>

@@ -104,8 +104,6 @@ export const myReviewState = atom<ReviewInfoType>({
   },
 });
 
-
-// NOTE - 이건 여기서 쓰지 않고, 리뷰 리스트 보는 페이지에서 써야하겠습니다.
 export const reviewListState = atom<ReviewInfoType[]>(
   {
     key: 'reviewListState',
