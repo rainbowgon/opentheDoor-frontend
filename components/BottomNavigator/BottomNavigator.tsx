@@ -49,6 +49,16 @@ const BottomNavigator = () => {
           component={HomeScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="ranking"
+          component={RankingScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="themeDetail"
+          component={ThemeDetailScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }
@@ -123,14 +133,6 @@ const BottomNavigator = () => {
             ),
         }}
       />
-      {/* <Tab.Screen
-        name="themeDetail"
-        component={ThemeDetailScreen}
-        options={{
-          title: "themeDetail",
-          headerShown: false,
-        }}
-      /> */}
       <Tab.Screen
         name="searchStack"
         component={SearchStack}
