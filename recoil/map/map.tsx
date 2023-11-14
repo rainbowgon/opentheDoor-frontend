@@ -1,13 +1,13 @@
 import { atom } from "recoil";
 
 export interface mapRegionType {
-  latitude?: any;
-  longtitude?: any;
-  latitudeDelta?: any;
-  longitudeDelta?: any;
+  latitude?: number;
+  longtitude?: number;
+  latitudeDelta?: number;
+  longitudeDelta?: number;
 }
 
-export const mapRegionState = atom<mapRegionType[]>({
+export const mapRegionState = atom<mapRegionType>({
   key: "mapRegionState",
   default: {
     latitude: 37.5013,

@@ -31,7 +31,7 @@ const SearchScreenMap = () => {
   const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMarkerData, setSelectedMarkerData] = useState();
+  const [selectedMarkerData, setSelectedMarkerData] = useState(null);
 
   const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
@@ -76,26 +76,27 @@ const SearchScreenMap = () => {
       }
     }
 
-    if (isFocused) {
-      requestLocationPermission();
+    // if (isFocused) {
+    requestLocationPermission();
 
-      Geolocation.getCurrentPosition(
-        position => {
-          setRegion({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          });
-          console.log("위치 정보 받아오기 성공!");
-        },
-        error => {
-          console.error("위치 정보를 받아오는데 실패했습니다.", error);
-        },
-        { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
-      );
-    }
-  }, [isFocused]);
+    Geolocation.getCurrentPosition(
+      position => {
+        setRegion({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+        console.log("위치 정보 받아오기 성공!");
+      },
+      error => {
+        console.error("위치 정보를 받아오는데 실패했습니다.", error);
+      },
+      { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
+    );
+    // }
+    // }, [isFocused]);
+  }, []);
 
   const [searchResults, setSearchResults] = useState([]);
 

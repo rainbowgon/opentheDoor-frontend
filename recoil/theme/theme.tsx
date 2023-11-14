@@ -93,15 +93,15 @@ export interface ThemeDetailInfoType extends ThemeType {
 export interface ThemeSimpleInfoType extends ThemeType {
   id: string;
   poster: null | string;
-  title: null | string;
+  title: undefined | string;
   venue: null | string;
   level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
   priceList: null | number[];
   timeLimit: null | number;
-  latitude: null | number;
-  longitude: null | number;
+  latitude: number;
+  longitude: number;
 }
 
 // FIXME - 공백으로 변경해야 합니다. - 테스트용 데이터입니다.
