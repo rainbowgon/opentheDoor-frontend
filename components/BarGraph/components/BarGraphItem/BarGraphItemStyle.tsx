@@ -5,7 +5,7 @@ const getPercent = (props) => {
   return props.percent;
 };
 
-export const BarGraphItemView = styled.View`
+export const BarGraphItemView = styled.TouchableOpacity`
   padding: 5px 0;
   height: auto;
   display: flex;

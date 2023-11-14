@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { theme } from "../../styles/colors";
 
-export const BarGraphView = styled.TouchableOpacity`
+export const BarGraphView = styled.View`
 margin: 25px;
 padding: 15px 10px;
 height: auto;
