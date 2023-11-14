@@ -2,35 +2,84 @@ import * as React from "react";
 import { Image } from "react-native";
 import { Appbar } from "react-native-paper";
 
-const Header = () => {
+import Backarrow from "../../assets/icons/icon-backarrow.png"
+import NotificationsOn from "../../assets/icons/icon-notifications-on.png"
+import MenuThreedot from "../../assets/icons/icon-menu-threedot.png"
+import BookmarkOff from "../../assets/icons/icon-bookmark-off.png"
+export interface HeaderProps {
+  back?: "true" | "false";
+  alarm?: "true" | "false";
+  menu?: "true" | "false";
+  bookmark?: "true" | "false";
+}
+
+
+const Header = ({
+  back,
+  alarm,
+  menu,
+  bookmark,
+}: HeaderProps) => {
   const goBack = () => console.log("Went back");
-
-  // const handleSearch = () => console.log('Searching');
-
   const handleAlarm = () => console.log("Alarm");
+  const handleMenu = () => console.log("Menu");
+  const handleBookmark = () => console.log("Bookmark");
 
   return (
     <Appbar.Header style={{ backgroundColor: "transparent" }}>
-      <Appbar.Action
-        icon={props => (
-          <Image
-            source={require("../../assets/icons/icon-backarrow.png")}
-            style={{ width: 24, height: 24 }}
-          />
-        )}
-        onPress={goBack}
-      />
+      {
+        back === "true" &&
+        <Appbar.Action
+          icon={props => (
+            <Image
+              source={Backarrow}
+              style={{ width: 24, height: 24 }}
+            />
+          )}
+          onPress={goBack}
+        />
+      }
+
       <Appbar.Content title="" />
-      {/* <Appbar.Action icon="magnify" onPress={handleSearch} /> */}
-      <Appbar.Action
-        icon={props => (
-          <Image
-            source={require("../../assets/icons/icon-notifications-fill.png")}
-            style={{ width: 24, height: 24 }}
-          />
-        )}
-        onPress={handleAlarm}
-      />
+
+      {
+        alarm === "true" &&
+        <Appbar.Action
+          icon={props => (
+            <Image
+              source={NotificationsOn}
+              style={{ width: 24, height: 24 }}
+            />
+          )}
+          onPress={handleAlarm}
+        />
+      }
+
+      {
+        menu === "true" &&
+        <Appbar.Action
+          icon={props => (
+            <Image
+              source={MenuThreedot}
+              style={{ width: 24, height: 24 }}
+            />
+          )}
+          onPress={handleMenu}
+        />
+      }
+
+      {
+        bookmark === "true" &&
+        <Appbar.Action
+          icon={props => (
+            <Image
+              source={BookmarkOff}
+              style={{ width: 24, height: 24 }}
+            />
+          )}
+          onPress={handleBookmark}
+        />
+      }
     </Appbar.Header>
   );
 };
