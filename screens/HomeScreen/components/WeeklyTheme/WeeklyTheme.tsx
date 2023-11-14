@@ -4,12 +4,21 @@ import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 
 // styles
-import { Title, Venue, CardView } from "./WeeklyThemeStyle";
-import { HomeScreenTitle } from "../../HomeScreenStyle";
+import { HomeScreenTitle, HomeScreenTitleTouch } from "../../HomeScreenStyle";
 import RenderThemeItem from "../RenderThemeItem/RenderThemeItem";
+
+import { useNavigation } from "@react-navigation/native";
 
 const WeeklyTheme = () => {
   const themeList = useRecoilValue(themeListState);
+  const navigation = useNavigation();
+
+  const handleRankingTitle = () => {
+    console.log("ranking 페이지로 이동");
+    navigation.navigate("ranking");
+  };
+
+  // FIXME - 중복 코드 함수화 필요?
   const getCurrentMonthAndWeek = (): string => {
     const now = new Date();
     const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -22,26 +31,11 @@ const WeeklyTheme = () => {
     return `${currentMonth}월 ${currentWeek}주차 인기 테마`;
   };
 
-  const renderThemeItem = ({ item }: any) => (
-    <CardView>
-      <Image
-        source={{
-          uri: "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_23761838.gif",
-        }}
-        // source={{uri: item.poster}} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
-        style={styles.poster}
-        onError={error => console.error(error, "포스터 가져오기 실패")}
-      />
-      <View style={styles.textContainer}>
-        <Title>{item.title}</Title>
-        <Venue>{item.venue}</Venue>
-      </View>
-    </CardView>
-  );
-
   return (
     <View>
-      <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
+      <HomeScreenTitleTouch onPress={() => handleRankingTitle()}>
+        <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
+      </HomeScreenTitleTouch>
       <FlatList
         data={themeList}
         renderItem={({ item }) => <RenderThemeItem item={item} />}

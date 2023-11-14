@@ -7,6 +7,10 @@ export const HomePageHeadContent = styled.View`
   align-items: center;
 `;
 
+export const HomeScreenTitleTouch = styled.TouchableHighlight`
+  width: 100%;
+`;
+
 export const HomeScreenTitle = styled.Text`
   color: ${theme.primary1};
   font-size: 20px;
