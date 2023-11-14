@@ -18,6 +18,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 import { getThemeDetail } from "../../../../recoil/theme/themeFeature";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
+
+const Stack = createNativeStackNavigator();
 
 const SearchScreenMap = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
@@ -28,11 +32,11 @@ const SearchScreenMap = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState(null);
 
-  const handleThemeSelect = async (themeId: string) => {
+  const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
-    // navigation.navigate("themeDetail");
-    // console.log("themeId는", themeId);
-    console.log("나는바보다");
+    navigation.navigate("themeDetail");
+    console.log("themeId는", { themeId: themeId });
+    // console.log("나는바보다");
   };
 
   const handleMarkerPress = markerData => {
@@ -180,7 +184,7 @@ const SearchScreenMap = () => {
             {/* <InfoCard {...selectedMarkerData} /> */}
             <InfoCard
               {...selectedMarkerData}
-              onPress={console.log("나는바보다")}
+              onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
             />
             <CustomButton mode="selected" value="리스트로 보기" />
           </View>
