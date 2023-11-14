@@ -13,21 +13,24 @@ import NearByTheme from "./components/NearByTheme/NearByTheme";
 import BookmarkedTheme from "./components/BookmarkedTheme/BookmarkedTheme";
 import Header from "../../components/Header/Header";
 import CustomButton from "../../components/Button/CustomButton";
-import PageContainer from "../../styles/commonStyles";
+import PageContainer, { FixedPageContainer } from "../../styles/commonStyles";
+import { HomePageHeadContent } from "./HomeScreenStyle";
+import InputHeadline from "./components/InputHeadline/InputHeadline";
 
-const HomeScreen = ({}) => {
+const HomeScreen = ({ }) => {
   return (
-    <PageContainer>
-      <ScrollView>
-        <Header />
-        <HomeTitle />
-        <Input label="테마 검색" />
-        <CustomButton value="검색" size="small" mode="static" border="square" />
+    <FixedPageContainer>
+      <Header />
+      <PageContainer>
+        <HomePageHeadContent>
+          <HomeTitle />
+          <InputHeadline />
+        </HomePageHeadContent>
         <WeeklyTheme />
         <NearByTheme />
         <BookmarkedTheme />
-      </ScrollView>
-    </PageContainer>
+      </PageContainer>
+    </FixedPageContainer>
   );
 };
 export default HomeScreen;
