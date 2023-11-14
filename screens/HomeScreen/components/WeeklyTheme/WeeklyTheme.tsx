@@ -4,7 +4,9 @@ import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 
 // styles
-import { Header, Title, Venue, CardView } from "./WeeklyThemeStyle";
+import { Title, Venue, CardView } from "./WeeklyThemeStyle";
+import { HomeScreenTitle } from "../../HomeScreenStyle";
+import RenderThemeItem from "../RenderThemeItem/RenderThemeItem";
 
 const WeeklyTheme = () => {
   const themeList = useRecoilValue(themeListState);
@@ -39,10 +41,10 @@ const WeeklyTheme = () => {
 
   return (
     <View>
-      <Header>{getCurrentMonthAndWeek()}</Header>
+      <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
       <FlatList
         data={themeList}
-        renderItem={renderThemeItem}
+        renderItem={({ item }) => <RenderThemeItem item={item} />}
         keyExtractor={item => item.id}
         horizontal={true} // 가로 스크롤
         showsHorizontalScrollIndicator={false} // 스크롤바 안보이게

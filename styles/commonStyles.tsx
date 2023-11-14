@@ -5,16 +5,14 @@ import { Dimensions } from 'react-native';
 const PageContainer = styled.ScrollView`
     flex:1;
     background-color: ${theme.background5_main};
+    padding-bottom: 60px;
 `;
 export default PageContainer;
 
 export const FixedPageContainer = styled.View`
     flex: 1;
     background-color: ${theme.background5_main};
-`;
-
-export const SafeAreaView = styled.View`
-    height: 60px;
+    padding-bottom: 60px;
 `;
 
 export const Container = styled.View`

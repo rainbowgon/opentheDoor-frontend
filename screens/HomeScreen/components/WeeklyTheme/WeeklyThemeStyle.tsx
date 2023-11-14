@@ -3,13 +3,6 @@ import styled from "styled-components/native";
 
 // export const WeeklyThemeStyle = styled.TouchableOpacity``;
 
-export const Header = styled.Text`
-  color: ${theme.primary1};
-  font-size: 20px;
-  font-weight: 800;
-  padding: 15px 0px;
-`;
-
 export const Title = styled.Text`
   color: ${theme.primary1};
   font-size: 16px;

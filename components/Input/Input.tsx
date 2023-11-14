@@ -5,6 +5,7 @@ import { TextInput } from "react-native-paper";
 //NOTE 얘네는 Input을 import 한 곳에서 밀어넣어주기 store에서 관리할지 onChange에 뭘 걸지 고민
 const Input = ({
   label = "",
+  icon = "",
   multiline = false,
   disabled = false,
   placeholder = "",
@@ -16,12 +17,13 @@ const Input = ({
       label={label}
       placeholder={placeholder}
       mode="outlined"
+      right={<TextInput.Icon icon={icon} />}
       multiline={multiline}
       value={text}
       onChangeText={text => setText(text)}
       disabled={disabled}
-      // textColor="#FFFFFF"
-      // color
+    // textColor="#FFFFFF"
+    // color
     />
   );
 };
