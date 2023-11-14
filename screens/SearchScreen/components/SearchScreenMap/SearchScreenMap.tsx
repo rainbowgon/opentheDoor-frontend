@@ -16,11 +16,15 @@ import InfoCard from "../../../../components/InfoCard/InfoCard";
 import CustomButton from "../../../../components/Button/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil";
-import { themeState } from "../../../../recoil/theme/theme";
+import { themeListState } from "../../../../recoil/theme/theme";
 import { getThemeDetail } from "../../../../recoil/theme/themeFeature";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
+
+const Stack = createNativeStackNavigator();
 
 const SearchScreenMap = () => {
-  const [theme, setTheme] = useRecoilState(themeState);
+  const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
 
   const [markers, setMarkers] = useState([]);
@@ -28,11 +32,11 @@ const SearchScreenMap = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState(null);
 
-  const handleThemeSelect = async (themeId: string) => {
+  const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
-    // navigation.navigate("themeDetail");
-    // console.log("themeId는", themeId);
-    console.log("나는바보다");
+    navigation.navigate("themeDetail");
+    console.log("themeId는", { themeId: themeId });
+    // console.log("나는바보다");
   };
 
   const handleMarkerPress = markerData => {
@@ -61,106 +65,7 @@ const SearchScreenMap = () => {
     // }, []);
     // 더미 데이터를 사용하여 마커 설정
     const dummyData = {
-      data: [
-        {
-          themeId: "eTHntosBdUGVeOMUXDR3",
-          venue: "마스터키 플레이포인트랩강남점",
-          title: "리허설",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_84169924.gif",
-          level: 4.0,
-          minHeadcount: 2,
-          maxHeadcount: 6,
-          priceList: null,
-          timeLimit: null,
-          latitude: 37.5008831,
-          longitude: 127.027485,
-        },
-        {
-          themeId: "dTHntosBdUGVeOMUQDTg",
-          venue: "마스터키 해운대 블루오션스테이션",
-          title: "리허설",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_23761838.gif",
-          level: 4.0,
-          minHeadcount: 2,
-          maxHeadcount: 6,
-          priceList: null,
-          timeLimit: null,
-          latitude: 35.1629768,
-          longitude: 129.158492,
-        },
-        {
-          themeId: "PppbxosB2bv_Fhtj6wSF",
-          venue: "마스터키 천안두정점",
-          title: "경찰서를 털어라",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/경찰서를 털어라_73260549.jpg",
-          level: 3.0,
-          minHeadcount: 2,
-          maxHeadcount: 6,
-          priceList: null,
-          timeLimit: null,
-          latitude: 36.8339795,
-          longitude: 127.1367309,
-        },
-        {
-          themeId: "9JpbxosB2bv_FhtjhAOC",
-          venue: "마스터키 강남프라임",
-          title: "Do The G",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/Do The G_21189403.png",
-          level: 3.0,
-          minHeadcount: 2,
-          maxHeadcount: 4,
-          priceList: null,
-          timeLimit: null,
-          latitude: 37.5008831,
-          longitude: 127.027485,
-        },
-        {
-          themeId: "GZpbxosB2bv_FhtjswSL",
-          venue: "마스터키 천안신부점",
-          title: "터널",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/터널_52402111.jpg",
-          level: 3.0,
-          minHeadcount: 2,
-          maxHeadcount: 6,
-          priceList: null,
-          timeLimit: null,
-          latitude: 36.8183413,
-          longitude: 127.1553078,
-        },
-        {
-          themeId: "9ZpbxosB2bv_FhtjhAOC",
-          venue: "마스터키 강남프라임",
-          title: "어웨이큰",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/어웨이큰_14869136.png",
-          level: 5.0,
-          minHeadcount: 2,
-          maxHeadcount: 5,
-          priceList: null,
-          timeLimit: null,
-          latitude: 37.5008831,
-          longitude: 127.027485,
-        },
-        {
-          themeId: "G5pbxosB2bv_FhtjswSL",
-          venue: "마스터키 천안신부점",
-          title: "트러브메이커",
-          poster:
-            "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/트러브메이커_57557775.jpg",
-          level: 3.0,
-          minHeadcount: 2,
-          maxHeadcount: 6,
-          priceList: null,
-          timeLimit: null,
-          latitude: 36.8183413,
-          longitude: 127.1553078,
-        },
-      ],
+      data: [],
     };
     setMarkers(dummyData.data);
   }, []);
@@ -249,7 +154,7 @@ const SearchScreenMap = () => {
       <View>
         <CustomMap region={region} style={{ height: 630 }}>
           {/* {searchResults.map((location, index) => ( */}
-          {markers.map((location, index) => (
+          {themeList.map((location, index) => (
             <Marker
               key={index}
               coordinate={{
@@ -279,7 +184,7 @@ const SearchScreenMap = () => {
             {/* <InfoCard {...selectedMarkerData} /> */}
             <InfoCard
               {...selectedMarkerData}
-              onPress={console.log("나는바보다")}
+              onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
             />
             <CustomButton mode="selected" value="리스트로 보기" />
           </View>
