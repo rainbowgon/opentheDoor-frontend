@@ -1,18 +1,23 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { FAB } from "react-native-paper";
+import { Fab, FabImage } from "./FabStyle";
+import { Image } from "react-native";
 
 //icons
 
 export interface CustomFabProps {
   icon?: any;
-  mode?: any;
+  type?: 'small' | 'medium' | 'large';
+  mode?: 'flat' | 'elevated';
   style?: any;
   onPress?: any;
 }
 
-const CustomFab = ({ icon, mode, style, onPress }: CustomFabProps) => {
-  return <FAB icon={icon} mode="flat" style={style} onPress={onPress} />;
+const CustomFab = ({ icon, type, mode, style, onPress }: CustomFabProps) => {
+  return <Fab type="medium" mode="flat" style={style} onPress={onPress}>
+    <FabImage source={icon} />
+  </Fab>
 };
 
 // size
@@ -20,7 +25,7 @@ const CustomFab = ({ icon, mode, style, onPress }: CustomFabProps) => {
 // Default : 'medium'
 
 // mode
-// Type: 'flat' | 'elevated'
+// Type: 
 // Default value: 'elevated'
 
 const styles = StyleSheet.create({
