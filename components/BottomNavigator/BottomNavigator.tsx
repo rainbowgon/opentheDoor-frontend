@@ -67,8 +67,13 @@ const BottomNavigator = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="search"
+          name="searchBottomTab"
           component={SearchScreenBottomTab}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="search"
+          component={SearchScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -138,7 +143,7 @@ const BottomNavigator = () => {
         name="searchStack"
         component={SearchStack}
         options={{
-          title: "search",
+          title: "searchBottomTab",
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (

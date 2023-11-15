@@ -127,7 +127,7 @@ const NearByTheme = () => {
             );
 
             // 이 상태로 searchScreen으로 이동해요
-            navigation.navigate("searchStack");
+            navigation.navigate("search");
           }}
         />
       </View>
