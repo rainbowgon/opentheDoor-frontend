@@ -1,9 +1,9 @@
 //TODO - create InfoCard Custom Style
 
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
-  Bookmark1,
   BookmarkItem,
+  BookmarkView,
   CardView,
   ContentButtonList,
   ContentImage,
@@ -11,6 +11,9 @@ import {
   ContentInfoList,
   ContentText,
   IconImage,
+  ImageGuideView,
+  StarImage,
+  StarText,
   SubTitleText,
   TitleText,
 } from "./InfoCardStyle";
@@ -27,6 +30,7 @@ import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
 import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
 import { ThemeType } from "../../recoil/theme/theme";
+import LinearGradient from "react-native-linear-gradient";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -62,26 +66,40 @@ const InfoCard = (
   <>
     <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
       <CardView>
-        <ContentImage
-          source={{ uri: poster }}
-          onError={(error) => console.error("Image load error:", error)}
-        />
+        <ImageGuideView>
+          <ContentImage
+            source={{ uri: poster }}
+            onError={(error) => console.error("Image load error:", error)}
+          />
+          <LinearGradient
+            start={{ x: 0.0, y: 0.0 }}
+            end={{ x: 1.0, y: 0.0 }}
+            colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)', 'rgba(36, 36, 35, 1)']}
+            style={styles.linearGradient}
+          >
+          </LinearGradient>
+        </ImageGuideView>
         <ContentInfo>
           {title && <TitleText> {title}</TitleText>}
-          {venue && <ContentText>{venue}</ContentText>}
-          {(level || timeLimit) && (
-            <ContentText>
-              {level && `난이도 : ${level}`} {level && timeLimit && "|"}{" "}
-              {timeLimit && `소요시간 : ${timeLimit}분`}
-            </ContentText>
-          )}
-          {tel && <SubTitleText>{tel}명</SubTitleText>}
-          {price && minHeadcount && maxHeadcount && (
-            <SubTitleText>
-              {price || 0}원({minHeadcount || "0"}
-              {minHeadcount && maxHeadcount && " ~ "}
-              {maxHeadcount || "0"}명)
-            </SubTitleText>
+          <View>
+            {venue && <ContentText>{venue}</ContentText>}
+            {(level || timeLimit) && (
+              <ContentText>
+                {level && `난이도 : ${level}`} {level && timeLimit && "|"}{" "}
+                {timeLimit && `소요시간 : ${timeLimit}분`}
+              </ContentText>
+            )}
+            {tel && <SubTitleText>{tel}</SubTitleText>}
+          </View>
+          {minHeadcount && maxHeadcount && (
+            <>
+              <SubTitleText>
+                {price || "- "}원
+                ({minHeadcount || "0"}
+                {minHeadcount && maxHeadcount && " ~ "}
+                {maxHeadcount || "0"}명)
+              </SubTitleText>
+            </>
           )}
           {genre && (
             <ContentInfoList>
@@ -95,37 +113,53 @@ const InfoCard = (
               ))}
             </ContentInfoList>
           )}
-          {ratingScore && (
-            <ContentInfoList>
-              <IconImage source={StarOn}></IconImage>
-              <ContentText>{ratingScore || 5}</ContentText>
-              <ContentText>({reviewCount || 0})</ContentText>
-            </ContentInfoList>
-          )}
+          <ContentInfoList>
+            <StarImage source={StarOn}></StarImage>
+            <StarText>{ratingScore || " - "}</StarText>
+            <ContentText>({reviewCount || 0})</ContentText>
+          </ContentInfoList>
         </ContentInfo>
         <ContentButtonList>
           <BookmarkItem>
-            {/* <IconImage source={BookmarkDisable} />
-        <IconImage source={BookmarkOn} /> */}
-            <Bookmark1>
-              <IconImage source={BookmarkOff} />
-              <ContentText>{bookmarkCount || 0}</ContentText>
-            </Bookmark1>
+            {/* <BookmarkView> */}
+            {/* <IconImage source={BookmarkDisable} />*/}
+            {/* <IconImage source={BookmarkOn} /> */}
+            <IconImage source={BookmarkOff} />
+            <ContentText>{bookmarkCount || 0}</ContentText>
+            {/* </BookmarkView> */}
           </BookmarkItem>
-          <View>
-            <CustomButton size="xsmall" mode="outlined" value="예약 취소" />
-            <CustomButton
-              size="xsmall"
-              mode="outlined"
-              value="예약 대기 취소"
-            />
-          </View>
+          {
+            // FIXME - 예약기능 건드리면서 수정
+            1 !== 1 &&
+            <View>
+              <CustomButton size="xsmall" mode="outlined" value="예약 취소" />
+              <CustomButton
+                size="xsmall"
+                mode="outlined"
+                value="예약 대기 취소"
+              />
+            </View>
+          }
         </ContentButtonList>
       </CardView>
     </TouchableOpacity>
-    <CustomButton mode="inactive" value="오픈 알람 받기" />
-    <CustomButton mode="selected" value="오픈 알람 받는 중" />
+    {
+      // FIXME - 알림기능 건드리면서 수정
+      1 !== 1 &&
+      <>
+        <CustomButton mode="inactive" value="오픈 알람 받기" />
+        <CustomButton mode="selected" value="오픈 알람 받는 중" />
+      </>
+    }
   </>
 );
+
+var styles = StyleSheet.create({
+  linearGradient: {
+    height: 200,
+    flexDirection: "column-reverse",
+    padding: 5,
+  },
+});
 
 export default InfoCard;

@@ -62,7 +62,7 @@ export interface ThemeType {
   /**최소 인원 수*/
   minHeadcount?: null | number;
   /**가격*/
-  priceList?: null | number[];
+  priceList?: null | PriceList;
   /**소요 시간 (분 단위)*/
   timeLimit?: null | number;
   /**난이도*/

@@ -36,9 +36,6 @@ const WeeklyTheme = () => {
       <HomeScreenTitleTouch onPress={() => handleRankingTitle()}>
         <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
       </HomeScreenTitleTouch>
-      <Text>
-        {themeList[0].title}
-      </Text>
       {
         themeList.length ?
           <View>

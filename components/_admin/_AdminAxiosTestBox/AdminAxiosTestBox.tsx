@@ -22,11 +22,31 @@ const AdminAxiosTestBox = () => {
   }
 
   const onGetNearByThemeSearch = () => {
-    getUpdateNearByThemeList;
+    getUpdateNearByThemeList(
+      {
+        latitude: 1,
+        longitude: 1
+      }
+    );
+  }
+
+  const onGetStart = () => {
+    onGetThemeSearch();
+    getThemeDetail("FUul0YsBzKUvgPPcENTq");
+    onGetNearByThemeSearch();
+    getThemeRanking();
   }
 
   return (
     <View>
+      <Text>[START]</Text>
+      {/* TODO - Start button */}
+      <CustomButton
+        value="Start"
+        mode="error"
+        onPress={onGetStart}
+      />
+
       <Text>[MEMBER]</Text>
       {/* TODO - 카카오 로그인 test */}
       <CustomButton

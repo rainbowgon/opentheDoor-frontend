@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
 import "react-native-gesture-handler";
 import { RecoilRoot } from "recoil";
 import messaging from "@react-native-firebase/messaging";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // components
 import BottomNavigator from "./components/BottomNavigator/BottomNavigator";
@@ -13,12 +10,7 @@ import BottomNavigator from "./components/BottomNavigator/BottomNavigator";
 // [ADMIN] components
 import AdminRightNavigation from "./components/_admin/_AdminRightNavigation/AdminRightNavigation";
 
-// screens
-import HomeScreen from "./screens/HomeScreen/HomeScreen";
-import SearchScreen from "./screens/SearchScreen/SearchScreen";
-import MypageScreen from "./screens/MypageScreen/MypageScreen";
 import { Container } from "./styles/commonStyles";
-import { getThemeRanking } from "./recoil/theme/themeFeature";
 
 // type RootStackParamList = {
 //   Home: undefined;
@@ -45,11 +37,6 @@ const App = () => {
       console.log("[Remote Message] ", JSON.stringify(remoteMessage));
     });
     return unsubscribe;
-  }, []);
-
-
-  useEffect(() => {
-    // getThemeRanking;
   }, []);
 
   return (
