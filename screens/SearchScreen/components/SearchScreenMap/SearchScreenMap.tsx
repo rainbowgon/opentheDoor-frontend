@@ -20,6 +20,8 @@ import { themeListState } from "../../../../recoil/theme/theme";
 import { getThemeDetail } from "../../../../recoil/theme/themeFeature";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
+import Search from "../../../../assets/icons/icon-sarch.png";
+import SearchListModal from "./SearchListModal";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +29,7 @@ const SearchScreenMap = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const [listModalVisible, setListModalVisible] = useState(false);
 
   const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
@@ -134,8 +137,8 @@ const SearchScreenMap = () => {
   };
   return (
     <View>
-      <Header />
-      <Input label="테마 검색" />
+      {/* <Header /> */}
+      <Input label="테마 검색" icon={Search} />
       <View>
         <CustomMap region={region} style={{ height: 630 }}>
           {/* {searchResults.map((location, in]6dex) => ( */}
@@ -173,10 +176,18 @@ const SearchScreenMap = () => {
               {...selectedMarkerData}
               onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
             />
-            <CustomButton mode="selected" value="리스트로 보기" />
+            <CustomButton
+              mode="selected"
+              value="리스트로 보기"
+              onPress={() => setListModalVisible(true)}
+            />
           </View>
         </Modal>
       </View>
+      <SearchListModal
+        modalVisible={listModalVisible}
+        setModalVisible={setListModalVisible}
+      />
     </View>
   );
 };

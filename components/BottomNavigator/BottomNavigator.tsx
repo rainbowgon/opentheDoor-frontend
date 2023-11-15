@@ -34,6 +34,7 @@ import SettingScreen from "../../screens/SettingScreen/SettingScreen";
 import SignUpScreen from "../../screens/SignUpScreen/SignUpScreen";
 import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen";
 import { BorderlessButton } from "react-native-gesture-handler";
+import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,7 @@ const BottomNavigator = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="search"
-          component={SearchScreen}
+          component={SearchScreenBottomTab}
           options={{ headerShown: false }}
         />
         <Stack.Screen
