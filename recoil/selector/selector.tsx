@@ -16,7 +16,7 @@ const BookmarkAPI = `/bookmarks`;
 // const accessToken = localStorage.getItem("accessToken");
 
 // FIXME 테스트용
-const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJwcm9maWxlSWQiOjEsImlhdCI6MTcwMDAxNTQ3MCwiZXhwIjoxNzAwMTAxODcwfQ.XIghxhJocaf38ZAxVW4rDhXlVjfimL8VfI_qPq6wJ4s";
+const accessToken = "accessToken";
 
 // export async function getPosts() {
 //   const response = await axios.get<Post[]>(
