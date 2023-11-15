@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import { useRecoilValue } from "recoil";
-import { themeListState } from "../../../../recoil/theme/theme";
+import { themeListState, themeRankListState } from "../../../../recoil/theme/theme";
 
 // styles
 import { HomeScreenTitle, HomeScreenTitleTouch } from "../../HomeScreenStyle";
@@ -10,7 +10,7 @@ import RenderThemeItem from "../RenderThemeItem/RenderThemeItem";
 import { useNavigation } from "@react-navigation/native";
 
 const WeeklyTheme = () => {
-  const themeList = useRecoilValue(themeListState);
+  const themeList = useRecoilValue(themeRankListState);
   const navigation = useNavigation();
 
   const handleRankingTitle = () => {
@@ -36,14 +36,24 @@ const WeeklyTheme = () => {
       <HomeScreenTitleTouch onPress={() => handleRankingTitle()}>
         <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
       </HomeScreenTitleTouch>
-      <FlatList
-        data={themeList}
-        renderItem={({ item }) => <RenderThemeItem item={item} />}
-        keyExtractor={item => item.id}
-        horizontal={true} // 가로 스크롤
-        showsHorizontalScrollIndicator={false} // 스크롤바 안보이게
-        style={styles.list}
-      />
+      <Text>
+        {themeList[0].title}
+      </Text>
+      {
+        themeList.length ?
+          <View>
+            <FlatList
+              data={themeList}
+              renderItem={({ item }) => <RenderThemeItem item={item} />}
+              keyExtractor={item => item.themeId}
+              horizontal={true} // 가로 스크롤
+              showsHorizontalScrollIndicator={false} // 스크롤바 안보이게
+              style={styles.list}
+            />
+          </View>
+          :
+          <Text>데이터가 없습니다.</Text>
+      }
     </View>
   );
 };

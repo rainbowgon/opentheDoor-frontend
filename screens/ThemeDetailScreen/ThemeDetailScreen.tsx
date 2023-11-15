@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Marker, Region } from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
@@ -41,6 +41,8 @@ import ThemeStarRate from "./components/ThemeStarRate/ThemeStarRate";
 import MyReview from "./components/MyReview/MyReview";
 import ReviewItem from "../../components/Review/ReviewItem";
 import { reviewListState } from "../../recoil/review/review";
+import { Image } from "react-native-svg";
+import { ImageBackground } from "react-native";
 
 const ThemeDetailScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -51,13 +53,17 @@ const ThemeDetailScreen = () => {
     longitudeDelta: 0.004,
   });
 
+  console.log(theme?.priceList?.price);
   const navigation = useNavigation();
   const reviewList = useRecoilValue(reviewListState);
 
   return (
     <ThemeDetailContainer>
       <ThemeDetailImage
-        source={theme.poster || ImageDefault}></ThemeDetailImage>
+        // source={ImageDefault}
+        source={{ uri: theme.poster }}
+        onError={(error) => console.error("Image load error:", error)}
+      />
       <ThemeDetailScrollView>
         <GetImageView>
           <LinearGradient
@@ -75,7 +81,7 @@ const ThemeDetailScreen = () => {
           <EscapeCharacter />
           <EscapeInfo
             // TODO - theme?.priceList로 넣기
-            price={120000}
+            price={theme?.priceList?.price}
             minPerson={theme?.minHeadcount}
             maxPerson={theme?.maxHeadcount}
             time={theme?.timeLimit}
@@ -118,7 +124,7 @@ const ThemeDetailScreen = () => {
                 <Text>별점</Text>
                 <Text>리뷰 수</Text>
               </View>
-              <Text>총 리뷰 수{}건</Text>
+              <Text>총 리뷰 수{ }건</Text>
             </ThemeDetailTitleView>
             <StyledView />
             <BarGraph />
@@ -145,6 +151,26 @@ var styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
   },
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  text: {
+    color: "black",
+    fontSize: 42,
+    lineHeight: 84,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "#000000c0",
+  },
 });
 
+const stylediv = StyleSheet.create({
+  container: {
+    height: 250,
+  },
+});
 export default ThemeDetailScreen;

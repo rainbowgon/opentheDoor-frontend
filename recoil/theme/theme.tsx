@@ -22,9 +22,25 @@ import { atom, useRecoilState } from "recoil";
  * 경도           Double    longitude;
  */
 
+interface PriceList {
+  headcount: null | number;
+  price: null | number;
+}
+
+interface TimeList {
+  time: null | string;
+  isAvailable: null | "AVAILABLE" | "NOT_AVAILABLE";
+}
+
+interface TimeSlotList {
+  date: null | string;
+  TimeList: null | TimeList;
+}
+
+
 export interface ThemeType {
   /**테마 ID (필수)*/
-  id: string;
+  themeId: string;
   /**테마 포스터*/
   poster?: null | string;
   /**테마명*/
@@ -62,13 +78,19 @@ export interface ThemeType {
   /**경도*/
   longitude?: null | number;
   /**별점*/
-  starrate?: null | number;
+  ratingScore?: null | number;
+  /**리뷰 수*/
+  reviewCount?: null | number;
+  /**북마크 수*/
+  bookmarkCount?: null | number;
+  /**예약 가능 시간*/
+  timeSlotList?: null | TimeSlotList;
   /**클릭*/
   onPress?: () => void;
 }
 
 export interface ThemeDetailInfoType extends ThemeType {
-  id: string;
+  themeId: string;
   poster: null | string;
   title: null | string;
   venue: null | string;
@@ -79,7 +101,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   genre: null | string[];
   maxHeadcount: null | number;
   minHeadcount: null | number;
-  priceList: null | number[];
+  priceList: null | PriceList;
   timeLimit: null | number;
   level: null | number;
   activity: null | number;
@@ -87,18 +109,18 @@ export interface ThemeDetailInfoType extends ThemeType {
   horror: null | number;
   latitude: null | number;
   longitude: null | number;
-  starrate: null | number;
+  ratingScore: null | number;
 }
 
 export interface ThemeSimpleInfoType extends ThemeType {
-  id: string;
+  themeId: string;
   poster: null | string;
   title: null | string;
   venue: null | string;
   level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
-  priceList: null | number[];
+  priceList: null | PriceList;
   timeLimit: null | number;
   latitude: null | number;
   longitude: null | number;
@@ -109,7 +131,7 @@ export interface ThemeSimpleInfoType extends ThemeType {
 export const themeState = atom<ThemeDetailInfoType>({
   key: "themeState",
   default: {
-    id: "gvMKrosB1FRWDsEDn_Td",
+    themeId: "gvMKrosB1FRWDsEDn_Td",
     poster: "https://www.master-key.co.kr/upload/room/98_img1.png",
     title: "블루위시",
     venue: "마스터키 전주고사점",
@@ -130,7 +152,7 @@ export const themeState = atom<ThemeDetailInfoType>({
     horror: null,
     latitude: 35.8195613,
     longitude: 127.145661,
-    starrate: 3.4,
+    ratingScore: 3.4,
   },
 });
 
@@ -140,7 +162,7 @@ export const themeListState = atom<ThemeSimpleInfoType[]>({
   key: "themeListState",
   default: [
     {
-      id: "gfMKrosB1FRWDsEDn_Td",
+      themeId: "gfMKrosB1FRWDsEDn_Td",
       venue: "마스터키 전주고사점",
       title: "아나스타샤",
       poster: "https://www.master-key.co.kr/upload/room/63_img1.jpg",
@@ -153,7 +175,7 @@ export const themeListState = atom<ThemeSimpleInfoType[]>({
       longitude: 127.145661,
     },
     {
-      id: "gPMKrosB1FRWDsEDn_Td",
+      themeId: "gPMKrosB1FRWDsEDn_Td",
       venue: "마스터키 전주고사점",
       title: "인디아나존스",
       poster: "https://www.master-key.co.kr/upload/room/62_img1.jpg",
@@ -166,7 +188,7 @@ export const themeListState = atom<ThemeSimpleInfoType[]>({
       longitude: 127.145661,
     },
     {
-      id: "eTHntosBdUGVeOMUXDR3",
+      themeId: "eTHntosBdUGVeOMUXDR3",
       venue: "마스터키 플레이포인트랩강남점",
       title: "리허설",
       poster:
@@ -180,7 +202,7 @@ export const themeListState = atom<ThemeSimpleInfoType[]>({
       longitude: 127.027485,
     },
     {
-      id: "dTHntosBdUGVeOMUQDTg",
+      themeId: "dTHntosBdUGVeOMUQDTg",
       venue: "마스터키 해운대 블루오션스테이션",
       title: "리허설",
       poster:
@@ -300,7 +322,7 @@ export const themeRankListState = atom<ThemeSimpleInfoType[]>({
   key: "themeRankListState",
   default: [
     {
-      id: "gfMKrosB1FRWDsEDn_Td",
+      themeId: "gfMKrosB1FRWDsEDn_Td",
       venue: "마스터키 전주고사점",
       title: "아나스타샤",
       poster: "https://www.master-key.co.kr/upload/room/63_img1.jpg",
@@ -313,7 +335,7 @@ export const themeRankListState = atom<ThemeSimpleInfoType[]>({
       longitude: 127.145661,
     },
     {
-      id: "gPMKrosB1FRWDsEDn_Td",
+      themeId: "gPMKrosB1FRWDsEDn_Td",
       venue: "마스터키 전주고사점",
       title: "인디아나존스",
       poster: "https://www.master-key.co.kr/upload/room/62_img1.jpg",
@@ -332,7 +354,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
   key: "themeNearByList",
   default: [
     {
-      id: "eTHntosBdUGVeOMUXDR3",
+      themeId: "eTHntosBdUGVeOMUXDR3",
       venue: "마스터키 플레이포인트랩강남점",
       title: "리허설",
       poster:
@@ -346,7 +368,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 127.027485,
     },
     {
-      id: "dTHntosBdUGVeOMUQDTg",
+      themeId: "dTHntosBdUGVeOMUQDTg",
       venue: "마스터키 해운대 블루오션스테이션",
       title: "리허설",
       poster:
@@ -360,7 +382,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 129.158492,
     },
     {
-      id: "PppbxosB2bv_Fhtj6wSF",
+      themeId: "PppbxosB2bv_Fhtj6wSF",
       venue: "마스터키 천안두정점",
       title: "경찰서를 털어라",
       poster:
@@ -374,7 +396,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 127.1367309,
     },
     {
-      id: "9JpbxosB2bv_FhtjhAOC",
+      themeId: "9JpbxosB2bv_FhtjhAOC",
       venue: "마스터키 강남프라임",
       title: "Do The G",
       poster:
@@ -388,7 +410,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 127.027485,
     },
     {
-      id: "GZpbxosB2bv_FhtjswSL",
+      themeId: "GZpbxosB2bv_FhtjswSL",
       venue: "마스터키 천안신부점",
       title: "터널",
       poster:
@@ -402,7 +424,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 127.1553078,
     },
     {
-      id: "9ZpbxosB2bv_FhtjhAOC",
+      themeId: "9ZpbxosB2bv_FhtjhAOC",
       venue: "마스터키 강남프라임",
       title: "어웨이큰",
       poster:
@@ -416,7 +438,7 @@ export const themeNearByList = atom<ThemeSimpleInfoType[]>({
       longitude: 127.027485,
     },
     {
-      id: "G5pbxosB2bv_FhtjswSL",
+      themeId: "G5pbxosB2bv_FhtjswSL",
       venue: "마스터키 천안신부점",
       title: "트러브메이커",
       poster:

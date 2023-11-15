@@ -39,7 +39,7 @@ const RankingScreen = () => {
         {
           themeList.map((theme) => (
             <InfoCard
-              id={theme.id}
+              themeId={theme.themeId}
               venue={theme.venue}
               title={theme.title}
               poster={theme.poster}

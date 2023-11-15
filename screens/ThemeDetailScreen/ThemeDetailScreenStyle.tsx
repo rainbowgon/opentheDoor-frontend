@@ -10,6 +10,8 @@ export const ThemeDetailImage = styled.Image`
   position: absolute;
   width: 100%;
   object-fit: cover;
+  height: 500px;
+  resizeMode: cover;
   `;
 
 export const GetImageView = styled.View`

@@ -5,20 +5,18 @@ import { API_URL } from "../../constants/urls";
 const MemberServicePath = `/member-service`;
 const NotificatiomServicePath = `/notificatiom-service`;
 const ReservationServicePath = `/reservation-service`;
-const SearchServicePath = `/search-service`;
-const BookmarksPath = `/member-service`;
 
 const MemberAPI = "/members";
 const ProfileAPI = "/profiles";
 const NotificationAPI = "/notifications";
 const ReservationAPI = "/reservations";
-const ThemeAPI = "/themes";
+const BookmarkAPI = `/bookmarks`;
 
 // 배포용
 // const accessToken = localStorage.getItem("accessToken");
 
 // FIXME 테스트용
-const accessToken = "testToken";
+const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJwcm9maWxlSWQiOjEsImlhdCI6MTcwMDAxNTQ3MCwiZXhwIjoxNzAwMTAxODcwfQ.XIghxhJocaf38ZAxVW4rDhXlVjfimL8VfI_qPq6wJ4s";
 
 // export async function getPosts() {
 //   const response = await axios.get<Post[]>(
@@ -367,7 +365,7 @@ export async function putBookmarkToggle() {
 
   const response = await axios
     .put(
-      `${API_URL}${MemberServicePath}${BookmarksPath}`,
+      `${API_URL}${MemberServicePath}${BookmarkAPI}`,
       data,
       {
         headers: {
@@ -390,7 +388,7 @@ export async function putBookmarkToggle() {
 export async function getBookmarkCreateHome() {
   const response = await axios
     .get(
-      `${API_URL}${MemberServicePath}${BookmarksPath}`,
+      `${API_URL}${MemberServicePath}${BookmarkAPI}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -412,7 +410,7 @@ export async function getBookmarkCreateHome() {
 export async function getBookmarkListMypage() {
   const response = await axios
     .get(
-      `${API_URL}${MemberServicePath}${BookmarksPath}/detail`,
+      `${API_URL}${MemberServicePath}${BookmarkAPI}/detail`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -437,7 +435,7 @@ export async function patchBookmarkNotificationToggle() {
 
   const response = await axios
     .patch(
-      `${API_URL}${MemberServicePath}${BookmarksPath}/notifications/${themeId}`
+      `${API_URL}${MemberServicePath}${BookmarkAPI}/notifications/${themeId}`
       , {
         headers: {
           Authorization: `Bearer ${accessToken}`,

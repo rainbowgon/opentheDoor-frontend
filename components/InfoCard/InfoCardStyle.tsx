@@ -18,6 +18,8 @@ export const ContentImage = styled.Image`
   height: 160px;
   width: 120px;
   margin-right: 15px;
+  object-fit: cover;
+  resizeMode: cover;
   `;
 
 export const ContentInfo = styled.View`
@@ -56,7 +58,7 @@ export const SubTitleText = styled.Text`
 `;
 
 export const ContentText = styled.Text`
-  font-weight: lighter;
+  font-weight: 400;
   color: ${theme.font5};
 `;
 
