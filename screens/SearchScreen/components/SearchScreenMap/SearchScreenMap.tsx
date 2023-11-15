@@ -20,6 +20,8 @@ import { themeListState } from "../../../../recoil/theme/theme";
 import { getThemeDetail } from "../../../../recoil/theme/themeFeature";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
+import Search from "../../../../assets/icons/icon-sarch.png";
+import SearchListModal from "./SearchListModal";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,17 +29,17 @@ const SearchScreenMap = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const [listModalVisible, setListModalVisible] = useState(false);
 
   const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMarkerData, setSelectedMarkerData] = useState(null);
+  const [selectedMarkerData, setSelectedMarkerData] = useState();
 
   const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
     navigation.navigate("themeDetail");
     console.log("themeId는", { themeId: themeId });
-    // console.log("나는바보다");
   };
 
   const handleMarkerPress = markerData => {
@@ -93,7 +95,7 @@ const SearchScreenMap = () => {
         error => {
           console.error("위치 정보를 받아오는데 실패했습니다.", error);
         },
-        { enableHighAccuracy: false, timeout: 30000, maximumAge: 3000 },
+        { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
       );
     }
   }, [isFocused]);
@@ -135,8 +137,8 @@ const SearchScreenMap = () => {
   };
   return (
     <View>
-      <Header />
-      <Input label="테마 검색" />
+      {/* <Header /> */}
+      <Input label="테마 검색" icon={Search} />
       <View>
         <CustomMap region={region} style={{ height: 630 }}>
           {/* {searchResults.map((location, in]6dex) => ( */}
@@ -174,10 +176,18 @@ const SearchScreenMap = () => {
               {...selectedMarkerData}
               onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
             />
-            <CustomButton mode="selected" value="리스트로 보기" />
+            <CustomButton
+              mode="selected"
+              value="리스트로 보기"
+              onPress={() => setListModalVisible(true)}
+            />
           </View>
         </Modal>
       </View>
+      <SearchListModal
+        modalVisible={listModalVisible}
+        setModalVisible={setListModalVisible}
+      />
     </View>
   );
 };
