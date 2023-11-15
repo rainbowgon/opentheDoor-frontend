@@ -7,7 +7,8 @@ import { ReviewCreateType, myReviewState } from "./review";
 const MemberServicePath = `/member-service`;
 const ReviewAPI = "/reviews";
 
-const accessToken = "testToken";
+// FIXME 테스트용
+const accessToken = "accessToken";
 
 const [myReview, setMyReview] = useRecoilState(myReviewState);
 

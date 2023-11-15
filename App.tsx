@@ -18,6 +18,7 @@ import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import MypageScreen from "./screens/MypageScreen/MypageScreen";
 import { Container } from "./styles/commonStyles";
+import { getThemeRanking } from "./recoil/theme/themeFeature";
 
 // type RootStackParamList = {
 //   Home: undefined;
@@ -46,13 +47,18 @@ const App = () => {
     return unsubscribe;
   }, []);
 
+
+  useEffect(() => {
+    // getThemeRanking;
+  }, []);
+
   return (
     <RecoilRoot>
       <Container>
         <NavigationContainer>
-          <BottomNavigator />
+          {/* <BottomNavigator /> */}
           {/* FIXME - 어드민 기능 사용 (주석 필수) */}
-          {/* <AdminRightNavigation /> */}
+          <AdminRightNavigation />
         </NavigationContainer>
       </Container>
     </RecoilRoot>

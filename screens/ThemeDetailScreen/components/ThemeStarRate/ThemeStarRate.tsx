@@ -11,8 +11,8 @@ const ThemeStarRate = () => {
   return (
     <ThemeStarRateViewContent>
       <ThemeStarRateIcon source={StarOn} />
-      <ThemeStarRateTitle>{theme.starrate}</ThemeStarRateTitle>
-      <ThemeStarRateContent> (리뷰 수)</ThemeStarRateContent>
+      <ThemeStarRateTitle>{theme.ratingScore}</ThemeStarRateTitle>
+      <ThemeStarRateContent> ({theme.reviewCount})</ThemeStarRateContent>
     </ThemeStarRateViewContent>
   );
 };

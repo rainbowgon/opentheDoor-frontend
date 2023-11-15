@@ -13,10 +13,11 @@ import ImageDefault from "../../../../assets/images/image-default.png";
 import StarOn from "../../../../assets/icons/icon-star-on.png";
 
 const RenderThemeItem = ({ item }: { item: ThemeSimpleInfoType }) => {
+  console.log(item.poster)
   return (
     <RenderThemeItemView>
       <RenderThemeItemImage
-        source={item.poster && ImageDefault} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
+        source={{ uri: item.poster } || ImageDefault} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
       />
       <RenderThemeItemContent>
         <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)', 'rgba(25, 24, 29, 1)']} style={styles.linearGradient}>
@@ -25,7 +26,7 @@ const RenderThemeItem = ({ item }: { item: ThemeSimpleInfoType }) => {
             <Venue>{item?.venue}</Venue>
             <StarrateView>
               <IconImage source={StarOn}></IconImage>
-              <StarRate>{item.starrate || "-"}</StarRate>
+              <StarRate>{item.ratingScore || "-"}</StarRate>
             </StarrateView>
           </View>
         </LinearGradient>

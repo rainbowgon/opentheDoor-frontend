@@ -32,7 +32,7 @@ import { ThemeType } from "../../recoil/theme/theme";
 
 const InfoCard = (
   {
-    id,
+    themeId: id,
     venue = null,
     title = null,
     poster = null,
@@ -51,7 +51,7 @@ const InfoCard = (
     // activity = null,
     // lockRatio = null,
     // horror = null,
-    starrate = null,
+    ratingScore = null,
     onPress,
   }: ThemeType,
   style?: null | string,
@@ -60,9 +60,12 @@ const InfoCard = (
   // onPress?: () => {},
 ) => (
   <>
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
       <CardView>
-        <ContentImage source={poster || ImageDefault} />
+        <ContentImage
+          source={{ uri: poster }}
+          onError={(error) => console.error("Image load error:", error)}
+        />
         <ContentInfo>
           {title && <TitleText> {title}</TitleText>}
           {venue && <ContentText>{venue}</ContentText>}
@@ -92,10 +95,10 @@ const InfoCard = (
               ))}
             </ContentInfoList>
           )}
-          {starrate && (
+          {ratingScore && (
             <ContentInfoList>
               <IconImage source={StarOn}></IconImage>
-              <ContentText>{starrate || 5}</ContentText>
+              <ContentText>{ratingScore || 5}</ContentText>
               <ContentText>({reviewCount || 0})</ContentText>
             </ContentInfoList>
           )}

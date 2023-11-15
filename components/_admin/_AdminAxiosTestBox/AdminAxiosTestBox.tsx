@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 import CustomButton from "../../Button/CustomButton";
 import { deleteMember, getBookmarkListMypage, getMemberCheckMyself, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchMemberInfo, patchNotification, patchNotificationAll, postCheckPhoneNumber, postReservation, postSignup, putBookmarkToggle } from "../../../recoil/selector/selector";
 import { deleteReview, getHistory, getReviewAll, getReviewCheckMyself, getReviewOne, patchReviewEdit, postReviewCreate } from "../../../recoil/review/reviewFeature";
-import { getThemeDetail, getThemeSearch, getThemeSort } from "../../../recoil/theme/themeFeature";
+import { getThemeDetail, getThemeRanking, getThemeSearch, getThemeSort, getUpdateNearByThemeList, testGetThemeSearch } from "../../../recoil/theme/themeFeature";
 
 const AdminAxiosTestBox = () => {
   const onGetThemeSort = () => {
@@ -11,14 +11,18 @@ const AdminAxiosTestBox = () => {
 
   const onGetThemeSearch = () => {
     getThemeSearch({
-      keyword: "1",
+      keyword: "강남",
       page: 1,
       size: 1,
     });
   }
 
   const onGetThemeDetail = () => {
-    getThemeDetail("1");
+    getThemeDetail("9Uuk0YsBzKUvgPPc-NM5");
+  }
+
+  const onGetNearByThemeSearch = () => {
+    getUpdateNearByThemeList;
   }
 
   return (
@@ -128,10 +132,28 @@ const AdminAxiosTestBox = () => {
         onPress={onGetThemeSearch}
       />
 
+      {/* TODO - 테마 검색 테스트 (GET) test - getThemeSearch */}
+      <CustomButton
+        value="TODO - 테마 검색 테스트 (GET) - getThemeSearch"
+        onPress={testGetThemeSearch}
+      />
+
+      {/* TODO - 내 주변 테마 검색 (GET) test - getThemeSearch */}
+      <CustomButton
+        value="TODO - 내 주변 테마 검색 (GET) - getThemeSearch"
+        onPress={onGetNearByThemeSearch}
+      />
+
       {/* TODO - 테마 상세 조회 (GET) test - getThemeDetail */}
       <CustomButton
         value="TODO - 테마 상세 조회 (GET) - getThemeDetail"
         onPress={onGetThemeDetail}
+      />
+
+      {/* TODO - 테마 주차별 랭킹 조회 (GET) test - getThemeRanking */}
+      <CustomButton
+        value="TODO - 테마 주차별 랭킹 조회 (GET) - getThemeRanking"
+        onPress={getThemeRanking}
       />
 
       <Text>[BOOKMARK]</Text>
@@ -160,6 +182,7 @@ const AdminAxiosTestBox = () => {
       />
 
       <Text>[REVIEW]</Text>
+
       {/* TODO - 리뷰 작성 (POST) test - postReviewCreate */}
       <CustomButton
         value="TODO - 리뷰 작성 (POST) - postReviewCreate"

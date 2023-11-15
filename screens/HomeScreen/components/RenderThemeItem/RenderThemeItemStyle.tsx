@@ -15,6 +15,8 @@ export const RenderThemeItemView = styled.View`
 export const RenderThemeItemImage = styled.Image`
   height: 203px;
   width: 152px;
+  object-fit: cover;
+  resizeMode: cover;
   `;
 
 export const RenderThemeItemContent = styled.View`
