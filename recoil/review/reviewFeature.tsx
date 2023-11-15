@@ -8,8 +8,7 @@ const MemberServicePath = `/member-service`;
 const ReviewAPI = "/reviews";
 
 // FIXME 테스트용
-const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJwcm9maWxlSWQiOjEsImlhdCI6MTcwMDAxNTQ3MCwiZXhwIjoxNzAwMTAxODcwfQ.XIghxhJocaf38ZAxVW4rDhXlVjfimL8VfI_qPq6wJ4s";
-
+const accessToken = "accessToken";
 
 const [myReview, setMyReview] = useRecoilState(myReviewState);
 
