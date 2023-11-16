@@ -6,23 +6,38 @@ import Backarrow from "../../assets/icons/icon-backarrow.png"
 import NotificationsOn from "../../assets/icons/icon-notifications-on.png"
 import MenuThreedot from "../../assets/icons/icon-menu-threedot.png"
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png"
+import Filter from "../../assets/icons/icon-filter.png"
+import { useNavigation } from "@react-navigation/native";
 export interface HeaderProps {
   back?: "true" | "false";
   alarm?: "true" | "false";
   menu?: "true" | "false";
+  filter?: "true" | "false";
   bookmark?: "true" | "false";
 }
-
 
 const Header = ({
   back,
   alarm,
   menu,
+  filter,
   bookmark,
 }: HeaderProps) => {
-  const goBack = () => console.log("Went back");
-  const handleAlarm = () => console.log("Alarm");
-  const handleMenu = () => console.log("Menu");
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    console.log("back 페이지로 이동")
+    navigation.goBack();
+  };
+  const handleAlarm = () => {
+    console.log("alarm 페이지로 이동")
+    navigation.navigate("alarm");
+  };
+  const handleSetting = () => {
+    console.log("setting 페이지로 이동")
+    navigation.navigate("setting");
+  };
+  const handleFilter = () => console.log("Filter");
   const handleBookmark = () => console.log("Bookmark");
 
   return (
@@ -64,7 +79,20 @@ const Header = ({
               style={{ width: 24, height: 24 }}
             />
           )}
-          onPress={handleMenu}
+          onPress={handleSetting}
+        />
+      }
+
+      {
+        filter === "true" &&
+        <Appbar.Action
+          icon={props => (
+            <Image
+              source={Filter}
+              style={{ width: 24, height: 24 }}
+            />
+          )}
+          onPress={handleFilter}
         />
       }
 

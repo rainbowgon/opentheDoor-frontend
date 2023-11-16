@@ -14,7 +14,9 @@ const AlarmScreen = () => {
     <PageContainer>
       {/* FIXME - Admin 기능입니다 */}
       <AdminAxiosTestBox />
-      <Header />
+      <Header
+        back="true"
+      />
       <Button title="AlarmScreenDemo" />
       <CustomButton
         value="TODO - 알림 전체 확인하기 (PATCH) - patchNotificationAll"

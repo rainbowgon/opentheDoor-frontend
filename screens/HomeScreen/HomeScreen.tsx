@@ -20,7 +20,9 @@ import InputHeadline from "./components/InputHeadline/InputHeadline";
 const HomeScreen = ({ }) => {
   return (
     <FixedPageContainer>
-      <Header />
+      <Header
+        alarm="true"
+      />
       <PageContainer>
         <HomePageHeadContent>
           <HomeTitle />

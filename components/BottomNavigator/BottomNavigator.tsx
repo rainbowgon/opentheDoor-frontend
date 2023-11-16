@@ -56,6 +56,16 @@ const BottomNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="setting"
+          component={SettingScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="alarm"
+          component={AlarmScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="themeDetail"
           component={ThemeDetailScreen}
           options={{ headerShown: false }}
