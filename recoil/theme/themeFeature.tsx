@@ -63,36 +63,51 @@ export async function getThemeSort({
  * TODO - 테마 검색 (GET) - getThemeSearch
  * /search-service/themes/searches?keyword={keyword}&page={page}&size={size}
  */
-export async function getThemeSearch({
-  keyword = "1",
-  page = 1,
-  size = 10,
-}: {
-  keyword?: string;
-  page?: number;
-  size?: number;
-}) {
-  console.log("테마 검색 성공");
-  const curKeyword = keyword;
-  const curPage = page;
-  const curSize = size;
-
-  const response = await axios
-    .get(
-      `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${curKeyword}&page=${curPage}&size=${curSize}`,
-    )
-    .then(response => {
-      console.log("테마 검색 성공!!!!!!!!!!!", response.data.data);
-      setThemeList(response.data.data);
-      // const checkData: ThemeSimpleInfoType[] = response.data.data;
-      // console.log("테마 검색 데이터 형태 비교 성공", checkData);
-      // setThemeList(checkData);
-      console.log("테마 검색 결과 삽입 성공");
-    })
-    .catch(error => {
-      console.error("getThemeSearch, 테마 검색 실패", error);
-    });
+// getThemeSearch 함수 변경
+export async function getThemeSearch({ keyword = "1", page = 1, size = 10 }) {
+  try {
+    const response = await axios.get(
+      `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${keyword}&page=${page}&size=${size}`,
+    );
+    console.log("테마 검색 성공", response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("getThemeSearch, 테마 검색 실패", error);
+    throw error;
+  }
 }
+
+//////////
+// export async function getThemeSearch({
+//   keyword = "1",
+//   page = 1,
+//   size = 10,
+// }: {
+//   keyword?: string;
+//   page?: number;
+//   size?: number;
+// }) {
+//   console.log("테마 검색 성공");
+//   const curKeyword = keyword;
+//   const curPage = page;
+//   const curSize = size;
+
+//   const response = await axios
+//     .get(
+//       `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${curKeyword}&page=${curPage}&size=${curSize}`,
+//     )
+//     .then(response => {
+//       console.log("테마 검색 성공!!!!!!!!!!!", response.data.data);
+//       // setThemeList(response.data.data);
+//       // const checkData: ThemeSimpleInfoType[] = response.data.data;
+//       // console.log("테마 검색 데이터 형태 비교 성공", checkData);
+//       // setThemeList(checkData);
+//       console.log("테마 검색 결과 삽입 성공");
+//     })
+//     .catch(error => {
+//       console.error("getThemeSearch, 테마 검색 실패", error);
+//     });
+// }
 
 export async function testGetThemeSearch() {
   console.log("테마 검색 진행");

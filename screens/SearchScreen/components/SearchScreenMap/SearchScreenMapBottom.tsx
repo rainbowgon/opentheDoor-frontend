@@ -20,11 +20,12 @@ import {
   useIsFocused,
   useFocusEffect,
 } from "@react-navigation/native";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 import { ThemeType } from "../../../../recoil/theme/theme";
 import {
   getThemeDetail,
+  getThemeSearch,
   getUpdateNearByThemeList,
   useGetThemeList,
   useUpdateNearByThemeList,
@@ -34,34 +35,50 @@ import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import SearchListModal from "./SearchListModal";
 import { themeNearByList } from "../../../../recoil/theme/theme";
+import { API_URL } from "../../../../constants/urls";
+import axios from "axios";
+const SearchServicePath = `/search-service`;
+const ThemeAPI = "/themes";
 
 const Stack = createNativeStackNavigator();
 
 const SearchScreenMapBottom = () => {
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // 즉시 실행 함수를 사용하여 비동기 로직 처리
-  //     (async () => {
-  //       await useGetThemeList();
-  //     })();
-
-  //     return () => {
-  //       // 포커스가 사라질 때 실행할 정리(clean-up) 로직이 있다면 여기에 작성
-  //     };
-  //   }, []),
-  // );
-  useGetThemeList();
-  const [themeList, setThemeList] = useRecoilState(themeListState);
+  const [themeList, setThemeList] = useState([]);
   // const [themeList, setThemeList] = useRecoilState(themeNearByList);
   const navigation = useNavigation();
   // const isFocused = useIsFocused();
   const [listModalVisible, setListModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
+  const fetchThemes = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/searches?page=&size=100000000`,
+      );
+      const themes = response.data.data.map(theme => ({
+        ...theme,
+        latitude: parseFloat(theme.latitude),
+        longitude: parseFloat(theme.longitude),
+      }));
+      setThemeList(themes);
+      setIsLoading(false); // 로딩 완료
 
+      // API 요청 완료 후 로그 출력
+      console.log("themeList:", themes);
+    } catch (error) {
+      console.error("테마 검색 에러", error);
+      setIsLoading(false); // 로딩 완료
+    }
+  };
+
+  useEffect(() => {
+    fetchThemes();
+  }, []);
   const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
     navigation.navigate("themeDetail");
@@ -73,16 +90,16 @@ const SearchScreenMapBottom = () => {
     setModalVisible(true);
   };
 
-  useEffect(() => {
-    console.log("###################################themeList:", themeList);
-    console.log(
-      "###################################themeList:",
-      typeof themeList,
-    );
+  // useEffect(() => {
+  //   console.log("###################################themeList:", themeList);
+  //   console.log(
+  //     "###################################themeList:",
+  //     typeof themeList,
+  //   );
 
-    // 여기서 nearByTheme이 배열이고, 항목이 있는지 확인합니다.
-    // 필요한 경우 여기에서 추가 로직을 실행할 수 있습니다.
-  }, [themeList]);
+  //   // 여기서 nearByTheme이 배열이고, 항목이 있는지 확인합니다.
+  //   // 필요한 경우 여기에서 추가 로직을 실행할 수 있습니다.
+  // }, [themeList]);
 
   const initialRegion = {
     latitude: 37.5642135,
@@ -125,7 +142,7 @@ const SearchScreenMapBottom = () => {
         <CustomMap region={initialRegion} style={{ height: 630 }}>
           {/* {searchResults.map((location, in]6dex) => ( */}
           {/* <Marker coordinate={region} title="내 위치" /> */}
-          {/* {themeList &&
+          {!isLoading &&
             themeList.map(theme => (
               <Marker
                 key={theme.themeId}
@@ -137,7 +154,7 @@ const SearchScreenMapBottom = () => {
                 pinColor="#BAB2FFFF"
                 onPress={() => handleMarkerPress(theme)}
               />
-            ))} */}
+            ))}
 
           {/* <View>
             {themeList.map(theme => {
@@ -146,33 +163,28 @@ const SearchScreenMapBottom = () => {
             })}
           </View> */}
         </CustomMap>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <TouchableOpacity
-            style={styles.modalOverlay}
-            activeOpacity={1}
-            onPressOut={() => {
-              setModalVisible(false);
-            }}></TouchableOpacity>
-          <View style={styles.modalView}>
-            {/* selectedMarkerData를 InfoCard에 전달 */}
-            {/* <InfoCard {...selectedMarkerData} /> */}
-            <InfoCard
-              {...selectedMarkerData}
-              onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
-            />
-            <CustomButton
-              mode="selected"
-              value="리스트로 보기"
-              onPress={() => setListModalVisible(true)}
-            />
-          </View>
-        </Modal>
+        {selectedMarkerData && (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}>
+            <TouchableOpacity
+              style={styles.modalOverlay}
+              activeOpacity={1}
+              onPressOut={() => setModalVisible(false)}>
+              <View style={styles.modalView}>
+                <InfoCard
+                  themeId={selectedMarkerData.themeId}
+                  title={selectedMarkerData.title}
+                  // 여기에 필요한 다른 props 추가
+                  onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
+                />
+                {/* ... 기타 모달 내부 요소 ... */}
+              </View>
+            </TouchableOpacity>
+          </Modal>
+        )}
       </View>
       <SearchListModal
         modalVisible={listModalVisible}
