@@ -17,7 +17,7 @@ import PageContainer, { FixedPageContainer } from "../../styles/commonStyles";
 import { HomePageHeadContent } from "./HomeScreenStyle";
 import InputHeadline from "./components/InputHeadline/InputHeadline";
 
-const HomeScreen = ({ }) => {
+const HomeScreen = ({}) => {
   return (
     <FixedPageContainer>
       <Header />

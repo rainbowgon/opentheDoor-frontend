@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../../constants/urls";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   ThemeDetailInfoType,
   ThemeSimpleInfoType,
@@ -9,6 +9,7 @@ import {
   themeRankListState,
   themeState,
 } from "./theme";
+import { useEffect } from "react";
 
 // apis
 const SearchServicePath = `/search-service`;
@@ -81,15 +82,15 @@ export async function getThemeSearch({
       `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${curKeyword}&page=${curPage}&size=${curSize}`,
     )
     .then(response => {
-      console.log("테마 검색 성공", response.data);
-      setNearByTheme(response.data.data);
+      console.log("테마 검색 성공!!!!!!!!!!!", response.data.data);
+      setThemeList(response.data.data);
       // const checkData: ThemeSimpleInfoType[] = response.data.data;
       // console.log("테마 검색 데이터 형태 비교 성공", checkData);
       // setThemeList(checkData);
-      // console.log("테마 검색 결과 삽입 성공");
+      console.log("테마 검색 결과 삽입 성공");
     })
     .catch(error => {
-      console.error("테마 검색 실패", error);
+      console.error("getThemeSearch, 테마 검색 실패", error);
     });
 }
 
@@ -100,9 +101,7 @@ export async function testGetThemeSearch() {
   const curSize = 10;
 
   const response = await axios
-    .get(
-      `${API_URL}${SearchServicePath}${ThemeAPI}/searches`,
-    )
+    .get(`${API_URL}${SearchServicePath}${ThemeAPI}/searches`)
     .then(response => {
       console.log("테마 검색 성공", response.data);
       setNearByTheme(response.data.data);
@@ -116,7 +115,6 @@ export async function testGetThemeSearch() {
     });
 }
 
-
 /**
  * TODO - 내 주변 테마 검색 (GET) - getUpdateNearByThemeList
  * /search-service/themes/searches?keyword={keyword}&latitude={latitude}&longitude={longitude}&headcount={headcount}&region={region}&page={page}&size={size}
@@ -128,27 +126,31 @@ export async function getUpdateNearByThemeList({
   latitude?: null | number;
   longitude?: null | number;
 }) {
-  console.log("테마 검색 성공");
+  console.log("테마 검색 성공", nearByTheme);
   const curKeyword = "";
   const curPage = 1;
   const curSize = 10;
   const curHeadcount = null;
   const curRegion = null;
+  const curSortBy = "DISTANCE";
+  // SortBy 종류
+  // BOOKMARK, REVIEW, RECOMMEND, DISTANCE
 
   const response = await axios
-    .get(
-      `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${curKeyword}&latitude=${latitude}&longitude=${longitude}&headcount=${curHeadcount}&region=${curRegion}&page=${curPage}&size=${curSize}`,
-    )
+    .get(`${API_URL}${SearchServicePath}${ThemeAPI}/sorts?sortBy=${curSortBy}`)
+    // .get(
+    //   `${API_URL}${SearchServicePath}${ThemeAPI}/sorts?keyword=${curKeyword}&page=${curPage}&size=${curSize}&sortBy=${curSortBy}`,
+    // )
     .then(response => {
       console.log("테마 검색 성공", response.data);
-      setNearByTheme(response.data.data);
+      setNearByTheme(response.data);
       // const checkData: ThemeSimpleInfoType[] = response.data.data;
       // console.log("테마 검색 데이터 형태 비교 성공", checkData);
       // setThemeList(checkData);
       // console.log("테마 검색 결과 삽입 성공");
     })
     .catch(error => {
-      console.error("테마 검색 실패", error);
+      console.error("내 주변 테마 검색 실패", error);
     });
 }
 
@@ -157,7 +159,6 @@ export async function getUpdateNearByThemeList({
  * /search-service/themes/rankings
  */
 export async function getThemeRanking() {
-
   const response = await axios
     .get(`${API_URL}${SearchServicePath}${ThemeAPI}/rankings`)
     .then(response => {
@@ -191,3 +192,83 @@ export async function getThemeDetail(themeId?: string) {
       console.error("테마 상세 조회 실패", error);
     });
 }
+
+/////////////// Custom Hook
+export const useUpdateNearByThemeList = () => {
+  const setNearByTheme = useSetRecoilState(themeNearByList);
+
+  useEffect(() => {
+    const fetchThemes = async () => {
+      try {
+        // 테마 검색 함수 호출
+        const response = await getThemeSearch({
+          keyword: "특정 키워드", // 필요한 키워드 입력
+          page: 1,
+          size: 10,
+        });
+
+        // 받아온 데이터를 상태에 저장
+        if (response && response.data) {
+          setNearByTheme(response.data.data); // 여기서 response.data.data 형식이 맞는지 확인하세요
+        }
+      } catch (error) {
+        console.error("테마 검색 실패", error);
+      }
+    };
+
+    fetchThemes();
+  }, []);
+};
+//////
+
+// export const useUpdateNearByThemeList = () => {
+//   const setNearByTheme = useSetRecoilState(themeNearByList);
+
+//   useEffect(() => {
+//     const fetchThemes = async () => {
+//       try {
+//         const response = await getUpdateNearByThemeList({
+//           latitude: 37.5642135,
+//           longitude: 127.0016985,
+//         });
+//         if (response && response.data.data) {
+//           setNearByTheme(response.data.data); // 상태 업데이트
+//         } else {
+//           setNearByTheme([]); // 응답이 없거나 예상과 다를 경우 빈 배열 설정
+//         }
+//       } catch (error) {
+//         console.error("테마 검색 실패패패패패패패", error);
+//         setNearByTheme([]); // 오류 발생 시 빈 배열 설정
+//       }
+//     };
+
+//     fetchThemes();
+//   }, []);
+// };
+
+export const useGetThemeList = () => {
+  // const setThemeList = useSetRecoilState(themeListState);
+
+  useEffect(() => {
+    const fetchThemes = async () => {
+      try {
+        // 테마 검색 함수 호출
+        const response = await getThemeSearch({
+          keyword: "1",
+          page: 1,
+          size: 10,
+        });
+
+        // 받아온 데이터를 상태에 저장
+        if (response && response.data) {
+          // console.log("여기가 에러입니다 에어어어어어어");
+          // setThemeList(response); // 여기서 response.data.data 형식이 맞는지 확인하세요
+        }
+      } catch (error) {
+        console.error("useGetThemeList 테마 검색 실패", error);
+      }
+    };
+
+    fetchThemes();
+  }, []);
+};

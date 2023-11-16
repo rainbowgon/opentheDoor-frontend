@@ -37,7 +37,6 @@ interface TimeSlotList {
   TimeList: null | TimeList;
 }
 
-
 export interface ThemeType {
   /**테마 ID (필수)*/
   themeId: string;
