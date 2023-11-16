@@ -23,14 +23,9 @@ const AlarmScreen = () => {
         onPress={patchNotificationAll}
       />
       <ScrollView>
-        {
-          [...Array(3)].map((key) => (
-            <ListItem
-              title={key}
-              content={key}
-            />
-          ))
-        }
+        {[...Array(3)].map(key => (
+          <ListItem title={key} content={key} />
+        ))}
       </ScrollView>
     </PageContainer>
   );

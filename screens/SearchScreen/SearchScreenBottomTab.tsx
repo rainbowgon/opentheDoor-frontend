@@ -14,10 +14,16 @@ import Header from "../../components/Header/Header";
 import PageContainer, { FixedPageContainer } from "../../styles/commonStyles";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import { useFocusEffect } from "@react-navigation/native";
+import SearchScreenMapBottom from "./components/SearchScreenMap/SearchScreenMapBottom";
+import { useGetThemeList } from "../../recoil/theme/themeFeature";
+import { useRecoilState } from "recoil";
+import { themeListState } from "../../recoil/theme/theme";
 
 const SearchScreenBottomTab = () => {
+  // const [themeList, setThemeList] = useRecoilState(themeListState);
   const [modalVisible, setModalVisible] = useState(true);
   const handleOpenModal = () => {};
+  // useGetThemeList();
   useFocusEffect(
     useCallback(() => {
       setModalVisible(true); // 스크린이 포커스를 받을 때 마다 모달 상태를 true로 설정
@@ -45,7 +51,7 @@ const SearchScreenBottomTab = () => {
   return (
     <FixedPageContainer>
       <Header back="true" menu="true" />
-      <SearchScreenMap />
+      <SearchScreenMapBottom />
       {/* <SearchListModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}

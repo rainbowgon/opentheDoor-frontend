@@ -43,9 +43,9 @@ const App = () => {
     <RecoilRoot>
       <Container>
         <NavigationContainer>
-          {/* <BottomNavigator /> */}
+          <BottomNavigator />
           {/* FIXME - 어드민 기능 사용 (주석 필수) */}
-          <AdminRightNavigation />
+          {/* <AdminRightNavigation /> */}
         </NavigationContainer>
       </Container>
     </RecoilRoot>
