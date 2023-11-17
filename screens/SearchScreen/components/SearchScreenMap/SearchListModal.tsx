@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   Text,
+  StyleSheet,
 } from "react-native";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
 import { useNavigation } from "@react-navigation/native";
@@ -52,7 +53,7 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
       {/* <View {...panResponder.panHandlers}>
           <CustomButton mode="selected" value="지도로 보기" />
         </View> */}
-      <View {...panResponder.panHandlers} style={{ padding: 20 }}>
+      <View {...panResponder.panHandlers} style={styles.container}>
         <Text> 지도로 보기 </Text>
       </View>
       <PageContainer>
@@ -102,5 +103,12 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
 //     </View>
 //   );
 // };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#0000009fa",
+    padding: 15,
+  },
+});
 
 export default SearchListModal;
