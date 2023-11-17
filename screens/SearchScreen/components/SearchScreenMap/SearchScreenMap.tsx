@@ -22,14 +22,55 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import SearchListModal from "./SearchListModal";
+import { API_URL } from "../../../../constants/urls";
+import axios from "axios";
 
 const Stack = createNativeStackNavigator();
+const SearchServicePath = `/search-service`;
+const ThemeAPI = "/themes";
+
+export async function getThemeSearch({ keyword = "", page = 1, size = 10 }) {
+  try {
+    const response = await axios.get(
+      `${API_URL}${SearchServicePath}${ThemeAPI}/searches?keyword=${keyword}&page=${page}&size=${size}`,
+    );
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 const SearchScreenMap = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [listModalVisible, setListModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const fetchThemes = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/sorts?sortBy=DISTANCE&size=100`,
+      );
+      const themes = response.data.data.map(theme => ({
+        ...theme,
+        latitude: parseFloat(theme.latitude),
+        longitude: parseFloat(theme.longitude),
+      }));
+      setThemeList(themes);
+      setIsLoading(false); // 로딩 완료
+
+      // API 요청 완료 후 로그 출력
+      console.log("themeList:", themes);
+    } catch (error) {
+      console.error("테마 검색 에러", error);
+      setIsLoading(false); // 로딩 완료
+    }
+  };
+
+  useEffect(() => {
+    fetchThemes();
+  }, []);
 
   const [markers, setMarkers] = useState([]);
   // const [selectedMarker, setSelectedMarker] = useState(null);
@@ -102,6 +143,15 @@ const SearchScreenMap = () => {
 
   const [searchResults, setSearchResults] = useState([]);
 
+  const executeSearch = async () => {
+    try {
+      const results = await getThemeSearch({ keyword: searchText });
+      setSearchResults(results);
+    } catch (error) {
+      console.error("테마 검색 중 오류 발생", error);
+    }
+  };
+
   const handleSearch = searchData => {
     // 검색 데이터를 상태에 설정합니다.
     setSearchResults(searchData);
@@ -141,20 +191,20 @@ const SearchScreenMap = () => {
       <Input label="테마 검색" icon={Search} />
       <View>
         <CustomMap region={region} style={{ height: 630 }}>
-          {/* {searchResults.map((location, in]6dex) => ( */}
-          <Marker coordinate={region} title="내 위치" />
-          {themeList.map((location, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
-              }}
-              title={location.title || "검색 위치"}
-              pinColor="#BAB2FFFF"
-              onPress={() => handleMarkerPress(location)}
-            />
-          ))}
+          <Marker coordinate={region} />
+          {!isLoading &&
+            themeList.map((location, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                }}
+                title={location.title || "검색 위치"}
+                pinColor="#BAB2FFFF"
+                onPress={() => handleMarkerPress(location)}
+              />
+            ))}
         </CustomMap>
         <Modal
           animationType="slide"
@@ -172,17 +222,42 @@ const SearchScreenMap = () => {
           <View style={styles.modalView}>
             {/* selectedMarkerData를 InfoCard에 전달 */}
             {/* <InfoCard {...selectedMarkerData} /> */}
-            <InfoCard
+            {/* <InfoCard
               {...selectedMarkerData}
               onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
-            />
-            <CustomButton
-              mode="selected"
-              value="리스트로 보기"
-              onPress={() => setListModalVisible(true)}
-            />
+            /> */}
+            {selectedMarkerData && (
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}>
+                <TouchableOpacity
+                  style={styles.modalOverlay}
+                  activeOpacity={1}
+                  onPressOut={() => setModalVisible(false)}>
+                  <View style={styles.modalView}>
+                    <InfoCard
+                      themeId={selectedMarkerData.themeId}
+                      title={selectedMarkerData.title}
+                      // 여기에 필요한 다른 props 추가
+                      onPress={() =>
+                        handleThemeSelect(selectedMarkerData.themeId)
+                      }
+                    />
+                  </View>
+                </TouchableOpacity>
+              </Modal>
+            )}
           </View>
         </Modal>
+        <View style={styles.listbutton}>
+          <CustomButton
+            mode="selected"
+            value="리스트로 보기"
+            onPress={() => setListModalVisible(true)}
+          />
+        </View>
       </View>
       <SearchListModal
         modalVisible={listModalVisible}
@@ -260,6 +335,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // backgroundColor: "rgba(0, 0, 0, 0.5)", // 반투명 배경
+  },
+  listbutton: {
+    bottom: 100,
   },
 });
 

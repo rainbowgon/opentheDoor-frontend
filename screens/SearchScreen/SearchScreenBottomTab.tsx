@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Modal,
+  StyleSheet,
 } from "react-native";
 import Input from "../../components/Input/Input";
 import SearchScreenMap from "./components/SearchScreenMap/SearchScreenMap";
@@ -18,6 +19,7 @@ import SearchScreenMapBottom from "./components/SearchScreenMap/SearchScreenMapB
 import { useGetThemeList } from "../../recoil/theme/themeFeature";
 import { useRecoilState } from "recoil";
 import { themeListState } from "../../recoil/theme/theme";
+import styled from "styled-components";
 
 const SearchScreenBottomTab = () => {
   // const [themeList, setThemeList] = useRecoilState(themeListState);
@@ -66,7 +68,7 @@ const SearchScreenBottomTab = () => {
         {/* <View {...panResponder.panHandlers}>
           <CustomButton mode="selected" value="지도로 보기" />
         </View> */}
-        <View {...panResponder.panHandlers} style={{ padding: 20 }}>
+        <View {...panResponder.panHandlers} style={styles.container}>
           <Text> 지도로 보기 </Text>
         </View>
         <PageContainer>
@@ -84,4 +86,10 @@ const SearchScreenBottomTab = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#0000009fa",
+    padding: 15,
+  },
+});
 export default SearchScreenBottomTab;
