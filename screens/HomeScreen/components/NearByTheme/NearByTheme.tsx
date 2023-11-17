@@ -32,8 +32,8 @@ const NearByTheme = () => {
 
   // default를 서울로 지정했습니다!
   const [region, setRegion] = useState<Region>({
-    latitude: 37.5665,
-    longitude: 126.978,
+    latitude: 37.5013,
+    longitude: 127.0396781,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });

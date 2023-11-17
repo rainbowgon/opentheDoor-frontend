@@ -180,11 +180,17 @@ const SearchScreenMapBottom = () => {
                   // 여기에 필요한 다른 props 추가
                   onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
                 />
-                {/* ... 기타 모달 내부 요소 ... */}
               </View>
             </TouchableOpacity>
           </Modal>
         )}
+        <View style={styles.listbutton}>
+          <CustomButton
+            mode="selected"
+            value="리스트로 보기"
+            onPress={() => setListModalVisible(true)}
+          />
+        </View>
       </View>
       <SearchListModal
         modalVisible={listModalVisible}
@@ -209,25 +215,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 1200,
   },
-  // modalView: {
-  //   position: "absolute",
-  //   bottom: 0,
-  //   height: "100%",
-  //   width: "100%", // 모달이 화면의 전체 너비를 차지하도록
-  //   // backgroundColor: "white",
-  //   borderTopLeftRadius: 20, // 상단 좌우 모서리를 둥글게
-  //   borderTopRightRadius: 20,
-  //   padding: 20, // 내부 패딩
-  //   maxHeight: "40%", // 모달의 최대 높이 제한
-  //   // shadowColor: "#000", // 그림자 색상
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2, // 그림자 방향 (아래로)
-  //   },
-  //   // shadowOpacity: 0.25, // 그림자 투명도
-  //   // shadowRadius: 3.84, // 그림자 블러 반경
-  //   // elevation: 5, // 안드로이드 전용 그림자 설정
-  // },
   modalView: {
     position: "absolute",
     bottom: 0,
@@ -262,6 +249,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // backgroundColor: "rgba(0, 0, 0, 0.5)", // 반투명 배경
+  },
+  listbutton: {
+    bottom: 100,
   },
 });
 
