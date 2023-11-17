@@ -10,8 +10,11 @@ export const HomeTitleView = styled.View`
 
 export const HomeScreenMainTitle = styled.Text`
   color: ${theme.primary3_main};
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
+  text-shadow-color: ${theme.primary3_main};
+  text-shadow-offset: 0;
+  text-shadow-radius: 30px;
   `;
 
 export const HomeScreenSubTitle = styled.Text`

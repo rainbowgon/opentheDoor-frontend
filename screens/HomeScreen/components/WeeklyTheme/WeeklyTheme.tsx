@@ -45,7 +45,6 @@ const WeeklyTheme = () => {
               keyExtractor={item => item.themeId}
               horizontal={true} // 가로 스크롤
               showsHorizontalScrollIndicator={false} // 스크롤바 안보이게
-              style={styles.list}
             />
           </View>
           :
@@ -54,53 +53,5 @@ const WeeklyTheme = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  header: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  list: {
-    // FlatList 스타일링 (필요에 따라 추가)
-  },
-  card: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5, // for Android
-    backgroundColor: "#000",
-    borderRadius: 10,
-    overflow: "hidden",
-    marginRight: 16,
-  },
-  poster: {
-    width: 170,
-    height: 225,
-    resizeMode: "cover",
-    backgroundColor: "#000",
-  },
-  textContainer: {
-    padding: 10,
-    width: 170,
-    backgroundColor: "#000",
-  },
-  title: {
-    fontSize: 12,
-    color: "grey",
-    fontWeight: "bold",
-  },
-  venue: {
-    fontSize: 8,
-    color: "grey",
-    fontWeight: "bold",
-    marginTop: 4,
-  },
-});
 
 export default WeeklyTheme;

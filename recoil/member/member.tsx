@@ -7,6 +7,21 @@ interface MemberInfoType {
   profileImage: string;
 }
 
+export const userFcmToken = atom<string>({
+  key: 'userFcmToken',
+  default: ``
+});
+
+export const userAccessToken = atom<string>({
+  key: 'userAccessToken',
+  default: ``
+});
+
+export const userRefreshToken = atom<string>({
+  key: 'userRefreshToken',
+  default: ``
+});
+
 export const memberState = atom<MemberInfoType>({
   key: 'memberState',
   default: {

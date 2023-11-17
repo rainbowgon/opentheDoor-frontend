@@ -34,6 +34,7 @@ import SettingScreen from "../../screens/SettingScreen/SettingScreen";
 import SignUpScreen from "../../screens/SignUpScreen/SignUpScreen";
 import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen";
 import { BorderlessButton } from "react-native-gesture-handler";
+import KakaoLoginScreen from "../../screens/KakaoLoginScreen/KakaoLoginScreen";
 import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
 
 const Stack = createNativeStackNavigator();
@@ -100,6 +101,16 @@ const BottomNavigator = () => {
         <Stack.Screen
           name="mypage"
           component={MypageScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="kakaoLogin"
+          component={KakaoLoginScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

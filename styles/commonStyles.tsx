@@ -16,7 +16,7 @@ export const FixedPageContainer = styled.View`
 `;
 
 export const Container = styled.View`
-    height: ${Dimensions.get("window").height + 60};
+    height: ${Dimensions.get("window").height + 60}px;
     background-color: ${theme.background5_main};
 `;
 
