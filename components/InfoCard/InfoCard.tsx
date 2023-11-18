@@ -29,10 +29,14 @@ import StarOn from "../../assets/icons/icon-star-on.png";
 import BookmarkDisable from "../../assets/icons/icon-bookmark-disable.png";
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png";
 import BookmarkOn from "../../assets/icons/icon-bookmark-on.png";
-import { ThemeType } from "../../recoil/theme/theme";
+import { ThemeType, themeState } from "../../recoil/theme/theme";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { getThemeDetail } from "../../recoil/theme/themeFeature";
+import { useCallback } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants/urls";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -58,22 +62,49 @@ const InfoCard = (
     // lockRatio = null,
     // horror = null,
     ratingScore = null,
+    reviewCount = null,
+    bookmarkCount = null,
     onPress,
   }: ThemeType,
-  reviewCount?: null | number,
-  bookmarkCount?: null | number,
   style?: null | string,
   // onPress?: () => {},
 ) => {
+  const navigation = useNavigation();
+
   const onPressCard = () => {
-    const navigation = useNavigation();
 
     console.log(themeId);
-    getThemeDetail(themeId);
-
-    console.log("kakaoOauth 페이지로 이동")
+    // getThemeDetail(themeId);
+    handleThemeDetail();
+    console.log("themeDetail 페이지로 이동")
     navigation.navigate("themeDetail");
   };
+
+  const setThemeItem = useSetRecoilState(themeState);
+
+  // apis
+  const SearchServicePath = `/search-service`;
+  const ThemeAPI = "/themes";
+
+  const handleThemeDetail = useCallback(async () => {
+    // if (loading) {
+    //   return;
+    // }
+
+    try {
+      // setLoading(true);
+
+      const response = await axios
+        .get(`${API_URL}${SearchServicePath}${ThemeAPI}/${themeId}`)
+
+      console.log("테마 상세 조회 성공", response.data);
+      setThemeItem(response.data.data);
+    } catch (error) {
+      console.error("테마 상세 조회 실패", error);
+    } finally {
+    }
+
+  }, []);
 
   return (
     <>

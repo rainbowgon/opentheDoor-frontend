@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_URL } from "../../constants/urls";
 import { useRecoilState } from "recoil";
 import { userAccessToken, userFcmToken, userRefreshToken } from "./member";
+import { useEffect } from "react";
 
 // apis
 const MemberServicePath = `/member-service`;
@@ -21,6 +22,25 @@ const [refreshToken, setRefreshToken] = useRecoilState(userRefreshToken);
  * TODO - 구글 로그인
  * /member-service/members/login/google
  * */
+
+/**
+ * TODO - 카카오 로그인 시도
+ * /member-service/oauth/kakao/callback?code={code}
+ * */
+
+export async function getKakaoLogin(data: string) {
+  const response = await axios
+    .get(
+      `${API_URL}${MemberServicePath}${OauthAPI}/kakao/callback?code=${data}`,
+    )
+    .then((response) => {
+      console.log("카카오 로그인 시도 성공", response.data);
+    })
+    .catch((error) => {
+      console.error("카카오 로그인 시도 실패", error);
+    });
+}
+
 
 /**
  * TODO - 카카오 로그인 (post) - postKakaoLogin

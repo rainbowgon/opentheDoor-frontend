@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Image } from "react-native";
 import "react-native-gesture-handler";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -36,6 +36,11 @@ import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen
 import { BorderlessButton } from "react-native-gesture-handler";
 import KakaoLoginScreen from "../../screens/KakaoLoginScreen/KakaoLoginScreen";
 import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
+import { useSetRecoilState } from "recoil";
+import { themeRankListState } from "../../recoil/theme/theme";
+import { API_URL } from "../../constants/urls";
+import axios from "axios";
+import { getThemeRanking } from "../../recoil/theme/themeFeature";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -116,6 +121,39 @@ const BottomNavigator = () => {
       </Stack.Navigator>
     );
   }
+
+
+  const themeRankList = useSetRecoilState(themeRankListState);
+
+  // apis
+  const SearchServicePath = `/search-service`;
+  const ThemeAPI = "/themes";
+
+  const SettingThemeRank = useCallback(async () => {
+    // if (loading) {
+    //   return;
+    // }
+
+    try {
+      // setLoading(true);
+      const response = await axios
+        .get(`${API_URL}${SearchServicePath}${ThemeAPI}/rankings`)
+
+      console.log("테마 상세 조회 성공", response.data);
+      themeRankList(response.data.data);
+      // await getThemeRanking();
+    } catch (error) {
+      console.error("테마 상세 조회 실패", error);
+    } finally {
+    }
+
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect : SettingThemeRank");
+    SettingThemeRank();
+    console.log("useEffect : LoginTapped");
+  }, [])
 
   return (
     <Tab.Navigator
