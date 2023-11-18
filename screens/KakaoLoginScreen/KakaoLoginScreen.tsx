@@ -1,89 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { View, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import { API_URL } from "../../constants/urls";
 import PageContainer from "../../styles/commonStyles";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header/Header";
 import WebView from "react-native-webview";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { userAccessToken } from "../../recoil/member/member";
-
-// apis
-const MemberServicePath = `/member-service`;
-
-const MemberAPI = "/members";
-const OauthAPI = "/oauth";
-
-// var qs = require('qs');
-
-// const [token, setToken] = useRecoilState(userAccessToken);
-
-export async function getKakaoLogin(data: string) {
-  const response = await axios
-    .get(
-      `${API_URL}${MemberServicePath}${OauthAPI}/kakao/callback?code=${data}`,
-    )
-    .then((response) => {
-      console.log("카카오 로그인 시도 성공", response.data);
-    })
-    .catch((error) => {
-      console.log("4. ", data);
-      console.error("카카오 로그인 시도 실패", error);
-    });
-}
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { memberLoginState, userFcmToken } from "../../recoil/member/member";
 
 const KakaoLoginScreen = () => {
   const navigation = useNavigation();
 
-  const handleKakaoOauthLogin = () => {
-    console.log("kakaoOauth 페이지로 이동")
-    navigation.navigate("kakaoOauth");
+  const goSignUp = () => {
+    console.log("goSignUp 페이지로 이동");
+    navigation.navigate("signUp");
   };
 
   const goBack = () => {
-    console.log("kakaoOauth 페이지로 이동")
+    console.log("Back 페이지로 이동")
     navigation.goBack();
   };
 
   const REST_API_KEY = '868bb44bb8f128728318399f8e7b888a'
   const REDIRECT_URI = 'http://ssafy-openthedoor-alb-595590811.ap-northeast-2.elb.amazonaws.com/member-service/oauth/kakao'
-  // const REDIRECT_URI = 'http://ssafy-openthedoor-alb-595590811.ap-northeast-2.elb.amazonaws.com/member-service/oauth/kakao/callback'
 
   const INJECTED_JAVASCRIPT = `(function() {
     window.ReactNativeWebView.postMessage(JSON.stringify(window.location));
   })();`;
 
-  // const requestToken = async (code: string,) => {
-  //   const requestTokenUrl = 'https://kauth.kakao.com/oauth/token';
+  // apis
+  const MemberServicePath = `/member-service`;
 
-  //   const options = qs.stringify({
-  //     grant_type: 'authorization_code',
-  //     client_id: REST_API_KEY,
-  //     redirect_uri: REDIRECT_URI,
-  //     code,
-  //   });
+  const MemberAPI = "/members";
+  const OauthAPI = "/oauth";
 
-  //   try {
-  //     const tokenResponse = await axios.post(requestTokenUrl, options);
-  //     const ACCESS_TOKEN = tokenResponse.data.access_token;
+  const [userInfo, setUserInfo] = useState();
+  const setMemberLoginInfo = useSetRecoilState(memberLoginState);
+  const fcmToken = useRecoilValue(userFcmToken);
 
-  //     const body = {
-  //       ACCESS_TOKEN,
-  //     };
-  //     const response = await axios.post(REDIRECT_URI, body);
-  //     const value = response.data;
-  //     console.log("response.data : ", value);
-  //     // const result = await storeUser(value);
-  //     // if (result === 'stored') {
-  //     //   const user = await getData('user');
-  //     //   dispatch(read_S(user));
-  //     //   await navigation.navigate('Main');
-  //     // }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  async function getKakaoLogin(data: string) {
+    try {
+      const response = await axios
+        .get(
+          `${API_URL}${MemberServicePath}${OauthAPI}/kakao/callback?code=${data}`,
+        )
+      console.log("카카오 Oauth 로그인 시도 성공", response.data);
+      setUserInfo(response.data.data);
+      console.log("카카오 Oauth 데이터 불러오기 성공");
+      console.log(typeof (response.data.data));
+
+      if (typeof (response.data.data) === "object") {
+        setMemberLoginInfo(response.data.data);
+        goSignUp();
+      } else {
+        handleLogin(response.data.data);
+      }
+    }
+    catch (error) {
+      console.log("4. ", data);
+      console.error("카카오 로그인 시도 실패", error);
+    }
+  }
+
+  async function handleLogin(data: string) {
+    try {
+      const response = await axios
+        .get(
+          `/member-service/oauth/login/kakao?fcmToken=${fcmToken}&profileId=${data}`,
+        )
+      console.log("카카오 로그인 요청", response.data);
+      setUserInfo(response.data.data);
+      console.log("카카오 로그인 성공", response.data);
+      console.log("데이터 삽입 성공");
+      console.log(typeof (response.data.data));
+      goBack();
+    }
+    catch (error) {
+      console.error("카카오 로그인 시도 실패", error);
+    }
+  }
 
   const getCode = (target: string) => {
     console.log("2. ", target);
