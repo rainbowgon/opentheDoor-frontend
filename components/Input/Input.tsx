@@ -1,29 +1,28 @@
 import * as React from "react";
 import { TextInput } from "react-native-paper";
 
-//NOTE const [text, setText] = React.useState("");
-//NOTE 얘네는 Input을 import 한 곳에서 밀어넣어주기 store에서 관리할지 onChange에 뭘 걸지 고민
 const Input = ({
   label = "",
   icon = "",
   multiline = false,
   disabled = false,
   placeholder = "",
+  value,
+  onChangeText,
+  onKeyPress,
+  onIconPress,
 }) => {
-  const [text, setText] = React.useState("");
-
   return (
     <TextInput
       label={label}
       placeholder={placeholder}
       mode="outlined"
-      right={<TextInput.Icon icon={icon} />}
+      right={<TextInput.Icon icon={icon} onPress={onIconPress} />}
       multiline={multiline}
-      value={text}
-      onChangeText={text => setText(text)}
+      value={value}
+      onChangeText={onChangeText}
+      // onKeyPress={onKeyPress}
       disabled={disabled}
-    // textColor="#FFFFFF"
-    // color
     />
   );
 };
