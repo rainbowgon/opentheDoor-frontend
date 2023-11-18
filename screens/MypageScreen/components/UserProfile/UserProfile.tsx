@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 
+// styles
+import { ProfileImage, ProfileImageView, UserDate, UserId, UserProfileContainer, UserProfileInfo } from "./UserProfileStyle";
+
 // components
 import CustomButton from "../../../../components/Button/CustomButton";
 
@@ -9,14 +12,20 @@ import ImageDefault from "../../../../assets/images/image-default.png";
 
 const UserProfile = () => {
   return (
-    <View>
-      <Image source={ImageDefault} />
-      <Text>아이디</Text>
-      <Text>생일</Text>
+    <UserProfileContainer>
+      <UserProfileInfo>
+        <ProfileImage source={ImageDefault} />
+        <View>
+          <UserId>아이디</UserId>
+          <UserDate>생일</UserDate>
+        </View>
+      </UserProfileInfo>
       <CustomButton
+        size="small"
+        mode="outlined"
         value="프로필 수정"
       />
-    </View>
+    </UserProfileContainer>
   );
 };
 

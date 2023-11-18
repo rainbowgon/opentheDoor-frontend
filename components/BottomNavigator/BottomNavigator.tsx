@@ -136,6 +136,11 @@ const BottomNavigator = () => {
           component={SignUpScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="setting"
+          component={SettingScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }
@@ -227,7 +232,7 @@ const BottomNavigator = () => {
         name="searchStack"
         component={SearchStack}
         options={{
-          title: "searchBottomTab",
+          title: "search",
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (

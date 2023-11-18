@@ -8,27 +8,39 @@ import NonUserFeatureList from './components/NonUserFeatureList/NonUserFeatureLi
 import MypageLogin from './components/MypageLogin/MypageLogin';
 
 // styled components
-import PageContainer from '../../styles/commonStyles';
+import PageContainer, { FixedPageContainer } from '../../styles/commonStyles';
+import Header from "../../components/Header/Header";
+import { MypageContainer } from "./MypageScreenStyle";
 
 const MypageScreen = () => {
   return (
-    <PageContainer>
-      <ScrollView>
-        <Button title="MypageScreenDemo" />
+    <FixedPageContainer>
+      <MypageContainer>
+
         {
-          1 !== 1
-            ? <View>
+          1 === 1
+            ? <>
+              <Header
+                back="true"
+                alarm="true"
+                menu="true"
+              />
               <UserProfile />
-              <ReservationInfo />
-              <UserFeatureList />
-            </View>
-            : <View>
+              <View>
+                <ReservationInfo />
+                <UserFeatureList />
+              </View>
+            </>
+            : <>
+              <Header
+                back="true"
+              />
               <MypageLogin />
               <NonUserFeatureList />
-            </View>
+            </>
         }
-      </ScrollView>
-    </PageContainer>
+      </MypageContainer>
+    </FixedPageContainer>
   );
 };
 

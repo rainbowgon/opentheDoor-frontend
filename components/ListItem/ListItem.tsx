@@ -32,6 +32,7 @@ export interface ListItemProps {
   title?: string;
   content?: string;
   right?: string;
+  color?: "white" | "success" | "warn" | "info" | "error" | "disable";
   style?: string;
   onPress?: void;
 }
@@ -68,16 +69,17 @@ const ListItem = ({
   title,
   content,
   right = "none",
+  color,
   style,
   onPress,
 }: ListItemProps) => (
   <ListItemView>
     <ListItemItem>
-      {handleIcon("notificationsOn")}
+      {handleIcon(icon)}
       <View>
         {
           title &&
-          <ListItemTitle>{title}</ListItemTitle>
+          <ListItemTitle color={color}>{title}</ListItemTitle>
         }
         {
           content &&
