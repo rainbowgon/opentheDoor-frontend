@@ -7,6 +7,28 @@ interface MemberInfoType {
   profileImage: string;
 }
 
+interface MemberLoginInfoType {
+  nickname: string;
+  profileImage: string;
+  provider: string;
+  providerId: string;
+}
+
+export const userFcmToken = atom<string>({
+  key: 'userFcmToken',
+  default: ``
+});
+
+export const userAccessToken = atom<string>({
+  key: 'userAccessToken',
+  default: ``
+});
+
+export const userRefreshToken = atom<string>({
+  key: 'userRefreshToken',
+  default: ``
+});
+
 export const memberState = atom<MemberInfoType>({
   key: 'memberState',
   default: {
@@ -14,6 +36,16 @@ export const memberState = atom<MemberInfoType>({
     phoneNumber: "",
     nickname: "",
     profileImage: "",
+  },
+});
+
+export const memberLoginState = atom<MemberLoginInfoType>({
+  key: 'memberLoginState',
+  default: {
+    nickname: "",
+    profileImage: "",
+    provider: "",
+    providerId: "",
   },
 });
 

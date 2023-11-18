@@ -39,6 +39,7 @@ const RankingScreen = () => {
         {
           themeList.map((theme) => (
             <InfoCard
+              key={theme.themeId}
               themeId={theme.themeId}
               venue={theme.venue}
               title={theme.title}
@@ -48,7 +49,7 @@ const RankingScreen = () => {
               maxHeadcount={theme.maxHeadcount}
               timeLimit={theme.timeLimit}
               genre={theme.genre}
-              starrate={theme.starrate}
+              ratingScore={theme.ratingScore}
             />
           ))
         }

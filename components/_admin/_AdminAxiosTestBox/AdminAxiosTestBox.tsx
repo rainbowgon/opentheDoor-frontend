@@ -1,8 +1,9 @@
 import { Text, View } from 'react-native';
 import CustomButton from "../../Button/CustomButton";
-import { deleteMember, getBookmarkListMypage, getMemberCheckMyself, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchMemberInfo, patchNotification, patchNotificationAll, postCheckPhoneNumber, postReservation, postSignup, putBookmarkToggle } from "../../../recoil/selector/selector";
+import { getBookmarkListMypage, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchNotification, patchNotificationAll, postReservation, putBookmarkToggle } from "../../../recoil/selector/selector";
 import { deleteReview, getHistory, getReviewAll, getReviewCheckMyself, getReviewOne, patchReviewEdit, postReviewCreate } from "../../../recoil/review/reviewFeature";
 import { getThemeDetail, getThemeRanking, getThemeSearch, getThemeSort, getUpdateNearByThemeList, testGetThemeSearch } from "../../../recoil/theme/themeFeature";
+import { deleteMember, getMemberCheckMyself, patchMemberInfo, postCheckPhoneNumber, postKakaoLogin, postSignup } from "../../../recoil/member/memberFeature";
 
 const AdminAxiosTestBox = () => {
   const onGetThemeSort = () => {
@@ -50,7 +51,8 @@ const AdminAxiosTestBox = () => {
       <Text>[MEMBER]</Text>
       {/* TODO - 카카오 로그인 test */}
       <CustomButton
-        value="카카오 로그인 - (미완)"
+        value="카카오 로그인"
+        onPress={postKakaoLogin}
       />
 
       {/* TODO - 구글 로그인 test */}
@@ -79,6 +81,7 @@ const AdminAxiosTestBox = () => {
       <CustomButton
         value="개인 정보 수정 (PATCH) - patchMemberInfo"
         onPress={patchMemberInfo}
+
       />
 
       {/* TODO - 개인 정보 조회 (GET) test - getMemberCheckMyself */}

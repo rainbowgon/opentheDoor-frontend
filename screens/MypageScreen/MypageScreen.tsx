@@ -16,7 +16,7 @@ const MypageScreen = () => {
       <ScrollView>
         <Button title="MypageScreenDemo" />
         {
-          1 === 1
+          1 !== 1
             ? <View>
               <UserProfile />
               <ReservationInfo />
