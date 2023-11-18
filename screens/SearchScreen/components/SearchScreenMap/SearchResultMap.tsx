@@ -115,19 +115,22 @@ const SearchResultMap = () => {
               <InfoCard
                 themeId={selectedMarkerData.themeId}
                 title={selectedMarkerData.title}
-                // 필요한 다른 props 추가
+                poster={selectedMarkerData.poster}
+                venue={selectedMarkerData.venue}
+                ratingScore={selectedMarkerData.ratingScore}
+                reviewCount={selectedMarkerData.reviewCount}
+              />
+            </View>
+            <View style={styles.listbutton}>
+              <CustomButton
+                mode="selected"
+                value="리스트로 보기"
+                onPress={() => setListModalVisible(true)}
               />
             </View>
           </TouchableOpacity>
         </Modal>
       )}
-      <View style={styles.listbutton}>
-        <CustomButton
-          mode="selected"
-          value="리스트로 보기"
-          onPress={() => setListModalVisible(true)}
-        />
-      </View>
     </View>
   );
 };

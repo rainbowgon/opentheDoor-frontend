@@ -242,8 +242,12 @@ const SearchScreenMap = () => {
                       title={selectedMarkerData.title}
                       // 여기에 필요한 다른 props 추가
                       onPress={() =>
-                        handleThemeSelect(selectedMarkerData.themeId)
+                        handleMarkerPress(selectedMarkerData.themeId)
                       }
+                      poster={selectedMarkerData.poster}
+                      venue={selectedMarkerData.venue}
+                      ratingScore={selectedMarkerData.ratingScore}
+                      reviewCount={selectedMarkerData.reviewCount}
                     />
                   </View>
                 </TouchableOpacity>
