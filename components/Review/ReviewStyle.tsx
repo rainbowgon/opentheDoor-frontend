@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 import { theme } from "../../styles/colors";
 
-export const ReviewContainer = styled.TouchableOpacity`
+export const ReviewContainer = styled.View`
   justify-content: center;
   width: auto;
-  margin: 10px;
+  margin: 5px;
   padding: 20px;
   border-radius: 10px;
   background-color: ${theme.background4};
@@ -64,6 +64,14 @@ export const ReviewContent = styled.Text`
   color: ${theme.font1_main};
   font-size:14px;
   font-weight: 600;
+`;
+
+export const ReviewContentDisabled = styled.Text`
+  color: #79747E44;
+  font-size:14px;
+  font-weight: 700;
+  
+  text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);
 `;
 
 export const ReviewSubContent = styled.Text`

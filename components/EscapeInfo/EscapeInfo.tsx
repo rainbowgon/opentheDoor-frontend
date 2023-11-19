@@ -1,9 +1,10 @@
 import * as React from "react";
 import { View, Text } from "react-native";
 import { EscapeInfoContent, EscapeInfoTitle, EscapeInfoView, EscapeInfoViewRow } from "./EscapeInfoStyle";
+import { PriceList } from "../../recoil/theme/theme";
 
 export interface EscapeInfoProps {
-  price?: null | number;
+  price?: null | PriceList[];
   date?: null | Date;
   minPerson?: null | number;
   maxPerson?: null | number;
@@ -17,14 +18,28 @@ const EscapeInfo = ({
   maxPerson,
   time,
 }: EscapeInfoProps) => {
+
+  const handlePriceItem = (item: PriceList) => {
+    if (item.price && item.headcount) {
+      return (item.price * item.headcount);
+    }
+  }
+
   return (
     <EscapeInfoView>
       {price && (
         <EscapeInfoViewRow>
           <EscapeInfoTitle>금액</EscapeInfoTitle>
-          <EscapeInfoContent>
-            최대 {price}원 (1인 당 {price}원)
-          </EscapeInfoContent>
+
+          <View>
+            {
+              price.map(priceItem => (
+                <EscapeInfoContent>
+                  [{priceItem.headcount}인] {handlePriceItem(priceItem)}원 (1인 당 {priceItem.price}원)
+                </EscapeInfoContent>
+              ))
+            }
+          </View>
         </EscapeInfoViewRow>
       )}
       {date && (

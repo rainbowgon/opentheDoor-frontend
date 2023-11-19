@@ -38,6 +38,12 @@ interface ReviewType {
   reviewId?: null | number;
   /** 프로필 ID  */
   profileId?: null | number;
+  /** 닉네임  */
+  nickname?: null | string;
+  /** 프로필 이미지  */
+  profileImage?: null | string;
+  /** 리뷰 작성일  */
+  reviewCreatedDate?: null | string;
   /** 테마 ID  */
   theme_id?: null | string;
   /** 예약 ID  */
@@ -65,6 +71,9 @@ interface ReviewType {
 export interface ReviewInfoType extends ReviewType {
   reviewId: number;
   profileId: number;
+  nickname: string;
+  profileImage: null | string;
+  reviewCreatedDate: string;
   rating: number;
   isEscaped: "SUCCESS" | "FAIL";
   myLevel: null | number;
@@ -73,6 +82,7 @@ export interface ReviewInfoType extends ReviewType {
   performedDate: string;
   performedTime: null | string;
   performedHeadcount: null | number;
+  isVerified: null | boolean;
 }
 
 export interface ReviewCreateType extends ReviewType {
@@ -93,6 +103,9 @@ export const myReviewState = atom<ReviewInfoType>({
   default: {
     reviewId: 1,
     profileId: 1,
+    nickname: "nickname",
+    profileImage: null,
+    reviewCreatedDate: "2023-11-19",
     rating: 3.6,
     isEscaped: "SUCCESS",
     myLevel: 3,
@@ -101,6 +114,7 @@ export const myReviewState = atom<ReviewInfoType>({
     performedDate: "2023-11-02",
     performedTime: null,
     performedHeadcount: null,
+    isVerified: true,
   },
 });
 
@@ -111,6 +125,9 @@ export const reviewListState = atom<ReviewInfoType[]>(
       {
         reviewId: 1,
         profileId: 1,
+        nickname: "nickname",
+        profileImage: null,
+        reviewCreatedDate: "2023-11-19",
         rating: 3.6,
         isEscaped: "SUCCESS",
         myLevel: 3,
@@ -119,10 +136,14 @@ export const reviewListState = atom<ReviewInfoType[]>(
         performedDate: "2023-11-02",
         performedTime: null,
         performedHeadcount: null,
+        isVerified: true,
       },
       {
         reviewId: 2,
         profileId: 2,
+        nickname: "nickname2",
+        profileImage: null,
+        reviewCreatedDate: "2023-11-19",
         rating: 2.6,
         isEscaped: "FAIL",
         myLevel: 2,
@@ -131,6 +152,7 @@ export const reviewListState = atom<ReviewInfoType[]>(
         performedDate: "2023-11-02",
         performedTime: null,
         performedHeadcount: null,
+        isVerified: false,
       },
     ]
   }

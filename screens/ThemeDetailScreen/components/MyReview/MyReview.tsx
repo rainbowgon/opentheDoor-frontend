@@ -15,12 +15,25 @@ const MyReview = () => {
     <View>
       <ThemeDetailTitleView>
         <Title>내가 쓴 리뷰</Title>
-        <ThemeDetailReviewTitleButtons>
-          <CustomButton mode="inactive" size="xsmall" value="삭제" />
-          <CustomButton mode="selected" size="xsmall" value="수정" />
-        </ThemeDetailReviewTitleButtons>
+        {
+          myReview &&
+          <ThemeDetailReviewTitleButtons>
+            <CustomButton mode="inactive" size="xsmall" value="삭제" />
+            <CustomButton mode="selected" size="xsmall" value="수정" />
+          </ThemeDetailReviewTitleButtons>
+        }
       </ThemeDetailTitleView>
-      <ReviewItem review={myReview} />
+      <ThemeDetailTitleView>
+        {
+          myReview
+            ?
+            <ReviewItem review={myReview} />
+            :
+            <View>
+              <Text>작성한 리뷰가 없어요</Text>
+            </View>
+        }
+      </ThemeDetailTitleView>
     </View>
   );
 };

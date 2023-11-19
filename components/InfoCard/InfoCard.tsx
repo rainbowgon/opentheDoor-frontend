@@ -36,9 +36,10 @@ import { getThemeDetail } from "../../recoil/theme/themeFeature";
 import { useCallback } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/urls";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { myReviewState, reviewListState } from "../../recoil/review/review";
 import { modalState } from "../../recoil/map/map";
+import { userAccessToken } from "../../recoil/member/member";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -51,7 +52,7 @@ const InfoCard = (
     level = null,
     minHeadcount = null,
     maxHeadcount = null,
-    priceList: price = null,
+    priceList = null,
     timeLimit = null,
     latitude = null,
     longitude = null,
@@ -85,6 +86,7 @@ const InfoCard = (
   const setThemeItem = useSetRecoilState(themeState);
   const setMyThemeReview = useSetRecoilState(myReviewState);
   const setThemeReviewList = useSetRecoilState(reviewListState);
+  const accessToken = useRecoilValue(userAccessToken);
 
   // pathes
   const SearchServicePath = `/search-service`;
@@ -112,17 +114,59 @@ const InfoCard = (
       console.error("테마 상세 조회 실패", error);
     } finally {
     }
+    if (accessToken === "") {
+      try {
+        // setLoading(true);
+
+        const response = await axios.get(
+          `${API_URL}${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`,
+        );
+        console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
+        setThemeReviewList(response.data.data);
+      } catch (error) {
+        console.error("테마 리뷰 조회 실패", error);
+      } finally {
+      }
+    }
+    if (accessToken !== "") {
+      try {
+        // setLoading(true);
+
+        const response = await axios.get(
+          `${API_URL}${MemberServicePath}${ReviewAPI}/themes/all?themeId=${themeId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+        console.log("테마 리뷰 전체 조회 성공", response.data);
+        setThemeReviewList(response.data.data);
+        return response.data;
+      } catch (error) {
+        console.error("테마 리뷰 조회 실패", error);
+      } finally {
+      }
+    }
 
     try {
       // setLoading(true);
+      const curThemeId = themeId && 1;
+
+      console.log("accessToken", accessToken);
 
       const response = await axios.get(
-        `${API_URL}${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`,
+        `${API_URL}${MemberServicePath}${ReviewAPI}/themes/my?themeId=${curThemeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
       );
-      console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
-      setThemeReviewList(response.data.data);
+      console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
+      setMyThemeReview(response.data.data);
     } catch (error) {
-      console.error("테마 리뷰 1건 조회 (비회원) 실패", error);
+      console.error("테마의 내가 쓴 리뷰 조회 실패", error);
     } finally {
     }
   }, []);
@@ -162,7 +206,8 @@ const InfoCard = (
             {minHeadcount && maxHeadcount && (
               <>
                 <SubTitleText>
-                  {price || "- "}원 ({minHeadcount || "0"}
+                  {(priceList && priceList?.[0]?.price) || "- "}원 (
+                  {minHeadcount || "0"}
                   {minHeadcount && maxHeadcount && " ~ "}
                   {maxHeadcount || "0"}명)
                 </SubTitleText>
