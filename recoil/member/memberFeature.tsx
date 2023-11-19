@@ -111,12 +111,16 @@ export async function postSignup() {
  * TODO - 전화번호 본인 인증 (POST) - postCheckPhoneNumber
  * /member-service/members/phone
  */
-export async function postCheckPhoneNumber() {
+export async function postCheckPhoneNumber(number) {
   console.log("postCheckPhoneNumber");
   // FIXME - 데이터 삽입
+  if (number.length !== 11) {
+    return false;
+  }
   const data = {
-    phoneNumber: "01045344955"
+    phoneNumber: number
   };
+
 
   const response = await axios
     .post(
