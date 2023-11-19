@@ -8,6 +8,7 @@ import Input from "../../../../components/Input/Input";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
+import { searchResultsState } from "../../../../recoil/search/search";
 
 const headcountOptions = {
   "2인": 2,
@@ -89,6 +90,8 @@ const SearchFilter = () => {
       console.log(response.data);
       console.log(selectedHeadcount);
       console.log(selectedRegions);
+      const searchData = response.data.data;
+      setRecoilState(searchResultsState, searchData);
     } catch (error) {
       console.error(error);
     }
