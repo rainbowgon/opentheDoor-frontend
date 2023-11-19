@@ -37,6 +37,7 @@ import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen
 import { BorderlessButton } from "react-native-gesture-handler";
 import KakaoLoginScreen from "../../screens/KakaoLoginScreen/KakaoLoginScreen";
 import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
+import SearchResultScreen from "../../screens/SearchScreen/SearchResultScreen";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { themeRankListState } from "../../recoil/theme/theme";
 import { API_URL } from "../../constants/urls";
@@ -106,6 +107,11 @@ const BottomNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="searchResult"
+          component={SearchResultScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="themeDetail"
           component={ThemeDetailScreen}
           options={{ headerShown: false }}
@@ -136,19 +142,12 @@ const BottomNavigator = () => {
           component={SignUpScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="setting"
-          component={SettingScreen}
-          options={{ headerShown: false }}
-        />
       </Stack.Navigator>
     );
   }
-
   const bottomBarState = useRecoilValue(BottomBarState);
   const setThemeRankList = useSetRecoilState(themeRankListState);
 
-  // apis
   const SearchServicePath = `/search-service`;
   const ThemeAPI = "/themes";
 
@@ -157,7 +156,7 @@ const BottomNavigator = () => {
       return 60;
     }
     return 0;
-  }
+  };
 
   const SettingThemeRank = useCallback(async () => {
     // if (loading) {
@@ -166,8 +165,9 @@ const BottomNavigator = () => {
 
     try {
       // setLoading(true);
-      const response = await axios
-        .get(`${API_URL}${SearchServicePath}${ThemeAPI}/rankings`)
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/rankings`,
+      );
 
       console.log("테마 상세 조회 성공", response.data);
       setThemeRankList(response.data.data);
@@ -176,15 +176,13 @@ const BottomNavigator = () => {
       console.error("테마 상세 조회 실패", error);
     } finally {
     }
-
   }, []);
 
   useEffect(() => {
     console.log("useEffect : SettingThemeRank");
     SettingThemeRank();
     console.log("useEffect : LoginTapped");
-  }, [])
-
+  }, []);
   return (
     <Tab.Navigator
       screenOptions={{

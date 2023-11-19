@@ -49,16 +49,13 @@ const SearchScreenMapBottom = () => {
   // const isFocused = useIsFocused();
   const [listModalVisible, setListModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  // const [markers, setMarkers] = useState([]);
-  // const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
   const fetchThemes = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_URL}${SearchServicePath}${ThemeAPI}/searches?page=&size=100000000`,
+        `${API_URL}${SearchServicePath}${ThemeAPI}/searches?page=&size=100`,
       );
       const themes = response.data.data.map(theme => ({
         ...theme,
@@ -90,17 +87,6 @@ const SearchScreenMapBottom = () => {
     setModalVisible(true);
   };
 
-  // useEffect(() => {
-  //   console.log("###################################themeList:", themeList);
-  //   console.log(
-  //     "###################################themeList:",
-  //     typeof themeList,
-  //   );
-
-  //   // 여기서 nearByTheme이 배열이고, 항목이 있는지 확인합니다.
-  //   // 필요한 경우 여기에서 추가 로직을 실행할 수 있습니다.
-  // }, [themeList]);
-
   const initialRegion = {
     latitude: 37.5642135,
     longitude: 127.0016985,
@@ -110,7 +96,6 @@ const SearchScreenMapBottom = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = searchData => {
-    // 검색 데이터를 상태에 설정합니다.
     setSearchResults(searchData);
 
     // 검색된 장소들을 포함하는 지도 범위를 계산
@@ -140,8 +125,6 @@ const SearchScreenMapBottom = () => {
       <Input label="테마 검색" icon={Search} />
       <View>
         <CustomMap region={initialRegion} style={{ height: 630 }}>
-          {/* {searchResults.map((location, in]6dex) => ( */}
-          {/* <Marker coordinate={region} title="내 위치" /> */}
           {!isLoading &&
             themeList.map(theme => (
               <Marker
@@ -155,13 +138,6 @@ const SearchScreenMapBottom = () => {
                 onPress={() => handleMarkerPress(theme)}
               />
             ))}
-
-          {/* <View>
-            {themeList.map(theme => {
-              console.log(theme);
-              return <Text>{theme.latitude}</Text>; 
-            })}
-          </View> */}
         </CustomMap>
         {selectedMarkerData && (
           <Modal
@@ -177,8 +153,11 @@ const SearchScreenMapBottom = () => {
                 <InfoCard
                   themeId={selectedMarkerData.themeId}
                   title={selectedMarkerData.title}
-                  // 여기에 필요한 다른 props 추가
                   onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
+                  poster={selectedMarkerData.poster}
+                  venue={selectedMarkerData.venue}
+                  ratingScore={selectedMarkerData.ratingScore}
+                  reviewCount={selectedMarkerData.reviewCount}
                 />
               </View>
             </TouchableOpacity>
