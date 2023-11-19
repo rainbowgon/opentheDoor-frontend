@@ -43,6 +43,7 @@ const getBackgroundColor = (props) => {
   if (props.mode === "selected") return theme.primary3_main;
   if (props.mode === "inactive") return theme.background3;
   if (props.mode === "error") return theme.semantic_error;
+  if (props.mode === "kakao") return "#FEE500";
   return theme.transparent;
 };
 
@@ -53,6 +54,7 @@ const getBorderColor = (props) => {
   if (props.mode === "selected") return theme.primary5;
   if (props.mode === "inactive") return theme.background1;
   if (props.mode === "error") return theme.semantic_error;
+  if (props.mode === "kakao") return "#FEE500";
   return theme.semantic_warn;
 };
 
@@ -63,6 +65,7 @@ const getColor = (props) => {
   if (props.mode === "selected") return theme.font1_main;
   if (props.mode === "inactive") return theme.background1;
   if (props.mode === "error") return theme.font1_main;
+  if (props.mode === "kakao") return "#191919";
   return theme.semantic_warn;
 };
 

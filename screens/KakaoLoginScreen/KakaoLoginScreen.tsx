@@ -7,7 +7,8 @@ import Header from "../../components/Header/Header";
 import WebView from "react-native-webview";
 import axios from "axios";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { memberLoginState, userFcmToken } from "../../recoil/member/member";
+import { memberLoginState, memberState, userAccessToken, userFcmToken, userRefreshToken } from "../../recoil/member/member";
+import { UserProfileInfo } from "../MypageScreen/components/UserProfile/UserProfileStyle";
 
 const KakaoLoginScreen = () => {
   const navigation = useNavigation();
@@ -37,6 +38,9 @@ const KakaoLoginScreen = () => {
 
   const [userInfo, setUserInfo] = useState();
   const setMemberLoginInfo = useSetRecoilState(memberLoginState);
+  const setAccessToken = useSetRecoilState(userAccessToken);
+  const setRefreshToken = useSetRecoilState(userRefreshToken);
+  const setMemberState = useSetRecoilState(memberState);
   const fcmToken = useRecoilValue(userFcmToken);
 
   async function getKakaoLogin(data: string) {
@@ -59,19 +63,27 @@ const KakaoLoginScreen = () => {
     }
     catch (error) {
       console.log("4. ", data);
-      console.error("카카오 로그인 시도 실패", error);
+      console.error("카카오 Oauth 로그인 시도 실패", error);
     }
   }
 
   async function handleLogin(data: string) {
     try {
       const response = await axios
-        .get(
-          `/member-service/oauth/login/kakao?fcmToken=${fcmToken}&profileId=${data}`,
+        .post(
+          `${API_URL}${MemberServicePath}${OauthAPI}/login/kakao?fcmToken=${fcmToken}&profileId=${data}`,
         )
       console.log("카카오 로그인 요청", response.data);
       setUserInfo(response.data.data);
       console.log("카카오 로그인 성공", response.data);
+      setAccessToken(response.data.data.accessToken);
+      setRefreshToken(response.data.data.refreshToken);
+      setMemberState({
+        name: "test",
+        nickname: response.data.data.nickname,
+        phoneNumber: response.data.data.ph,
+        profileImage: response.data.data.profileImage,
+      });
       console.log("데이터 삽입 성공");
       console.log(typeof (response.data.data));
       goBack();
