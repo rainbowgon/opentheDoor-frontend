@@ -8,6 +8,8 @@ import MenuThreedot from "../../assets/icons/icon-menu-threedot.png"
 import BookmarkOff from "../../assets/icons/icon-bookmark-off.png"
 import Filter from "../../assets/icons/icon-filter.png"
 import { useNavigation } from "@react-navigation/native";
+import { useRecoilState } from "recoil";
+import { SearchFilterIsOpened } from "../../recoil/state/state";
 export interface HeaderProps {
   back?: "true" | "false";
   alarm?: "true" | "false";
@@ -25,6 +27,8 @@ const Header = ({
 }: HeaderProps) => {
   const navigation = useNavigation();
 
+  const [searchFilter, setSearchFilter] = useRecoilState(SearchFilterIsOpened);
+
   const goBack = () => {
     console.log("back 페이지로 이동")
     navigation.goBack();
@@ -37,7 +41,10 @@ const Header = ({
     console.log("setting 페이지로 이동")
     navigation.navigate("setting");
   };
-  const handleFilter = () => console.log("Filter");
+  const handleFilter = () => {
+    setSearchFilter(!searchFilter);
+    console.log("Filter", searchFilter);
+  }
   const handleBookmark = () => console.log("Bookmark");
 
   return (

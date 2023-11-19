@@ -10,3 +10,10 @@ export const BottomBarState = atom<bottomBarStateType>({
     isBottomBar: "TRUE"
   }
 })
+
+export const SearchFilterIsOpened = atom<boolean>(
+  {
+    key: "SearchFilterIsOpened",
+    default: false,
+  }
+)

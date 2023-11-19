@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { theme } from "../../styles/colors";
 
-export const CardView = styled.View`
+export const MiniCardView = styled.View`
   display: flex;
   flex-direction: row;
 
@@ -9,28 +9,10 @@ export const CardView = styled.View`
   height: fit-content;
   width: auto;
   margin: 10px;
+  padding: 10px 20px;
   
   border-radius: 10px;
   background-color: ${theme.background4};
-  `;
-
-export const ImageGuideView = styled.View`
-  position: relative;
-
-  height: 150px;
-  width: 110px;
-  margin-right: 15px;
-  
-  overflow: hidden;
-  `;
-
-export const ContentImage = styled.Image`
-  position: absolute;
-
-  height: 150px;
-  width: 110px;
-  object-fit: cover;
-  resizeMode: cover;
   `;
 
 export const ContentInfo = styled.View`
@@ -49,7 +31,7 @@ export const BookmarkItem = styled.View`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  margin: 15px 0 0 15px;
+  margin-top: 15px;
   `
 
 export const BookmarkView = styled.View`

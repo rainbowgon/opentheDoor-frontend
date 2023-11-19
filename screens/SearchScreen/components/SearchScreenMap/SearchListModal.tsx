@@ -12,6 +12,9 @@ import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
+import { SearchFilterIcon, SearchFilterIconView } from "./SearchListModalStyle";
+
+import Expandmore from "../../../../assets/icons/icon-expandmore.png"
 
 const SearchListModal = ({ modalVisible, setModalVisible }) => {
   const [selectedMarkerData, setSelectedMarkerData] = useState();
@@ -44,7 +47,7 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
 
   const navigation = useNavigation();
 
-  const handleOpenModal = () => {};
+  const handleOpenModal = () => { };
 
   const handleThemeSelect = (themeId: string) => {
     navigation.navigate("themeDetail");
@@ -67,9 +70,11 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
       onRequestClose={() => setModalVisible(false)}>
       {modalVisible && (
         <View style={styles.container}>
-          <Text {...panResponder.panHandlers} style={styles.headerText}>
-            아래로 쓸어내려 지도로 보기
-          </Text>
+          <SearchFilterIconView  {...panResponder.panHandlers}>
+            <SearchFilterIcon
+              source={Expandmore}
+            />
+          </SearchFilterIconView>
           <FlatList
             data={themeList}
             renderItem={renderTheme}

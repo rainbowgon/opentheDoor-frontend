@@ -16,7 +16,7 @@ const MyReview = () => {
       <ThemeDetailTitleView>
         <Title>내가 쓴 리뷰</Title>
         {
-          myReview &&
+          (myReview && myReview.theme_id === theme.themeId) &&
           <ThemeDetailReviewTitleButtons>
             <CustomButton mode="inactive" size="xsmall" value="삭제" />
             <CustomButton mode="selected" size="xsmall" value="수정" />
@@ -25,7 +25,7 @@ const MyReview = () => {
       </ThemeDetailTitleView>
       <ThemeDetailTitleView>
         {
-          myReview
+          (myReview && myReview.theme_id === theme.themeId)
             ?
             <ReviewItem review={myReview} />
             :
