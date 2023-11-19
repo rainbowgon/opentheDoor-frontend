@@ -159,36 +159,36 @@ export const themeState = atom<ThemeDetailInfoType>({
         timeList: [
           {
             time: "11:00",
-            "isAvailable": "AVAILABLE"
+            isAvailable: "AVAILABLE",
           },
           {
-            "time": "13:00",
-            "isAvailable": "AVAILABLE"
+            time: "13:00",
+            isAvailable: "AVAILABLE",
           },
           {
-            "time": "17:00",
-            "isAvailable": "NOT_AVAILABLE"
+            time: "17:00",
+            isAvailable: "NOT_AVAILABLE",
           },
-        ]
+        ],
       },
       {
         date: "2023-11-12",
         timeList: [
           {
-            "time": "11:00",
-            "isAvailable": "AVAILABLE"
+            time: "11:00",
+            isAvailable: "AVAILABLE",
           },
           {
-            "time": "13:00",
-            "isAvailable": "AVAILABLE"
+            time: "13:00",
+            isAvailable: "AVAILABLE",
           },
           {
-            "time": "17:00",
-            "isAvailable": "NOT_AVAILABLE"
+            time: "17:00",
+            isAvailable: "NOT_AVAILABLE",
           },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
 });
 
