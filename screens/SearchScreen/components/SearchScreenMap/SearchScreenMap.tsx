@@ -261,6 +261,11 @@ const SearchScreenMap = () => {
                       venue={selectedMarkerData.venue}
                       ratingScore={selectedMarkerData.ratingScore}
                       reviewCount={selectedMarkerData.reviewCount}
+                      level={selectedMarkerData.level}
+                      genre={selectedMarkerData.genre}
+                      priceList={selectedMarkerData.priceList.price}
+                      minHeadcount={selectedMarkerData.minHeadCount}
+                      maxHeadcount={selectedMarkerData.maxHeadCount}
                     />
                   </View>
                 </TouchableOpacity>

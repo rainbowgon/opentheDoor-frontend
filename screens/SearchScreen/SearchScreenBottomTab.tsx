@@ -37,39 +37,6 @@ const SearchScreenBottomTab = () => {
     <FixedPageContainer>
       <Header back="true" menu="true" />
       <SearchScreenMapBottom />
-      {/* <SearchListModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      /> */}
-      {/* <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}> */}
-      {/* <View {...panResponder.panHandlers}>
-          <CustomButton mode="selected" value="지도로 보기" />
-        </View> */}
-      {/* <View {...panResponder.panHandlers} style={styles.container}>
-          <Text> 지도로 보기 </Text>
-        </View> */}
-      {/* <PageContainer>
-          {themeList.map(theme => (
-            <InfoCard
-              key={theme.themeId}
-              themeId={theme.themeId}
-              ratingScore={theme.ratingScore}
-            />
-          ))} */}
-      {/* <TouchableOpacity
-            activeOpacity={1}
-            onPressOut={handleOpenModal}
-            style={{ flex: 1 }}>
-            {[...Array(10)]}
-          </TouchableOpacity> */}
-      {/* </PageContainer> */}
-      {/* </Modal> */}
     </FixedPageContainer>
   );
 };
