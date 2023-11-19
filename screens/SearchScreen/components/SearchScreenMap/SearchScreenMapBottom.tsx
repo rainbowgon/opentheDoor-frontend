@@ -40,6 +40,7 @@ import axios from "axios";
 import SearchFilter from "./SearchFilter";
 import { searchResultsState } from "../../../../recoil/search/search";
 import { locationState } from "../../../../recoil/map/map";
+import { ListViewButton, MapContainer } from "./SearchScreenMapBottomStyle";
 const SearchServicePath = `/search-service`;
 const ThemeAPI = "/themes";
 
@@ -130,10 +131,9 @@ const SearchScreenMapBottom = () => {
   };
   return (
     <View>
-      {/* <Header /> */}
       {/* <Input label="테마 검색" icon={Search} /> */}
       <SearchFilter />
-      <View>
+      <MapContainer>
         <CustomMap region={initialRegion} style={{ height: 630 }}>
           {region && <Marker coordinate={region} title="내 위치" />}
           {!isLoading &&
@@ -179,14 +179,14 @@ const SearchScreenMapBottom = () => {
             </TouchableOpacity>
           </Modal>
         )}
-        <View style={styles.listbutton}>
+        <ListViewButton>
           <CustomButton
             mode="selected"
             value="리스트로 보기"
             onPress={() => setListModalVisible(true)}
           />
-        </View>
-      </View>
+        </ListViewButton>
+      </MapContainer>
       <SearchListModal
         modalVisible={listModalVisible}
         setModalVisible={setListModalVisible}
