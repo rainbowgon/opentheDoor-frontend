@@ -38,6 +38,7 @@ import axios from "axios";
 import { API_URL } from "../../constants/urls";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { myReviewState, reviewListState } from "../../recoil/review/review";
+import { modalState } from "../../recoil/map/map";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -76,10 +77,11 @@ const InfoCard = (
     console.log(themeId);
     // getThemeDetail(themeId);
     handleThemeDetail();
-    console.log("themeDetail 페이지로 이동")
+    setModalOpen(false);
+    console.log("themeDetail 페이지로 이동");
     navigation.navigate("themeDetail");
   };
-
+  const [isModalOpen, setModalOpen] = useRecoilState(modalState);
   const setThemeItem = useSetRecoilState(themeState);
   const setMyThemeReview = useSetRecoilState(myReviewState);
   const setThemeReviewList = useSetRecoilState(reviewListState);
@@ -92,7 +94,6 @@ const InfoCard = (
   const ThemeAPI = "/themes";
   const ReviewAPI = "/reviews";
 
-
   const handleThemeDetail = useCallback(async () => {
     // if (loading) {
     //   return;
@@ -101,8 +102,9 @@ const InfoCard = (
     try {
       // setLoading(true);
 
-      const response = await axios
-        .get(`${API_URL}${SearchServicePath}${ThemeAPI}/${themeId}`)
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/${themeId}`,
+      );
 
       console.log("테마 상세 조회 성공", response.data);
       setThemeItem(response.data.data);
@@ -114,18 +116,15 @@ const InfoCard = (
     try {
       // setLoading(true);
 
-      const response = await axios
-        .get(
-          `${API_URL}${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`
-        )
+      const response = await axios.get(
+        `${API_URL}${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`,
+      );
       console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
       setThemeReviewList(response.data.data);
-
     } catch (error) {
       console.error("테마 리뷰 1건 조회 (비회원) 실패", error);
     } finally {
     }
-
   }, []);
 
   return (
@@ -136,15 +135,17 @@ const InfoCard = (
           <ImageGuideView>
             <ContentImage
               source={{ uri: poster }}
-              onError={(error) => console.error("Image load error:", error)}
+              onError={error => console.error("Image load error:", error)}
             />
             <LinearGradient
               start={{ x: 0.0, y: 0.0 }}
               end={{ x: 1.0, y: 0.0 }}
-              colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)', 'rgba(36, 36, 35, 1)']}
-              style={styles.linearGradient}
-            >
-            </LinearGradient>
+              colors={[
+                "rgba(255, 255, 255, 0)",
+                "rgba(255, 255, 255, 0)",
+                "rgba(36, 36, 35, 1)",
+              ]}
+              style={styles.linearGradient}></LinearGradient>
           </ImageGuideView>
           <ContentInfo>
             {title && <TitleText> {title}</TitleText>}
@@ -161,8 +162,7 @@ const InfoCard = (
             {minHeadcount && maxHeadcount && (
               <>
                 <SubTitleText>
-                  {price || "- "}원
-                  ({minHeadcount || "0"}
+                  {price || "- "}원 ({minHeadcount || "0"}
                   {minHeadcount && maxHeadcount && " ~ "}
                   {maxHeadcount || "0"}명)
                 </SubTitleText>
@@ -197,30 +197,35 @@ const InfoCard = (
             </BookmarkItem>
             {
               // FIXME - 예약기능 건드리면서 수정
-              1 !== 1 &&
-              <View>
-                <CustomButton size="xsmall" mode="outlined" value="예약 취소" />
-                <CustomButton
-                  size="xsmall"
-                  mode="outlined"
-                  value="예약 대기 취소"
-                />
-              </View>
+              1 !== 1 && (
+                <View>
+                  <CustomButton
+                    size="xsmall"
+                    mode="outlined"
+                    value="예약 취소"
+                  />
+                  <CustomButton
+                    size="xsmall"
+                    mode="outlined"
+                    value="예약 대기 취소"
+                  />
+                </View>
+              )
             }
           </ContentButtonList>
         </CardView>
       </TouchableOpacity>
       {
         // FIXME - 알림기능 건드리면서 수정
-        1 !== 1 &&
-        <>
-          <CustomButton mode="inactive" value="오픈 알람 받기" />
-          <CustomButton mode="selected" value="오픈 알람 받는 중" />
-        </>
+        1 !== 1 && (
+          <>
+            <CustomButton mode="inactive" value="오픈 알람 받기" />
+            <CustomButton mode="selected" value="오픈 알람 받는 중" />
+          </>
+        )
       }
     </>
-
-  )
+  );
 };
 
 var styles = StyleSheet.create({

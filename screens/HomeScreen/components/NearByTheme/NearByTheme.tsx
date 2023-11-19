@@ -19,6 +19,7 @@ import {
   themeNearByList,
 } from "../../../../recoil/theme/theme";
 import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
+import { locationState } from "../../../../recoil/map/map";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
@@ -30,13 +31,7 @@ const NearByTheme = () => {
     setModalVisible(true);
   };
 
-  // default를 서울로 지정했습니다!
-  const [region, setRegion] = useState<Region>({
-    latitude: 37.5013,
-    longitude: 127.0396781,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+  const [region, setRegion] = useRecoilState(locationState);
 
   useEffect(() => {
     async function requestLocationPermission() {
@@ -129,7 +124,7 @@ const NearByTheme = () => {
             );
 
             // 이 상태로 searchScreen으로 이동해요
-            navigation.navigate("search");
+            navigation.navigate("searchBottomTab");
           }}
         />
       </View>

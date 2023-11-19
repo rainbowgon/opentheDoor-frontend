@@ -11,24 +11,20 @@ const Input = ({
   onChangeText,
   onKeyPress,
   onIconPress,
+  editable,
 }) => {
   return (
     <TextInput
       label={label}
       placeholder={placeholder}
       mode="outlined"
-      right={
-        icon &&
-        <TextInput.Icon
-          icon={icon}
-          onPress={onIconPress}
-        />
-      }
+      right={icon && <TextInput.Icon icon={icon} onPress={onIconPress} />}
       multiline={multiline}
       value={value}
       onChangeText={onChangeText}
       // onKeyPress={onKeyPress}
       disabled={disabled}
+      editable={editable}
     />
   );
 };

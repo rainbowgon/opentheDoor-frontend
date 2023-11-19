@@ -11,6 +11,7 @@ import InfoCard from "../../../../components/InfoCard/InfoCard";
 import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SearchListModal = ({ modalVisible, setModalVisible }) => {
   const [selectedMarkerData, setSelectedMarkerData] = useState();
@@ -31,6 +32,15 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
       },
     }),
   ).current;
+  useFocusEffect(
+    React.useCallback(() => {
+      // 화면으로 돌아올 때 모달 상태를 확인하고 필요한 조치를 취합니다
+      // 예: 모달을 닫거나 상태를 업데이트
+      setModalVisible(false);
+    }, []),
+  );
+
+  // ... 나머지 코드
 
   const navigation = useNavigation();
 
