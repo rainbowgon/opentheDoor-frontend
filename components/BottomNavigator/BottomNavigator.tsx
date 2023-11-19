@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Image } from "react-native";
 import "react-native-gesture-handler";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import messaging from "@react-native-firebase/messaging";
 
 // style
 import { theme } from "../../styles/colors";
@@ -34,14 +35,32 @@ import SettingScreen from "../../screens/SettingScreen/SettingScreen";
 import SignUpScreen from "../../screens/SignUpScreen/SignUpScreen";
 import ThemeDetailScreen from "../../screens/ThemeDetailScreen/ThemeDetailScreen";
 import { BorderlessButton } from "react-native-gesture-handler";
+import KakaoLoginScreen from "../../screens/KakaoLoginScreen/KakaoLoginScreen";
 import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
 import SearchResultScreen from "../../screens/SearchScreen/SearchResultScreen";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { themeRankListState } from "../../recoil/theme/theme";
+import { API_URL } from "../../constants/urls";
+import axios from "axios";
+import { getThemeRanking } from "../../recoil/theme/themeFeature";
+import { userFcmToken } from "../../recoil/member/member";
+import { BottomBarState } from "../../recoil/state/state";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
-  // TODO - stack navigation
+  const [fcmToken, setFcmToken] = useRecoilState(userFcmToken);
+
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    setFcmToken(fcmToken);
+    console.log("[FCM Token] in bottom Navigator : ", fcmToken);
+  };
+
+  useEffect(() => {
+    getFcmToken();
+  }, []);
 
   function HomeStack() {
     return (
@@ -108,10 +127,62 @@ const BottomNavigator = () => {
           component={MypageScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="kakaoLogin"
+          component={KakaoLoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="signUp"
+          component={SignUpScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }
+  const bottomBarState = useRecoilValue(BottomBarState);
+  const setThemeRankList = useSetRecoilState(themeRankListState);
 
+  const SearchServicePath = `/search-service`;
+  const ThemeAPI = "/themes";
+
+  const handleBottomBarPos = () => {
+    if (bottomBarState.isBottomBar === "TRUE") {
+      return 60;
+    }
+    return 0;
+  };
+
+  const SettingThemeRank = useCallback(async () => {
+    // if (loading) {
+    //   return;
+    // }
+
+    try {
+      // setLoading(true);
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/rankings`,
+      );
+
+      console.log("테마 상세 조회 성공", response.data);
+      setThemeRankList(response.data.data);
+      // await getThemeRanking();
+    } catch (error) {
+      console.error("테마 상세 조회 실패", error);
+    } finally {
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect : SettingThemeRank");
+    SettingThemeRank();
+    console.log("useEffect : LoginTapped");
+  }, []);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -124,7 +195,7 @@ const BottomNavigator = () => {
           height: 60,
           paddingTop: 5,
           paddingBottom: 10,
-          bottom: 60,
+          bottom: handleBottomBarPos(),
         },
       }}>
       <Tab.Screen
@@ -159,7 +230,7 @@ const BottomNavigator = () => {
         name="searchStack"
         component={SearchStack}
         options={{
-          title: "searchBottomTab",
+          title: "search",
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (

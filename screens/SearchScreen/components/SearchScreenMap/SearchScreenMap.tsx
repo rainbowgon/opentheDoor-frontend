@@ -220,12 +220,6 @@ const SearchScreenMap = () => {
               setModalVisible(false);
             }}></TouchableOpacity>
           <View style={styles.modalView}>
-            {/* selectedMarkerData를 InfoCard에 전달 */}
-            {/* <InfoCard {...selectedMarkerData} /> */}
-            {/* <InfoCard
-              {...selectedMarkerData}
-              onPress={() => handleThemeSelect(selectedMarkerData.themeId)}
-            /> */}
             {selectedMarkerData && (
               <Modal
                 animationType="slide"
@@ -240,9 +234,8 @@ const SearchScreenMap = () => {
                     <InfoCard
                       themeId={selectedMarkerData.themeId}
                       title={selectedMarkerData.title}
-                      // 여기에 필요한 다른 props 추가
                       onPress={() =>
-                        handleMarkerPress(selectedMarkerData.themeId)
+                        handleThemeSelect(selectedMarkerData.themeId)
                       }
                       poster={selectedMarkerData.poster}
                       venue={selectedMarkerData.venue}
@@ -286,35 +279,13 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 1200,
   },
-  // modalView: {
-  //   position: "absolute",
-  //   bottom: 0,
-  //   height: "100%",
-  //   width: "100%", // 모달이 화면의 전체 너비를 차지하도록
-  //   // backgroundColor: "white",
-  //   borderTopLeftRadius: 20, // 상단 좌우 모서리를 둥글게
-  //   borderTopRightRadius: 20,
-  //   padding: 20, // 내부 패딩
-  //   maxHeight: "40%", // 모달의 최대 높이 제한
-  //   // shadowColor: "#000", // 그림자 색상
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2, // 그림자 방향 (아래로)
-  //   },
-  //   // shadowOpacity: 0.25, // 그림자 투명도
-  //   // shadowRadius: 3.84, // 그림자 블러 반경
-  //   // elevation: 5, // 안드로이드 전용 그림자 설정
-  // },
   modalView: {
     position: "absolute",
     bottom: 0,
     width: "100%",
-    // backgroundColor: "white",
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
     padding: 20,
     height: 350,
-    maxHeight: 400, // 또는 구체적인 높이 값으로 설정, 예: 200
+    maxHeight: 400,
     // shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -322,7 +293,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    // elevation: 20,
   },
   modalContainer: {
     position: "absolute", // 절대 위치
