@@ -25,7 +25,7 @@ const MypageLogin = () => {
       <CustomButton
         value="카카오 로그인"
         size="large"
-        mode="inactive"
+        mode="kakao"
         border="square"
         onPress={handleKakaoLogin}
       />
