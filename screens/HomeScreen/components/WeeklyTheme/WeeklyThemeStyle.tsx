@@ -32,3 +32,7 @@ export const CardView = styled.View`
   overflow: hidden;
   margin-right: 16px;
 `;
+
+export const WeeklyThemeData = styled.View`
+  height: 203px;
+`;

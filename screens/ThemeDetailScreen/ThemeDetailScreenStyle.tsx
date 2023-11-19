@@ -15,7 +15,7 @@ export const ThemeDetailImage = styled.Image`
   `;
 
 export const GetImageView = styled.View`
-  height: 500px;
+  height: 420px;
   `;
 
 export const ThemeDetailScrollView = styled.ScrollView`

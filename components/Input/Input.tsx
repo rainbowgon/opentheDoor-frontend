@@ -3,7 +3,7 @@ import { TextInput } from "react-native-paper";
 
 const Input = ({
   label = "",
-  icon = "",
+  icon = null,
   multiline = false,
   disabled = false,
   placeholder = "",
@@ -17,7 +17,13 @@ const Input = ({
       label={label}
       placeholder={placeholder}
       mode="outlined"
-      right={<TextInput.Icon icon={icon} onPress={onIconPress} />}
+      right={
+        icon &&
+        <TextInput.Icon
+          icon={icon}
+          onPress={onIconPress}
+        />
+      }
       multiline={multiline}
       value={value}
       onChangeText={onChangeText}

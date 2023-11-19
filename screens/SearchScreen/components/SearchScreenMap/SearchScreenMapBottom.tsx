@@ -43,8 +43,8 @@ const ThemeAPI = "/themes";
 const Stack = createNativeStackNavigator();
 
 const SearchScreenMapBottom = () => {
-  const [themeList, setThemeList] = useState([]);
-  // const [themeList, setThemeList] = useRecoilState(themeNearByList);
+  // const [themeList, setThemeList] = useState([]);
+  const [themeList, setThemeList] = useRecoilState(themeListState);
   const navigation = useNavigation();
   // const isFocused = useIsFocused();
   const [listModalVisible, setListModalVisible] = useState(false);
@@ -77,7 +77,6 @@ const SearchScreenMapBottom = () => {
     fetchThemes();
   }, []);
   const handleThemeSelect = (themeId: string) => {
-    // getThemeDetail;
     navigation.navigate("themeDetail");
     console.log("themeId는", { themeId: themeId });
   };

@@ -13,7 +13,7 @@ const AlarmScreen = () => {
   return (
     <PageContainer>
       {/* FIXME - Admin 기능입니다 */}
-      <AdminAxiosTestBox />
+      {/* <AdminAxiosTestBox /> */}
       <Header
         back="true"
       />

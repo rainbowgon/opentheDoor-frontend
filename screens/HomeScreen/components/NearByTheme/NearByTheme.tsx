@@ -18,7 +18,7 @@ import {
   themeListState,
   themeNearByList,
 } from "../../../../recoil/theme/theme";
-import { HomeScreenTitle } from "../../HomeScreenStyle";
+import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
@@ -83,7 +83,9 @@ const NearByTheme = () => {
 
   return (
     <View style={styles.container}>
-      <HomeScreenTitle>내 주변</HomeScreenTitle>
+      <HomeScreenTitleView>
+        <HomeScreenTitle>내 주변</HomeScreenTitle>
+      </HomeScreenTitleView>
       <View style={styles.mapContainer}>
         <CustomMap
           region={region}

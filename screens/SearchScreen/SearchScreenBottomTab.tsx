@@ -17,14 +17,14 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 import { useFocusEffect } from "@react-navigation/native";
 import SearchScreenMapBottom from "./components/SearchScreenMap/SearchScreenMapBottom";
 import { useGetThemeList } from "../../recoil/theme/themeFeature";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { themeListState } from "../../recoil/theme/theme";
 import styled from "styled-components";
 
 const SearchScreenBottomTab = () => {
-  // const [themeList, setThemeList] = useRecoilState(themeListState);
+  const themeList = useRecoilValue(themeListState);
   const [modalVisible, setModalVisible] = useState(true);
-  const handleOpenModal = () => {};
+  const handleOpenModal = () => { };
   // useGetThemeList();
   useFocusEffect(
     useCallback(() => {
@@ -72,14 +72,21 @@ const SearchScreenBottomTab = () => {
           <Text> 지도로 보기 </Text>
         </View>
         <PageContainer>
-          <TouchableOpacity
+          {
+            themeList.map((theme) => (
+              <InfoCard
+                key={theme.themeId}
+                themeId={theme.themeId}
+                ratingScore={theme.ratingScore}
+              />
+            ))
+          }
+          {/* <TouchableOpacity
             activeOpacity={1}
             onPressOut={handleOpenModal}
             style={{ flex: 1 }}>
-            {[...Array(10)].map((_, id) => (
-              <InfoCard key={id} />
-            ))}
-          </TouchableOpacity>
+            {[...Array(10)]}
+          </TouchableOpacity> */}
         </PageContainer>
       </Modal>
     </FixedPageContainer>

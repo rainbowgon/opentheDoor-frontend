@@ -41,8 +41,9 @@ import ThemeStarRate from "./components/ThemeStarRate/ThemeStarRate";
 import MyReview from "./components/MyReview/MyReview";
 import ReviewItem from "../../components/Review/ReviewItem";
 import { reviewListState } from "../../recoil/review/review";
-import { Image } from "react-native-svg";
 import { ImageBackground } from "react-native";
+import Header from "../../components/Header/Header";
+import { Image } from "react-native";
 
 const ThemeDetailScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -65,6 +66,9 @@ const ThemeDetailScreen = () => {
         onError={(error) => console.error("Image load error:", error)}
       />
       <ThemeDetailScrollView>
+        <Header
+          back="true"
+        />
         <GetImageView>
           <LinearGradient
             colors={[
@@ -126,7 +130,6 @@ const ThemeDetailScreen = () => {
               </View>
               <Text>총 리뷰 수{ }건</Text>
             </ThemeDetailTitleView>
-            <StyledView />
             <BarGraph />
             <View>
               {reviewList?.map(review => (

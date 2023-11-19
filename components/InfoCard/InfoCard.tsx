@@ -37,6 +37,7 @@ import { useCallback } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/urls";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { myReviewState, reviewListState } from "../../recoil/review/review";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -72,7 +73,6 @@ const InfoCard = (
   const navigation = useNavigation();
 
   const onPressCard = () => {
-
     console.log(themeId);
     // getThemeDetail(themeId);
     handleThemeDetail();
@@ -81,10 +81,17 @@ const InfoCard = (
   };
 
   const setThemeItem = useSetRecoilState(themeState);
+  const setMyThemeReview = useSetRecoilState(myReviewState);
+  const setThemeReviewList = useSetRecoilState(reviewListState);
+
+  // pathes
+  const SearchServicePath = `/search-service`;
+  const MemberServicePath = `/member-service`;
 
   // apis
-  const SearchServicePath = `/search-service`;
   const ThemeAPI = "/themes";
+  const ReviewAPI = "/reviews";
+
 
   const handleThemeDetail = useCallback(async () => {
     // if (loading) {
@@ -101,6 +108,21 @@ const InfoCard = (
       setThemeItem(response.data.data);
     } catch (error) {
       console.error("테마 상세 조회 실패", error);
+    } finally {
+    }
+
+    try {
+      // setLoading(true);
+
+      const response = await axios
+        .get(
+          `${API_URL}${MemberServicePath}${ReviewAPI}/themes/one?themeId=${themeId}`
+        )
+      console.log("테마 리뷰 1건 조회 (비회원) 성공", response.data);
+      setThemeReviewList(response.data.data);
+
+    } catch (error) {
+      console.error("테마 리뷰 1건 조회 (비회원) 실패", error);
     } finally {
     }
 
