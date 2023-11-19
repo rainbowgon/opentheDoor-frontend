@@ -3,7 +3,8 @@ import { theme } from "../../styles/colors";
 
 export const RankingScreenContainer = styled.View`
   flex: 1;
-  height: 200px;
+  height: 100px;
+  margin-bottom: 50px;
   justify-content: center;
   align-items: center;
 `;

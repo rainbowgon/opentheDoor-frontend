@@ -12,10 +12,13 @@ import InfoCard from "../../../../components/InfoCard/InfoCard";
 import { useNavigation } from "@react-navigation/native";
 import PageContainer from "../../../../styles/commonStyles";
 import CustomButton from "../../../../components/Button/CustomButton";
+import { useRecoilValue } from "recoil";
+import { themeListState } from "../../../../recoil/theme/theme";
 
 const SearchListModal = ({ modalVisible, setModalVisible }) => {
   // const [modalVisible, setModalVisible] = useState(true);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
+  const themeList = useRecoilValue(themeListState);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -35,10 +38,9 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
 
   const navigation = useNavigation();
 
-  const handleOpenModal = () => {};
+  const handleOpenModal = () => { };
 
   const handleThemeSelect = (themeId: string) => {
-    // getThemeDetail;
     navigation.navigate("themeDetail");
     console.log("themeId는", { themeId: themeId });
   };
@@ -56,7 +58,7 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
       <View {...panResponder.panHandlers} style={styles.container}>
         <Text> 지도로 보기 </Text>
       </View>
-      <PageContainer>
+      {/* <PageContainer>
         <TouchableOpacity
           activeOpacity={1}
           onPressOut={handleOpenModal}
@@ -65,6 +67,22 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
             <InfoCard key={id} />
           ))}
         </TouchableOpacity>
+      </PageContainer> */}
+      <PageContainer>
+        {
+          themeList.map((theme) => (
+            <InfoCard
+              key={theme.themeId}
+              poster={theme.poster}
+              themeId={theme.themeId}
+              title={theme.title}
+              genre={theme.genre}
+              minHeadcount={theme.minHeadcount}
+              maxHeadcount={theme.maxHeadcount}
+              ratingScore={theme.ratingScore}
+            />
+          ))
+        }
       </PageContainer>
     </Modal>
   );

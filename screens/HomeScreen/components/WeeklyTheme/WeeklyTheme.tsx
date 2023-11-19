@@ -4,10 +4,13 @@ import { useRecoilValue } from "recoil";
 import { themeListState, themeRankListState } from "../../../../recoil/theme/theme";
 
 // styles
-import { HomeScreenTitle, HomeScreenTitleTouch } from "../../HomeScreenStyle";
+import { HomeScreenIcon, HomeScreenTitle, HomeScreenTitleTouch, HomeScreenTitleView } from "../../HomeScreenStyle";
 import RenderThemeItem from "../RenderThemeItem/RenderThemeItem";
 
 import { useNavigation } from "@react-navigation/native";
+
+import Expandmore from "../../../../assets/icons/icon-expandmore.png"
+import { WeeklyThemeData, WeeklyThemeNoData } from "./WeeklyThemeStyle";
 
 const WeeklyTheme = () => {
   const themeList = useRecoilValue(themeRankListState);
@@ -34,11 +37,17 @@ const WeeklyTheme = () => {
   return (
     <View>
       <HomeScreenTitleTouch onPress={() => handleRankingTitle()}>
-        <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
+        <HomeScreenTitleView>
+          <HomeScreenTitle>{getCurrentMonthAndWeek()}</HomeScreenTitle>
+          <HomeScreenIcon
+            source={Expandmore}
+          />
+          {/* <Text>></Text> */}
+        </HomeScreenTitleView>
       </HomeScreenTitleTouch>
-      {
-        themeList.length ?
-          <View>
+      <WeeklyThemeData>
+        {
+          themeList.length ?
             <FlatList
               data={themeList}
               renderItem={({ item }) => <RenderThemeItem item={item} />}
@@ -46,10 +55,10 @@ const WeeklyTheme = () => {
               horizontal={true} // 가로 스크롤
               showsHorizontalScrollIndicator={false} // 스크롤바 안보이게
             />
-          </View>
-          :
-          <Text>데이터가 없습니다.</Text>
-      }
+            :
+            <Text>데이터가 없습니다.</Text>
+        }
+      </WeeklyThemeData>
     </View>
   );
 };
