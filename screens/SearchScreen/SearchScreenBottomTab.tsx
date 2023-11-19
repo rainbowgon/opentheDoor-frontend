@@ -24,31 +24,14 @@ import styled from "styled-components";
 const SearchScreenBottomTab = () => {
   const themeList = useRecoilValue(themeListState);
   const [modalVisible, setModalVisible] = useState(true);
-  const handleOpenModal = () => { };
+  const handleOpenModal = () => {};
   // useGetThemeList();
   useFocusEffect(
     useCallback(() => {
       setModalVisible(true); // 스크린이 포커스를 받을 때 마다 모달 상태를 true로 설정
-      return () => {
-        // 필요한 경우에는 스크린이 포커스를 잃을 때 실행할 로직을 여기에 추가
-      };
+      return () => {};
     }, []),
   );
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (event, gestureState) => {
-        if (gestureState.dy > 140) {
-          // 아래로 140 픽셀 이상 드래그했을 때 모달 닫기
-          setModalVisible(false);
-          console.log("모달이 닫혔습니다.");
-        } else if (gestureState.dy < -140) {
-          // 위로 140 픽셀 이상 쓸어 올렸을 때 모달 다시 띄우기
-          handleOpenModal();
-        }
-      },
-    }),
-  ).current;
 
   return (
     <FixedPageContainer>
@@ -58,37 +41,35 @@ const SearchScreenBottomTab = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       /> */}
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false);
-        }}>
-        {/* <View {...panResponder.panHandlers}>
+        }}> */}
+      {/* <View {...panResponder.panHandlers}>
           <CustomButton mode="selected" value="지도로 보기" />
         </View> */}
-        <View {...panResponder.panHandlers} style={styles.container}>
+      {/* <View {...panResponder.panHandlers} style={styles.container}>
           <Text> 지도로 보기 </Text>
-        </View>
-        <PageContainer>
-          {
-            themeList.map((theme) => (
-              <InfoCard
-                key={theme.themeId}
-                themeId={theme.themeId}
-                ratingScore={theme.ratingScore}
-              />
-            ))
-          }
-          {/* <TouchableOpacity
+        </View> */}
+      {/* <PageContainer>
+          {themeList.map(theme => (
+            <InfoCard
+              key={theme.themeId}
+              themeId={theme.themeId}
+              ratingScore={theme.ratingScore}
+            />
+          ))} */}
+      {/* <TouchableOpacity
             activeOpacity={1}
             onPressOut={handleOpenModal}
             style={{ flex: 1 }}>
             {[...Array(10)]}
           </TouchableOpacity> */}
-        </PageContainer>
-      </Modal>
+      {/* </PageContainer> */}
+      {/* </Modal> */}
     </FixedPageContainer>
   );
 };

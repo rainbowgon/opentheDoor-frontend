@@ -1,22 +1,18 @@
 import React, { useRef, useState } from "react";
 import {
   Modal,
-  TouchableOpacity,
-  PanResponder,
   View,
-  ScrollView,
   Text,
   StyleSheet,
+  FlatList,
+  PanResponder,
 } from "react-native";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
-import { useNavigation } from "@react-navigation/native";
-import PageContainer from "../../../../styles/commonStyles";
-import CustomButton from "../../../../components/Button/CustomButton";
 import { useRecoilValue } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
+import { useNavigation } from "@react-navigation/native";
 
 const SearchListModal = ({ modalVisible, setModalVisible }) => {
-  // const [modalVisible, setModalVisible] = useState(true);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
   const themeList = useRecoilValue(themeListState);
 
@@ -38,93 +34,56 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
 
   const navigation = useNavigation();
 
-  const handleOpenModal = () => { };
+  const handleOpenModal = () => {};
 
   const handleThemeSelect = (themeId: string) => {
     navigation.navigate("themeDetail");
     console.log("themeId는", { themeId: themeId });
   };
+
+  const renderTheme = ({ item }) => (
+    <InfoCard
+      key={item.themeId}
+      poster={item.poster}
+      themeId={item.themeId}
+      title={item.title}
+      genre={item.genre}
+      minHeadcount={item.minHeadcount}
+      maxHeadcount={item.maxHeadcount}
+      ratingScore={item.ratingScore}
+    />
+  );
+
   return (
     <Modal
       animationType="slide"
       transparent={false}
       visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(false);
-      }}>
-      {/* <View {...panResponder.panHandlers}>
-          <CustomButton mode="selected" value="지도로 보기" />
-        </View> */}
-      <View {...panResponder.panHandlers} style={styles.container}>
-        <Text> 지도로 보기 </Text>
-      </View>
-      {/* <PageContainer>
-        <TouchableOpacity
-          activeOpacity={1}
-          onPressOut={handleOpenModal}
-          style={{ flex: 1 }}>
-          {[...Array(10)].map((_, id) => (
-            <InfoCard key={id} />
-          ))}
-        </TouchableOpacity>
-      </PageContainer> */}
-      <PageContainer>
-        {
-          themeList.map((theme) => (
-            <InfoCard
-              key={theme.themeId}
-              poster={theme.poster}
-              themeId={theme.themeId}
-              title={theme.title}
-              genre={theme.genre}
-              minHeadcount={theme.minHeadcount}
-              maxHeadcount={theme.maxHeadcount}
-              ratingScore={theme.ratingScore}
-            />
-          ))
-        }
-      </PageContainer>
+      onRequestClose={() => setModalVisible(false)}>
+      {modalVisible && (
+        <View style={styles.container}>
+          <Text {...panResponder.panHandlers} style={styles.headerText}>
+            아래로 쓸어내려 지도로 보기
+          </Text>
+          <FlatList
+            data={themeList}
+            renderItem={renderTheme}
+            keyExtractor={item => item.themeId}
+          />
+        </View>
+      )}
     </Modal>
   );
 };
-///////////////////////////////////////////////////////
-//   if (modalVisible) {
-//     return (
-//       <View style={{ flex: 1 }}>
-//         <Modal
-//           animationType="slide"
-//           transparent={false}
-//           visible={modalVisible}
-//           onRequestClose={() => {
-//             setModalVisible(!modalVisible);
-//           }}>
-//           <View {...panResponder.panHandlers} style={{ padding: 20 }}>
-//             <Text> 지도로 보기 </Text>
-//           </View>
-//           <PageContainer>
-//             {[...Array(10)].map((_, id) => (
-//               <InfoCard key={id} />
-//             ))}
-//           </PageContainer>
-//         </Modal>
-//       </View>
-//     );
-//   }
-//   return (
-//     <View>
-//       <CustomButton
-//         mode="selected"
-//         size="large"
-//         value="리스트로 보기"
-//         onPress={() => setModalVisible(true)}
-//       />
-//     </View>
-//   );
-// };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0000009fa",
+    backgroundColor: "#030303",
+    padding: 15,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
     padding: 15,
   },
 });

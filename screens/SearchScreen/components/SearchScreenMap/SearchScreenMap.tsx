@@ -46,6 +46,25 @@ const SearchScreenMap = () => {
   const isFocused = useIsFocused();
   const [listModalVisible, setListModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [markers, setMarkers] = useState([]);
+  // const [selectedMarker, setSelectedMarker] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMarkerData, setSelectedMarkerData] = useState();
+
+  useEffect(() => {
+    if (!isFocused) {
+      // 페이지에 포커스가 없을 때 초기화
+      setSelectedMarkerData(null);
+    }
+  }, [isFocused]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // 페이지에 진입할 때 필요한 상태 초기화
+      setSelectedMarkerData(null);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
   const fetchThemes = async () => {
     setIsLoading(true);
     try {
@@ -72,10 +91,11 @@ const SearchScreenMap = () => {
     fetchThemes();
   }, []);
 
-  const [markers, setMarkers] = useState([]);
-  // const [selectedMarker, setSelectedMarker] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMarkerData, setSelectedMarkerData] = useState();
+  useEffect(() => {
+    if (!modalVisible) {
+      setSelectedMarkerData(null);
+    }
+  }, [modalVisible]);
 
   const handleThemeSelect = (themeId: string) => {
     // getThemeDetail;
@@ -256,10 +276,12 @@ const SearchScreenMap = () => {
           />
         </View>
       </View>
-      <SearchListModal
-        modalVisible={listModalVisible}
-        setModalVisible={setListModalVisible}
-      />
+      {listModalVisible && (
+        <SearchListModal
+          modalVisible={listModalVisible}
+          setModalVisible={setListModalVisible}
+        />
+      )}
     </View>
   );
 };
