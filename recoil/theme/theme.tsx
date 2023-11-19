@@ -22,19 +22,19 @@ import { atom, useRecoilState } from "recoil";
  * 경도           Double    longitude;
  */
 
-interface PriceList {
+export interface PriceList {
   headcount: null | number;
   price: null | number;
 }
 
-interface TimeList {
+interface timeList {
   time: null | string;
   isAvailable: null | "AVAILABLE" | "NOT_AVAILABLE";
 }
 
-interface TimeSlotList {
+export interface TimeSlotList {
   date: null | string;
-  TimeList: null | TimeList;
+  timeList: null | timeList[];
 }
 
 export interface ThemeType {
@@ -61,7 +61,7 @@ export interface ThemeType {
   /**최소 인원 수*/
   minHeadcount?: null | number;
   /**가격*/
-  priceList?: null | PriceList;
+  priceList?: null | PriceList[];
   /**소요 시간 (분 단위)*/
   timeLimit?: null | number;
   /**난이도*/
@@ -83,7 +83,7 @@ export interface ThemeType {
   /**북마크 수*/
   bookmarkCount?: null | number;
   /**예약 가능 시간*/
-  timeSlotList?: null | TimeSlotList;
+  timeSlotList?: null | TimeSlotList[];
   /**클릭*/
   onPress?: () => void;
 }
@@ -100,7 +100,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   genre: null | string[];
   maxHeadcount: null | number;
   minHeadcount: null | number;
-  priceList: null | PriceList;
+  priceList: null | PriceList[];
   timeLimit: null | number;
   level: null | number;
   activity: null | number;
@@ -109,6 +109,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   latitude: null | number;
   longitude: null | number;
   ratingScore: null | number;
+  timeSlotList: null | TimeSlotList[];
 }
 
 export interface ThemeSimpleInfoType extends ThemeType {
@@ -119,7 +120,7 @@ export interface ThemeSimpleInfoType extends ThemeType {
   level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
-  priceList: null | PriceList;
+  priceList: null | PriceList[];
   timeLimit: null | number;
   latitude: null | number;
   longitude: null | number;
@@ -152,6 +153,42 @@ export const themeState = atom<ThemeDetailInfoType>({
     latitude: 35.8195613,
     longitude: 127.145661,
     ratingScore: 3.4,
+    timeSlotList: [
+      {
+        date: "2023-11-12",
+        timeList: [
+          {
+            time: "11:00",
+            isAvailable: "AVAILABLE",
+          },
+          {
+            time: "13:00",
+            isAvailable: "AVAILABLE",
+          },
+          {
+            time: "17:00",
+            isAvailable: "NOT_AVAILABLE",
+          },
+        ],
+      },
+      {
+        date: "2023-11-12",
+        timeList: [
+          {
+            time: "11:00",
+            isAvailable: "AVAILABLE",
+          },
+          {
+            time: "13:00",
+            isAvailable: "AVAILABLE",
+          },
+          {
+            time: "17:00",
+            isAvailable: "NOT_AVAILABLE",
+          },
+        ],
+      },
+    ],
   },
 });
 
@@ -198,5 +235,104 @@ export const themeRankListState = atom<ThemeSimpleInfoType[]>({
 
 export const themeNearByList = atom<ThemeSimpleInfoType[]>({
   key: "themeNearByList",
-  default: [],
+  default: [
+    {
+      themeId: "eTHntosBdUGVeOMUXDR3",
+      venue: "마스터키 플레이포인트랩강남점",
+      title: "리허설",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_84169924.gif",
+      level: 4.0,
+      minHeadcount: 2,
+      maxHeadcount: 6,
+      priceList: null,
+      timeLimit: null,
+      latitude: 37.5008831,
+      longitude: 127.027485,
+    },
+    {
+      themeId: "dTHntosBdUGVeOMUQDTg",
+      venue: "마스터키 해운대 블루오션스테이션",
+      title: "리허설",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/리허설_23761838.gif",
+      level: 4.0,
+      minHeadcount: 2,
+      maxHeadcount: 6,
+      priceList: null,
+      timeLimit: null,
+      latitude: 35.1629768,
+      longitude: 129.158492,
+    },
+    {
+      themeId: "PppbxosB2bv_Fhtj6wSF",
+      venue: "마스터키 천안두정점",
+      title: "경찰서를 털어라",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/경찰서를 털어라_73260549.jpg",
+      level: 3.0,
+      minHeadcount: 2,
+      maxHeadcount: 6,
+      priceList: null,
+      timeLimit: null,
+      latitude: 36.8339795,
+      longitude: 127.1367309,
+    },
+    {
+      themeId: "9JpbxosB2bv_FhtjhAOC",
+      venue: "마스터키 강남프라임",
+      title: "Do The G",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/Do The G_21189403.png",
+      level: 3.0,
+      minHeadcount: 2,
+      maxHeadcount: 4,
+      priceList: null,
+      timeLimit: null,
+      latitude: 37.5008831,
+      longitude: 127.027485,
+    },
+    {
+      themeId: "GZpbxosB2bv_FhtjswSL",
+      venue: "마스터키 천안신부점",
+      title: "터널",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/터널_52402111.jpg",
+      level: 3.0,
+      minHeadcount: 2,
+      maxHeadcount: 6,
+      priceList: null,
+      timeLimit: null,
+      latitude: 36.8183413,
+      longitude: 127.1553078,
+    },
+    {
+      themeId: "9ZpbxosB2bv_FhtjhAOC",
+      venue: "마스터키 강남프라임",
+      title: "어웨이큰",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/어웨이큰_14869136.png",
+      level: 5.0,
+      minHeadcount: 2,
+      maxHeadcount: 5,
+      priceList: null,
+      timeLimit: null,
+      latitude: 37.5008831,
+      longitude: 127.027485,
+    },
+    {
+      themeId: "G5pbxosB2bv_FhtjswSL",
+      venue: "마스터키 천안신부점",
+      title: "트러브메이커",
+      poster:
+        "https://ssafy-otd-public.s3.ap-northeast-2.amazonaws.com/masterkey/트러브메이커_57557775.jpg",
+      level: 3.0,
+      minHeadcount: 2,
+      maxHeadcount: 6,
+      priceList: null,
+      timeLimit: null,
+      latitude: 36.8183413,
+      longitude: 127.1553078,
+    },
+  ],
 });
