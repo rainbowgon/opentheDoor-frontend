@@ -9,6 +9,8 @@ import Search from "../../../../assets/icons/icon-sarch.png";
 import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import { searchResultsState } from "../../../../recoil/search/search";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { themeListState } from "../../../../recoil/theme/theme";
 
 const headcountOptions = {
   "2인": 2,
@@ -39,6 +41,7 @@ const SearchFilter = () => {
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [selectedHeadcount, setSelectedHeadcount] = useState([]);
+  const [themeList, setThemeList] = useRecoilState(themeListState);
 
   const handleSelectRegion = userFriendlyName => {
     const backendRegionName = regionsMapping[userFriendlyName];
@@ -91,7 +94,7 @@ const SearchFilter = () => {
       console.log(selectedHeadcount);
       console.log(selectedRegions);
       const searchData = response.data.data;
-      setRecoilState(searchResultsState, searchData);
+      setThemeList(searchData);
     } catch (error) {
       console.error(error);
     }

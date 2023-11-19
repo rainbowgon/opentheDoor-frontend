@@ -5,12 +5,13 @@ import CustomButton from "../../../../components/Button/CustomButton";
 import { InputHeadlineView } from "./InputHeadlineStyle";
 import { API_URL } from "../../../../constants/urls";
 import { searchResultsState } from "../../../../recoil/search/search";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import { useNavigation } from "@react-navigation/native";
+import { themeListState } from "../../../../recoil/theme/theme";
 
 const InputHeadline = () => {
-  const setSearchResults = useSetRecoilState(searchResultsState);
+  const [themeList, setThemeList] = useRecoilState(themeListState);
   const [searchText, setSearchText] = useState("");
 
   const navigation = useNavigation();
@@ -26,8 +27,8 @@ const InputHeadline = () => {
           params: { keyword: searchText },
         },
       );
-      setSearchResults(response.data.data);
-      navigation.navigate("searchResult");
+      setThemeList(response.data.data);
+      navigation.navigate("searchBottomTab");
     } catch (error) {
       console.error("검색 실패", error);
     }

@@ -38,6 +38,7 @@ import { themeNearByList } from "../../../../recoil/theme/theme";
 import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import SearchFilter from "./SearchFilter";
+import { searchResultsState } from "../../../../recoil/search/search";
 const SearchServicePath = `/search-service`;
 const ThemeAPI = "/themes";
 
@@ -52,6 +53,7 @@ const SearchScreenMapBottom = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
+  const searchResult = useRecoilValue(searchResultsState);
   const fetchThemes = async () => {
     setIsLoading(true);
     try {
