@@ -3,14 +3,17 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
 // conponent
 import CustomButton from "../../../../components/Button/CustomButton";
-import PageContainer from "../../../../styles/commonStyles";
+import PageContainer, { FixedPageContainer } from "../../../../styles/commonStyles";
 import Input from "../../../../components/Input/Input";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import { searchResultsState } from "../../../../recoil/search/search";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { themeListState } from "../../../../recoil/theme/theme";
+import { SearchButtonContainer, SearchContainer } from "./SearchFilterStyle";
+import { SearchFilterIsOpened } from "../../../../recoil/state/state";
+import { SearchTitle } from "./SearchScreenMapBottomStyle";
 
 const headcountOptions = {
   "2인": 2,
@@ -98,10 +101,14 @@ const SearchFilter = () => {
     } catch (error) {
       console.error(error);
     }
+
+    setIsSearch(false);
   };
 
+  const [isSearch, setIsSearch] = useRecoilState(SearchFilterIsOpened);
+
   return (
-    <PageContainer contentContainerStyle={styles.scrollViewContent}>
+    <SearchContainer isSearch={isSearch}>
       <Input
         label="테마 검색"
         icon={Search}
@@ -109,41 +116,47 @@ const SearchFilter = () => {
         value={keyword}
         onIconPress={handleSubmit}
       />
-      <View style={styles.headcountContainer}>
+      <SearchTitle>
+        권장 인원 (최소 인원)
+      </SearchTitle>
+      <SearchButtonContainer>
         {Object.keys(headcountOptions).map(option => (
           <CustomButton
             key={option}
             value={option}
-            size="small"
+            size="medium"
             mode={
               selectedHeadcount.includes(headcountOptions[option])
                 ? "selected"
-                : "outlined"
+                : "inactive"
             }
             border="square"
             onPress={() => handleSelectHeadcount(option)}
             style={styles.button}
           />
         ))}
-      </View>
-      <View style={styles.container}>
+      </SearchButtonContainer>
+      <SearchTitle>
+        지역
+      </SearchTitle>
+      <SearchButtonContainer>
         {Object.keys(regionsMapping).map(regionKey => (
           <CustomButton
             key={regionKey}
             value={regionKey}
-            size="small"
+            size="medium"
             mode={
               selectedRegions.includes(regionsMapping[regionKey])
                 ? "selected"
-                : "outlined"
+                : "inactive"
             }
             border="square"
             onPress={() => handleSelectRegion(regionKey)}
             style={styles.button}
           />
         ))}
-      </View>
-    </PageContainer>
+      </SearchButtonContainer>
+    </SearchContainer>
   );
 };
 

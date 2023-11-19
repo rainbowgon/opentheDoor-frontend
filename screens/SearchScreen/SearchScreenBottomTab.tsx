@@ -24,18 +24,18 @@ import styled from "styled-components";
 const SearchScreenBottomTab = () => {
   const themeList = useRecoilValue(themeListState);
   const [modalVisible, setModalVisible] = useState(true);
-  const handleOpenModal = () => {};
+  const handleOpenModal = () => { };
   // useGetThemeList();
   useFocusEffect(
     useCallback(() => {
       setModalVisible(true); // 스크린이 포커스를 받을 때 마다 모달 상태를 true로 설정
-      return () => {};
+      return () => { };
     }, []),
   );
 
   return (
     <FixedPageContainer>
-      <Header back="true" menu="true" />
+      <Header back="true" filter="true" />
       <SearchScreenMapBottom />
     </FixedPageContainer>
   );
