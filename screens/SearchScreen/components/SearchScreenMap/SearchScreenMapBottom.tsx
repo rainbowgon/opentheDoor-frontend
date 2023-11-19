@@ -37,6 +37,7 @@ import SearchListModal from "./SearchListModal";
 import { themeNearByList } from "../../../../recoil/theme/theme";
 import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
+import SearchFilter from "./SearchFilter";
 const SearchServicePath = `/search-service`;
 const ThemeAPI = "/themes";
 
@@ -127,7 +128,8 @@ const SearchScreenMapBottom = () => {
   return (
     <View>
       {/* <Header /> */}
-      <Input label="테마 검색" icon={Search} />
+      {/* <Input label="테마 검색" icon={Search} /> */}
+      <SearchFilter />
       <View>
         <CustomMap region={initialRegion} style={{ height: 630 }}>
           {!isLoading &&
@@ -163,6 +165,11 @@ const SearchScreenMapBottom = () => {
                   venue={selectedMarkerData.venue}
                   ratingScore={selectedMarkerData.ratingScore}
                   reviewCount={selectedMarkerData.reviewCount}
+                  level={selectedMarkerData.level}
+                  genre={selectedMarkerData.genre}
+                  priceList={selectedMarkerData.priceList.price}
+                  minHeadcount={selectedMarkerData.minHeadCount}
+                  maxHeadcount={selectedMarkerData.maxHeadCount}
                 />
               </View>
             </TouchableOpacity>
