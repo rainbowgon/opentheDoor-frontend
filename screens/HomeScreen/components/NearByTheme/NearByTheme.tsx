@@ -19,10 +19,11 @@ import {
   themeNearByList,
 } from "../../../../recoil/theme/theme";
 import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
+import InfoCard from "../../../../components/InfoCard/InfoCard";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
-  const [themeList, setThemeList] = useRecoilState(themeListState);
+  const [themeList, setThemeList] = useRecoilState(themeNearByList);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const handleMarkerPress = markerData => {
@@ -133,6 +134,23 @@ const NearByTheme = () => {
           }}
         />
       </View>
+      {
+        themeList.map((theme) => (
+          <InfoCard
+            key={theme.themeId}
+            themeId={theme.themeId}
+            venue={theme.venue}
+            title={theme.title}
+            poster={theme.poster}
+            level={theme.level}
+            minHeadcount={theme.minHeadcount}
+            maxHeadcount={theme.maxHeadcount}
+            timeLimit={theme.timeLimit}
+            genre={theme.genre}
+            ratingScore={theme.ratingScore}
+          />
+        ))
+      }
     </View>
   );
 };

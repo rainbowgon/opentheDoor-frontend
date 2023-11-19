@@ -22,19 +22,19 @@ import { atom, useRecoilState } from "recoil";
  * 경도           Double    longitude;
  */
 
-interface PriceList {
+export interface PriceList {
   headcount: null | number;
   price: null | number;
 }
 
-interface TimeList {
+interface timeList {
   time: null | string;
   isAvailable: null | "AVAILABLE" | "NOT_AVAILABLE";
 }
 
-interface TimeSlotList {
+export interface TimeSlotList {
   date: null | string;
-  TimeList: null | TimeList;
+  timeList: null | timeList[];
 }
 
 export interface ThemeType {
@@ -61,7 +61,7 @@ export interface ThemeType {
   /**최소 인원 수*/
   minHeadcount?: null | number;
   /**가격*/
-  priceList?: null | PriceList;
+  priceList?: null | PriceList[];
   /**소요 시간 (분 단위)*/
   timeLimit?: null | number;
   /**난이도*/
@@ -83,7 +83,7 @@ export interface ThemeType {
   /**북마크 수*/
   bookmarkCount?: null | number;
   /**예약 가능 시간*/
-  timeSlotList?: null | TimeSlotList;
+  timeSlotList?: null | TimeSlotList[];
   /**클릭*/
   onPress?: () => void;
 }
@@ -100,7 +100,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   genre: null | string[];
   maxHeadcount: null | number;
   minHeadcount: null | number;
-  priceList: null | PriceList;
+  priceList: null | PriceList[];
   timeLimit: null | number;
   level: null | number;
   activity: null | number;
@@ -109,6 +109,7 @@ export interface ThemeDetailInfoType extends ThemeType {
   latitude: null | number;
   longitude: null | number;
   ratingScore: null | number;
+  timeSlotList: null | TimeSlotList[];
 }
 
 export interface ThemeSimpleInfoType extends ThemeType {
@@ -119,7 +120,7 @@ export interface ThemeSimpleInfoType extends ThemeType {
   level: null | number;
   minHeadcount: null | number;
   maxHeadcount: null | number;
-  priceList: null | PriceList;
+  priceList: null | PriceList[];
   timeLimit: null | number;
   latitude: null | number;
   longitude: null | number;
@@ -152,6 +153,42 @@ export const themeState = atom<ThemeDetailInfoType>({
     latitude: 35.8195613,
     longitude: 127.145661,
     ratingScore: 3.4,
+    timeSlotList: [
+      {
+        date: "2023-11-12",
+        timeList: [
+          {
+            time: "11:00",
+            "isAvailable": "AVAILABLE"
+          },
+          {
+            "time": "13:00",
+            "isAvailable": "AVAILABLE"
+          },
+          {
+            "time": "17:00",
+            "isAvailable": "NOT_AVAILABLE"
+          },
+        ]
+      },
+      {
+        date: "2023-11-12",
+        timeList: [
+          {
+            "time": "11:00",
+            "isAvailable": "AVAILABLE"
+          },
+          {
+            "time": "13:00",
+            "isAvailable": "AVAILABLE"
+          },
+          {
+            "time": "17:00",
+            "isAvailable": "NOT_AVAILABLE"
+          },
+        ]
+      }
+    ]
   },
 });
 

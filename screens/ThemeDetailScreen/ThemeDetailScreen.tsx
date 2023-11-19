@@ -23,16 +23,25 @@ import ZoomIcon from "../../assets/icons/icon-zoom.png";
 
 // styles
 import {
+  Explanation,
   GetImageView,
   StyledView,
+  SubContent,
+  ThemeDetailBottomButton,
+  ThemeDetailBottomButtons,
   ThemeDetailContainer,
   ThemeDetailContent,
   ThemeDetailImage,
+  ThemeDetailMapFab,
   ThemeDetailMapView,
   ThemeDetailReviewTitle,
   ThemeDetailReviewTitleButtons,
+  ThemeDetailReviewView,
   ThemeDetailScrollView,
   ThemeDetailTitleView,
+  ThemeReviewTitle,
+  ThemeStarRateIcon,
+  ThemeStarRateText,
   Title,
 } from "./ThemeDetailScreenStyle";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -40,13 +49,16 @@ import { themeState } from "../../recoil/theme/theme";
 import ThemeStarRate from "./components/ThemeStarRate/ThemeStarRate";
 import MyReview from "./components/MyReview/MyReview";
 import ReviewItem from "../../components/Review/ReviewItem";
-import { reviewListState } from "../../recoil/review/review";
+import { ReviewInfoType, reviewListState } from "../../recoil/review/review";
 import { ImageBackground } from "react-native";
 import Header from "../../components/Header/Header";
 import { Image } from "react-native";
+import { userAccessToken } from "../../recoil/member/member";
 
 const ThemeDetailScreen = () => {
   const theme = useRecoilValue(themeState);
+  const navigation = useNavigation();
+  const accessToken = useRecoilValue(userAccessToken);
   const [region, setRegion] = useState<Region>({
     latitude: theme?.latitude || 37.5665,
     longitude: theme?.longitude || 126.978,
@@ -54,9 +66,29 @@ const ThemeDetailScreen = () => {
     longitudeDelta: 0.004,
   });
 
-  console.log(theme?.priceList?.price);
-  const navigation = useNavigation();
+  const onPressReservation = () => {
+    console.log("reservation 페이지로 이동")
+    navigation.navigate("reservation");
+  };
+
   const reviewList = useRecoilValue(reviewListState);
+
+  const [testReview, setTestReview] = useState<ReviewInfoType>({
+    reviewId: 1,
+    profileId: 1,
+    nickname: "익명의 유저",
+    profileImage: null,
+    reviewCreatedDate: "2023-11-19",
+    rating: 3.6,
+    isEscaped: "SUCCESS",
+    myLevel: 3,
+    hintCount: null,
+    content: "또 와보고 싶네요. 한 번 해도 재밌었다.",
+    performedDate: "2023-11-02",
+    performedTime: null,
+    performedHeadcount: null,
+    isVerified: true,
+  },);
 
   return (
     <ThemeDetailContainer>
@@ -85,11 +117,12 @@ const ThemeDetailScreen = () => {
           <EscapeCharacter />
           <EscapeInfo
             // TODO - theme?.priceList로 넣기
-            price={theme?.priceList?.price}
+            price={theme?.priceList}
             minPerson={theme?.minHeadcount}
             maxPerson={theme?.maxHeadcount}
             time={theme?.timeLimit}
           />
+          <Explanation>{theme.explanation}</Explanation>
           <StyledView />
           <View>
             <Calendar />
@@ -101,10 +134,6 @@ const ThemeDetailScreen = () => {
             </ThemeDetailTitleView>
             {/* FIXME - 현재는 default(서울시청) 기반, 추후 axios로 받아온 가게 데이터로 변경해야해요  */}
             <ThemeDetailMapView>
-              <CustomFab
-                icon={ZoomIcon}
-                onPress={() => navigation.navigate("searchStack")}
-              />
               <CustomMap
                 region={region}
                 style={{ minHeight: 100, minWidth: 300 }}
@@ -114,6 +143,12 @@ const ThemeDetailScreen = () => {
                 pitchEnabled={false}>
                 <Marker coordinate={region} title={"이 가게 위치"} />
               </CustomMap>
+              <ThemeDetailMapFab>
+                <CustomFab
+                  icon={ZoomIcon}
+                  onPress={() => navigation.navigate("searchStack")}
+                />
+              </ThemeDetailMapFab>
             </ThemeDetailMapView>
             <CustomButton mode="selected" value="내가 한 테마와 비교하기" />
           </View>
@@ -122,28 +157,43 @@ const ThemeDetailScreen = () => {
           <StyledView />
           <View>
             <ThemeDetailTitleView>
-              <View>
+              <ThemeReviewTitle>
                 <Title>리뷰</Title>
-                <Image source={StarOn} />
-                <Text>별점</Text>
-                <Text>리뷰 수</Text>
-              </View>
-              <Text>총 리뷰 수{ }건</Text>
+                <ThemeStarRateIcon source={StarOn} />
+                <ThemeStarRateText>{theme?.ratingScore}</ThemeStarRateText>
+              </ThemeReviewTitle>
+              <Title>{theme?.reviewCount || "0"}건</Title>
             </ThemeDetailTitleView>
             <BarGraph />
-            <View>
-              {reviewList?.map(review => (
+            <ThemeDetailReviewView>
+              {reviewList && reviewList?.map(review => (
                 <ReviewItem review={review} />
               ))}
-            </View>
-            <CustomButton mode="selected" value="리뷰 더 보기" />
-          </View>
-          <View>
+              {
+                <ReviewItem
+                  review={testReview}
+                  disabled={false}
+                />
+              }
+            </ThemeDetailReviewView>
+            {/* <CustomButton mode="selected" value="리뷰 더 보기" /> */}
             <CustomButton mode="inactive" value="리뷰 쓰기" />
-            <CustomButton mode="selected" value="예약 or 예약 대기" />
+            <CustomButton mode="inactive" value="리뷰 쓰기" />
           </View>
         </ThemeDetailContent>
       </ThemeDetailScrollView>
+      <ThemeDetailBottomButtons>
+        <ThemeDetailBottomButton>
+          <CustomButton mode="inactive" value="리뷰 쓰기" />
+        </ThemeDetailBottomButton>
+        <ThemeDetailBottomButton>
+          <CustomButton
+            mode="selected"
+            value="예약 하기"
+            onPress={onPressReservation}
+          />
+        </ThemeDetailBottomButton>
+      </ThemeDetailBottomButtons>
     </ThemeDetailContainer>
   );
 };

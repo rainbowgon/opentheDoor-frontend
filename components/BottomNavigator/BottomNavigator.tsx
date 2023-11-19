@@ -39,7 +39,7 @@ import KakaoLoginScreen from "../../screens/KakaoLoginScreen/KakaoLoginScreen";
 import SearchScreenBottomTab from "../../screens/SearchScreen/SearchScreenBottomTab";
 import SearchResultScreen from "../../screens/SearchScreen/SearchResultScreen";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { themeRankListState } from "../../recoil/theme/theme";
+import { themeNearByList, themeRankListState } from "../../recoil/theme/theme";
 import { API_URL } from "../../constants/urls";
 import axios from "axios";
 import { getThemeRanking } from "../../recoil/theme/themeFeature";
@@ -51,6 +51,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
   const [fcmToken, setFcmToken] = useRecoilState(userFcmToken);
+  const setNearByTheme = useSetRecoilState(themeNearByList);
 
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
@@ -90,6 +91,11 @@ const BottomNavigator = () => {
           component={ThemeDetailScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="reservation"
+          component={ReservationScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }
@@ -114,6 +120,11 @@ const BottomNavigator = () => {
         <Stack.Screen
           name="themeDetail"
           component={ThemeDetailScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="reservation"
+          component={ReservationScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -174,6 +185,22 @@ const BottomNavigator = () => {
       // await getThemeRanking();
     } catch (error) {
       console.error("테마 상세 조회 실패", error);
+    } finally {
+    }
+
+    try {
+      // setLoading(true);
+      const curKeyword = "";
+      const curPage = 1;
+      const curSize = 3;
+
+      const response = await axios
+        .get(`${API_URL}${SearchServicePath}${ThemeAPI}/searches`)
+      console.log("테마 검색 성공", response.data);
+      setNearByTheme(response.data.data);
+      console.log("테마 검색 결과 삽입 성공");
+    } catch (error) {
+      console.error("테마 검색 실패", error);
     } finally {
     }
   }, []);

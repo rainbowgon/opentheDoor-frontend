@@ -4,7 +4,7 @@ import { Button, ButtonText } from './ButtonStyle';
 //TODO - create Button Custom Style
 
 export interface CustomButtonProps {
-  value?: string;
+  value?: null | string;
   size?: "large" | "medium" | "small" | "xsmall";
   mode?: "text" | "outlined" | "static" | "selected" | "inactive" | "error" | "kakao";
   border?: "square" | "round";

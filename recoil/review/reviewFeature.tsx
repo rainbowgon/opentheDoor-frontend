@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { API_URL } from "../../constants/urls";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { ReviewCreateType, myReviewState } from "./review";
+import { userAccessToken } from "../member/member";
 
 // apis
 const MemberServicePath = `/member-service`;
 const ReviewAPI = "/reviews";
 
 // FIXME 테스트용
-const accessToken = "accessToken";
+const accessToken = useRecoilValue(userAccessToken);
 
 const [myReview, setMyReview] = useRecoilState(myReviewState);
 
