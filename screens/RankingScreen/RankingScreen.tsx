@@ -50,6 +50,9 @@ const RankingScreen = () => {
               timeLimit={theme.timeLimit}
               genre={theme.genre}
               ratingScore={theme.ratingScore}
+              priceList={theme.priceList}
+              reviewCount={theme.reviewCount}
+              bookmarkCount={theme.bookmarkCount}
             />
           ))
         }

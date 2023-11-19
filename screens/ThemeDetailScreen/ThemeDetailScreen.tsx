@@ -83,7 +83,7 @@ const ThemeDetailScreen = () => {
     isEscaped: "SUCCESS",
     myLevel: 3,
     hintCount: null,
-    content: "또 와보고 싶네요. 한 번 해도 재밌었다.",
+    content: "메르덴 수호대에서는 협력과 전략이 중요한 역할을 합니다.또 와보고 싶네요. 한 번 해도 재밌었는데, ",
     performedDate: "2023-11-02",
     performedTime: null,
     performedHeadcount: null,
@@ -170,6 +170,7 @@ const ThemeDetailScreen = () => {
                 <ReviewItem review={review} />
               ))}
               {
+                accessToken === "" &&
                 <ReviewItem
                   review={testReview}
                   disabled={false}

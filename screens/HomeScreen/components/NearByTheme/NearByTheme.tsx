@@ -21,6 +21,7 @@ import {
 import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
 import { locationState } from "../../../../recoil/map/map";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
+import MiniInfoCard from "../../../../components/MiniInfoCard/MiniInfoCard";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
@@ -130,7 +131,22 @@ const NearByTheme = () => {
         />
       </View>
       {themeList.map(theme => (
-        <InfoCard key={theme.themeId} {...theme} />
+        <MiniInfoCard
+          key={theme.themeId}
+          themeId={theme.themeId}
+          venue={theme.venue}
+          title={theme.title}
+          poster={theme.poster}
+          level={theme.level}
+          priceList={theme.priceList}
+          minHeadcount={theme.minHeadcount}
+          maxHeadcount={theme.maxHeadcount}
+          timeLimit={theme.timeLimit}
+          genre={theme.genre}
+          ratingScore={theme.ratingScore}
+          reviewCount={theme.reviewCount}
+          bookmarkCount={theme.bookmarkCount}
+        />
       ))}
     </View>
   );
