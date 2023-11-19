@@ -3,7 +3,8 @@ import styled from "styled-components/native";
 
 // export const WeeklyThemeStyle = styled.TouchableOpacity``;
 
-export const RenderThemeItemView = styled.View`
+export const RenderThemeItemView = styled.TouchableOpacity`
+  activeOpacity: 0.9;
   border-radius: 5px;
   overflow: hidden;
   margin: 0 8px;

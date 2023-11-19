@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   BookmarkItem,
   BookmarkView,
-  CardView,
+  MiniCardView,
   ContentButtonList,
   ContentImage,
   ContentInfo,
@@ -16,7 +16,7 @@ import {
   StarText,
   SubTitleText,
   TitleText,
-} from "./InfoCardStyle";
+} from "./MiniInfoCardStyle";
 
 // components
 import CustomButton from "../Button/CustomButton";
@@ -43,7 +43,7 @@ import { userAccessToken } from "../../recoil/member/member";
 
 // TODO - 미사용 태그는 비활성화 진행
 
-const InfoCard = (
+const MiniInfoCard = (
   {
     themeId,
     venue = null,
@@ -175,37 +175,16 @@ const InfoCard = (
     <>
       {/* <TouchableOpacity onPress={onPress} activeOpacity={0.9}> */}
       <TouchableOpacity onPress={onPressCard} activeOpacity={0.9}>
-        <CardView>
-          <ImageGuideView>
-            <ContentImage
-              source={{ uri: poster }}
-              onError={error => console.error("Image load error:", error)}
-            />
-            <LinearGradient
-              start={{ x: 0.0, y: 0.0 }}
-              end={{ x: 1.0, y: 0.0 }}
-              colors={[
-                "rgba(255, 255, 255, 0)",
-                "rgba(255, 255, 255, 0)",
-                "rgba(36, 36, 35, 1)",
-              ]}
-              style={styles.linearGradient}></LinearGradient>
-          </ImageGuideView>
+        <MiniCardView>
           <ContentInfo>
             {title && <TitleText>{title}</TitleText>}
             <View>
               {venue && <ContentText>{venue}</ContentText>}
-              {(level || timeLimit) && (
-                <ContentText>
-                  {level && `난이도 : ${level}`} {level && timeLimit && "|"}{" "}
-                  {timeLimit && `소요시간 : ${timeLimit}분`}
-                </ContentText>
-              )}
-              {tel && <SubTitleText>{tel}</SubTitleText>}
+              {tel && <ContentText>{timeLimit}</ContentText>}
               {minHeadcount && maxHeadcount && (
                 <>
                   <ContentText>
-                    {(priceList && priceList?.[0]?.price) || "- "}원 (
+                    최대 {(priceList && priceList?.[0]?.price) || "- "}원 (
                     {minHeadcount || "0"}
                     {minHeadcount && maxHeadcount && " ~ "}
                     {maxHeadcount || "0"}명)
@@ -228,7 +207,7 @@ const InfoCard = (
             <ContentInfoList>
               <StarImage source={StarOn}></StarImage>
               <StarText>{ratingScore || " - "}</StarText>
-              <ContentText> ({reviewCount || 0})</ContentText>
+              <ContentText> ({bookmarkCount || 0})</ContentText>
             </ContentInfoList>
           </ContentInfo>
           <ContentButtonList>
@@ -258,7 +237,7 @@ const InfoCard = (
               )
             }
           </ContentButtonList>
-        </CardView>
+        </MiniCardView>
       </TouchableOpacity>
       {
         // FIXME - 알림기능 건드리면서 수정
@@ -281,4 +260,4 @@ var styles = StyleSheet.create({
   },
 });
 
-export default InfoCard;
+export default MiniInfoCard;
