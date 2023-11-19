@@ -39,6 +39,7 @@ import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import SearchFilter from "./SearchFilter";
 import { searchResultsState } from "../../../../recoil/search/search";
+import { locationState } from "../../../../recoil/map/map";
 const SearchServicePath = `/search-service`;
 const ThemeAPI = "/themes";
 
@@ -53,7 +54,7 @@ const SearchScreenMapBottom = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
-  const searchResult = useRecoilValue(searchResultsState);
+  const [region, setRegion] = useRecoilState(locationState);
   const fetchThemes = async () => {
     setIsLoading(true);
     try {
@@ -134,6 +135,7 @@ const SearchScreenMapBottom = () => {
       <SearchFilter />
       <View>
         <CustomMap region={initialRegion} style={{ height: 630 }}>
+          {region && <Marker coordinate={region} title="내 위치" />}
           {!isLoading &&
             themeList.map(theme => (
               <Marker

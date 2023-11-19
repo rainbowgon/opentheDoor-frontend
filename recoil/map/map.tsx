@@ -21,3 +21,18 @@ export const searchResultsState = atom<mapRegionType[]>({
   key: "searchResultsState",
   default: [],
 });
+
+export const locationState = atom<mapRegionType>({
+  key: "locationState",
+  default: {
+    latitude: 37.5013,
+    longitude: 127.0396781,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  },
+});
+
+export const modalState = atom({
+  key: "modalState",
+  default: false,
+});
