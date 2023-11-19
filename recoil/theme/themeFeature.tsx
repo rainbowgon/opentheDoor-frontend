@@ -142,9 +142,9 @@ export async function getUpdateNearByThemeList({
   longitude?: null | number;
 }) {
   console.log("테마 검색 성공", nearByTheme);
-  const curKeyword = "";
-  const curPage = 1;
-  const curSize = 10;
+  const curKeyword = "강남";
+  const curPage = null;
+  const curSize = 3;
   const curHeadcount = null;
   const curRegion = null;
   const curSortBy = "DISTANCE";
@@ -152,7 +152,9 @@ export async function getUpdateNearByThemeList({
   // BOOKMARK, REVIEW, RECOMMEND, DISTANCE
 
   const response = await axios
-    .get(`${API_URL}${SearchServicePath}${ThemeAPI}/sorts?sortBy=${curSortBy}`)
+    .get(
+      `${API_URL}${SearchServicePath}${ThemeAPI}/sorts?keyword=${curKeyword}&size=${curSize}&page=${curPage}&sortBy=${curSortBy}`,
+    )
     // .get(
     //   `${API_URL}${SearchServicePath}${ThemeAPI}/sorts?keyword=${curKeyword}&page=${curPage}&size=${curSize}&sortBy=${curSortBy}`,
     // )

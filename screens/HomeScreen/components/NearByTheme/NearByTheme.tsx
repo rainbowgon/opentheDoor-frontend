@@ -130,19 +130,7 @@ const NearByTheme = () => {
         />
       </View>
       {themeList.map(theme => (
-        <InfoCard
-          key={theme.themeId}
-          themeId={theme.themeId}
-          venue={theme.venue}
-          title={theme.title}
-          poster={theme.poster}
-          level={theme.level}
-          minHeadcount={theme.minHeadcount}
-          maxHeadcount={theme.maxHeadcount}
-          timeLimit={theme.timeLimit}
-          genre={theme.genre}
-          ratingScore={theme.ratingScore}
-        />
+        <InfoCard key={theme.themeId} {...theme} />
       ))}
     </View>
   );

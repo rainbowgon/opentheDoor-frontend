@@ -54,13 +54,8 @@ const SearchListModal = ({ modalVisible, setModalVisible }) => {
   const renderTheme = ({ item }) => (
     <InfoCard
       key={item.themeId}
-      poster={item.poster}
-      themeId={item.themeId}
-      title={item.title}
-      genre={item.genre}
-      minHeadcount={item.minHeadcount}
-      maxHeadcount={item.maxHeadcount}
-      ratingScore={item.ratingScore}
+      {...item}
+      onPress={() => handleThemeSelect(item.themeId)}
     />
   );
 
