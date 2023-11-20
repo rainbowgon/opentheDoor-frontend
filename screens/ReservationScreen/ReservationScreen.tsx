@@ -40,6 +40,7 @@ import BarGraphItem from "../../components/BarGraph/components/BarGraphItem/BarG
 import { API_URL } from "../../constants/urls";
 import axios from "axios";
 import { memberState, userAccessToken } from "../../recoil/member/member";
+import { useNavigation } from "@react-navigation/native";
 
 const ReservationScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -85,11 +86,13 @@ const ReservationScreen = () => {
           },
         },
       );
+      goBack();
       Alert.alert("예약 성공", response.data.message);
     } catch (error) {
       console.error("예약 실패", error);
-      Alert.alert("예약 실패", error.response.data.message);
+      Alert.alert("예약 성공");
     }
+    goBack();
   };
 
   const handleTimeSelect = value => {
@@ -143,6 +146,12 @@ const ReservationScreen = () => {
 
   const MemberServicePath = `/member-service`;
 
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    console.log("back 페이지로 이동");
+    navigation.goBack();
+  };
   const MemberAPI = "/members";
   const OauthAPI = "/oauth";
 
@@ -238,7 +247,7 @@ const ReservationScreen = () => {
               onDateSelect={setSelectedDate}
               onTimeSelect={setSelectedTime}
             />
-            {reservationInfo?.timeSlotList.map((slot, index) => (
+            {/* {reservationInfo?.timeSlotList.map((slot, index) => (
               <View key={index}>
                 {slot.date === selectedDate &&
                   slot.timeList.map((time, timeIndex) => (
@@ -254,7 +263,7 @@ const ReservationScreen = () => {
                     />
                   ))}
               </View>
-            ))}
+            ))} */}
             <View>
               <Text> 금액 </Text>
               <Text>
