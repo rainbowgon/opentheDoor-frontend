@@ -153,6 +153,11 @@ const BottomNavigator = () => {
           component={SignUpScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="reservationList"
+          component={ReservationListScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }

@@ -11,7 +11,22 @@ export const ThemeDetailImage = styled.Image`
   width: 100%;
   object-fit: cover;
   height: 500px;
-  resizemode: cover;
+  /* resizemode: cover; */
+`;
+
+export const InputViews = styled.View`
+  margin: 12px 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  border: solid 2px ${theme.background4};
+  padding: 5px;
+  border-radius: 5px;
+`;
+
+export const InputView = styled.View`
+  width: 45%;
 `;
 
 export const GetImageView = styled.View`

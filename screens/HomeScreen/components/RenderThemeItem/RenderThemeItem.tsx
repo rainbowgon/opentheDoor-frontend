@@ -118,7 +118,11 @@ const RenderThemeItem = ({ item }: { item: ThemeSimpleInfoType }) => {
   return (
     <RenderThemeItemView onPress={onPressCard}>
       <RenderThemeItemImage
-        source={{ uri: item.poster } || ImageDefault} //FIXME 추후 uri로 가져오도록, 지금 마스터키 측에서 막아놨어요.
+        source={
+          item?.poster
+            ? { uri: item.poster }
+            : ImageDefault
+        }
       />
       <RenderThemeItemContent>
         <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)', 'rgba(25, 24, 29, 1), rgba(25, 24, 29, 1)']} style={styles.linearGradient}>

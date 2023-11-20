@@ -85,9 +85,7 @@ const KakaoLoginScreen = () => {
       setRefreshToken(response.data.data.refreshToken);
       console.log("refreshToken 주입 성공", response.data.data.accessToken);
       setMemberState({
-        name: "test",
         nickname: response.data.data.nickname,
-        phoneNumber: response.data.data.ph,
         profileImage: response.data.data.profileImage,
       });
       console.log("데이터 삽입 성공");

@@ -21,7 +21,7 @@ const ReviewItem = ({
       <ReviewUserContainer>
         <ReviewUserImage
           // source={(review?.profileImage && { uri: review.profileImage }) || ImageDefault}
-          source={{ uri: review.profileImage } || ImageDefault}
+          source={ImageDefault}
         ></ReviewUserImage>
         <ReviewUserInfo>
           <ReviewUserInfoItem>

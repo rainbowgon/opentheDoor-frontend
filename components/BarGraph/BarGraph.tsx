@@ -10,30 +10,30 @@ const BarGraph = () => {
         type={"doorOpen"}
         value={30}
       />
-      <BarGraphItem
+      {/* <BarGraphItem
         type={"activity"}
         value={40}
-      />
-      <BarGraphItem
+      /> */}
+      {/* <BarGraphItem
         type={"capacity"}
         value={50}
-      />
+      /> */}
       <BarGraphItem
         type={"difficulty"}
         value={60}
       />
-      <BarGraphItem
+      {/* <BarGraphItem
         type={"fear"}
         value={70}
-      />
+      /> */}
       <BarGraphItem
         type={"hint"}
         value={80}
       />
-      <BarGraphItem
+      {/* <BarGraphItem
         type={"machine"}
         value={90}
-      />
+      /> */}
     </BarGraphView>
   );
 };
