@@ -100,6 +100,7 @@ const NearByTheme = () => {
                 longitude: markerData.longitude,
               }}
               title={markerData.title}
+              pinColor="#BAB2FFFF"
               onPress={() => handleMarkerPress(markerData)}
             />
           ))}

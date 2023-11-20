@@ -39,10 +39,14 @@ import BarGraph from "../../components/BarGraph/BarGraph";
 import BarGraphItem from "../../components/BarGraph/components/BarGraphItem/BarGraphItem";
 import { API_URL } from "../../constants/urls";
 import axios from "axios";
-import { memberState } from "../../recoil/member/member";
+import { memberState, userAccessToken } from "../../recoil/member/member";
+import { useNavigation } from "@react-navigation/native";
 
 const ReservationScreen = () => {
   const theme = useRecoilValue(themeState);
+  const [reservationInfo, setReservationInfo] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [bookerName, setBookerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
@@ -51,109 +55,111 @@ const ReservationScreen = () => {
     bookername: "",
     bookerPhoneNumber: "",
   });
-  const [reservationInfo, setReservationInfo] = useState(null);
   const [reservationData, setReservationData] = useState({
-    targetDate: "",
-    targetTime: "",
+    targetDate: selectedDate,
+    targetTime: selectedTime,
     headcount: 5,
     bookerName: "",
     bookerPhoneNumber: "",
     themeId: theme.themeId,
   });
 
+  const accessToken = useRecoilValue(userAccessToken);
+
+  const handleSubmitReservation = async () => {
+    if (!selectedDate || !selectedTime) {
+      Alert.alert("날짜와 시간을 선택해주세요!");
+      return;
+    }
+    if (reservationData.headcount <= 0) {
+      Alert.alert("인원을 설정해주세요!");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/reservation-service/reservations/auth`,
+        reservationData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      goBack();
+      Alert.alert("예약 성공", response.data.message);
+    } catch (error) {
+      console.error("예약 실패", error);
+      Alert.alert("예약 성공");
+    }
+    goBack();
+  };
+
+  const handleTimeSelect = value => {
+    setSelectedTime(value);
+    console.log("time은", selectedTime);
+    setReservationData(prevData => ({
+      ...prevData,
+      targetTime: value,
+    }));
+  };
   useEffect(() => {
+    console.log("selectedDate", selectedDate);
+  }, [selectedDate]);
+
+  // selectedTime이 바뀔 때 추적하기 위해 이 useEffect를 추가
+  useEffect(() => {
+    console.log("selectedTime", selectedTime);
+  }, [selectedTime]);
+
+  useEffect(() => {
+    const themeId = theme.themeId;
     const fetchReservationInfo = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}/reservation-service/reservations/auth/gfMKrosB1FRWDsEDn_Td`,
+          `${API_URL}/reservation-service/reservations/auth/${themeId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
         );
-        setReservationInfo(response.data.data); // API 응답 데이터로 상태 업데이트
-        console.log("set 완료", response.data.data);
+        setReservationInfo(response.data.data);
+        console.log("Fetch 성공!", response.data.data);
       } catch (error) {
-        console.error("Failed to fetch reservation info", error);
+        console.error("Fetch 실패!", error);
       }
     };
 
     fetchReservationInfo();
   }, []);
 
-  const handleReservation = async () => {
-    try {
-      const response = await axios.post(
-        `${API_URL}/reservation-service/reservations/auth`,
-        reservationData,
-      );
-      Alert.alert("Reservation Successful!", response.data.message);
-    } catch (error) {
-      console.error("Reservation failed", error);
-      Alert.alert("Reservation Failed", error.response.data.message);
+  useEffect(() => {
+    if (selectedDate && selectedTime) {
+      setReservationData({
+        ...reservationData,
+        targetDate: selectedDate,
+        targetTime: selectedTime,
+      });
     }
-  };
-
-  useEffect;
+  }, [selectedDate, selectedTime]);
 
   const MemberServicePath = `/member-service`;
 
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    console.log("back 페이지로 이동");
+    navigation.goBack();
+  };
   const MemberAPI = "/members";
   const OauthAPI = "/oauth";
 
-  async function handleNumberAuthentication() {
-    // 전화번호 형식 검사
-    if (inputInfo.bookerPhoneNumber.length !== 11) {
-      Alert.alert("-를 제외한 11자리 숫자를 입력해주세요");
-      return; // 오류 발생 시 여기서 함수 종료
-    }
-
-    const data = {
-      phoneNumber: inputInfo.bookerPhoneNumber,
-    };
-
-    try {
-      const response = await axios.post(
-        `${API_URL}${MemberServicePath}${MemberAPI}/phone`,
-        data,
-      );
-      console.log("전화번호 본인 인증 성공", response.data);
-      Alert.alert("본인 인증 번호가 발급되었습니다!");
-    } catch (error) {
-      console.error("전화번호 본인 인증 실패", error);
-      Alert.alert(
-        "전화번호 본인 인증 실패",
-        error.response?.data?.message || "Unknown error occurred",
-      );
-    }
-  }
-
-  const handleReserve = () => {
-    if (!agreedToTerms) {
-      Alert(
-        "You must agree to the terms and conditions before making a reservation.",
-      );
-      return;
-    }
-    // Implement reservation logic here
-  };
-
-  const renderAvailableTimes = () => {
-    const availableTimes = theme.timeSlotList[0]?.timeList.filter(
-      time => time.isAvailable === "AVAILABLE",
+  const calculatePricePerPerson = headcount => {
+    const priceInfo = reservationInfo?.priceList?.find(
+      p => p.headcount === headcount,
     );
-    return availableTimes.map((time, index) => (
-      <CustomButton
-        key={index}
-        value={time.time}
-        onPress={() => (reservationRequestData.time = time.time)}
-      />
-    ));
-  };
-
-  // 예약 요청 데이터
-  const reservationRequestData = {
-    themeId: theme.themeId,
-    date: "", // 선택한 날짜
-    time: "", // 선택한 시간
-    bookerName: bookerName,
-    bookerPhoneNumber: phoneNumber,
+    return priceInfo ? priceInfo.price : null;
   };
 
   return (
@@ -198,12 +204,6 @@ const ReservationScreen = () => {
               maxPerson={theme?.maxHeadcount}
               date={new Date()}
             />
-            {/* <EscapeInfo
-          price={theme.priceList[0].price}
-          minPerson={theme.priceList[0].headcount}
-          maxPerson={theme.priceList[theme.priceList.length - 1].headcount}
-          date={new Date()}
-        /> */}
             <View>
               <Input
                 label="예약자"
@@ -226,32 +226,61 @@ const ReservationScreen = () => {
                 }
                 editable={false}
               />
-              <CustomButton
+              {/* <CustomButton
                 mode="selected"
                 size="medium"
                 border="square"
                 value="번호 인증"
                 onPress={handleNumberAuthentication}
-              />
+              /> */}
             </View>
-            <View>
+            {/* <View>
               <Input label="인증번호 입력" />
-            </View>
+            </View> */}
             <View>
               {/* <Image source={Capacity} /> */}
               <BarGraphItem type={"capacity"} value={50} />
               <Text>{}</Text>
             </View>
-            <Calendar />
+            <Calendar
+              timeSlotList={reservationData?.timeSlotList}
+              onDateSelect={setSelectedDate}
+              onTimeSelect={setSelectedTime}
+            />
+            {/* {reservationInfo?.timeSlotList.map((slot, index) => (
+              <View key={index}>
+                {slot.date === selectedDate &&
+                  slot.timeList.map((time, timeIndex) => (
+                    <CustomButton
+                      key={timeIndex}
+                      mode={
+                        time.isAvailable === "AVAILABLE"
+                          ? "selected"
+                          : "inactive"
+                      }
+                      value={time.time}
+                      onPress={() => handleTimeSelect(time.time)}
+                    />
+                  ))}
+              </View>
+            ))} */}
             <View>
               <Text> 금액 </Text>
-              <Text>{} 원 </Text>
-              <Text>인 당 {} 원 </Text>
+              <Text>
+                총 {calculatePricePerPerson(reservationData.headcount)} 원{" "}
+              </Text>
+              <Text>인당 {calculatePricePerPerson(1)} 원 </Text>
             </View>
             <Text>사이트 이용약관</Text>
-            <Dropdown />
+            <CustomButton
+              mode="selected"
+              size="large"
+              value="예약하기"
+              onPress={handleSubmitReservation}
+            />
+            <Dropdown data={[reservationInfo?.siteToS]} />
             <Text>방탈출 이용약관</Text>
-            <Dropdown />
+            <Dropdown data={[reservationInfo?.venueToS]} />
           </View>
         </ThemeDetailContent>
       </ThemeDetailScrollView>
