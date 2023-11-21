@@ -16,13 +16,20 @@ import CustomButton from "../../components/Button/CustomButton";
 import PageContainer, { FixedPageContainer } from "../../styles/commonStyles";
 import { HomePageHeadContent } from "./HomeScreenStyle";
 import InputHeadline from "./components/InputHeadline/InputHeadline";
+import { userAccessToken } from "../../recoil/member/member";
+import { useRecoilValue } from "recoil";
 
-const HomeScreen = ({}) => {
+const HomeScreen = ({ }) => {
+  const accessToken = useRecoilValue(userAccessToken);
   return (
     <FixedPageContainer>
-      <Header
-        alarm="true"
-      />
+      {
+        accessToken
+          ? <Header
+            alarm="true"
+          />
+          : <Header />
+      }
       <PageContainer>
         <HomePageHeadContent>
           <HomeTitle />

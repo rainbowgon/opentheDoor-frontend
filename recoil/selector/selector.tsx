@@ -1,5 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../constants/urls";
+import { useRecoilValue } from "recoil";
+import { userAccessToken } from "../member/member";
 
 // apis
 const MemberServicePath = `/member-service`;
@@ -13,10 +15,7 @@ const ReservationAPI = "/reservations";
 const BookmarkAPI = `/bookmarks`;
 
 // 배포용
-// const accessToken = localStorage.getItem("accessToken");
-
-// FIXME 테스트용
-const accessToken = "accessToken";
+const accessToken = useRecoilValue(userAccessToken);
 
 // export async function getPosts() {
 //   const response = await axios.get<Post[]>(
@@ -61,70 +60,6 @@ export async function patchBookmarkNotification() {
     })
     .catch(error => {
       console.error("PROFILE	북마크 시 자동 알림 on/off 실패", error);
-    });
-}
-
-// NOTE  [NOTIFICATION] ----------------------------------------------
-/**
- * TODO 알림 전체보기 (GET)
- * /notificatiom-service/notifications
- */
-export async function getNotification() {
-  const response = await axios
-    .get(`${API_URL}${NotificatiomServicePath}${NotificationAPI}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .then(response => {
-      console.log("알림 전체보기 성공", response.data);
-    })
-    .catch(error => {
-      console.error("알림 전체보기 실패", error);
-    });
-}
-
-/**
- * TODO - 알림 확인하기 (PATCH) - patchNotification
- * /notificatiom-service/notifications/{notification-id}
- */
-export async function patchNotification() {
-  // FIXME - notificationId를 자신의 ID로 등록
-  const notificationId = 0;
-
-  const response = await axios
-    .patch(
-      `${API_URL}${NotificatiomServicePath}${NotificationAPI}/${notificationId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    )
-    .then(response => {
-      console.log("알림 확인하기 성공", response.data);
-    })
-    .catch(error => {
-      console.error("알림 확인하기 실패", error);
-    });
-}
-
-/**
- * TODO - 알림 전체 확인하기 (PATCH) - patchNotificationAll
- * /notificatiom-service/notifications
- */
-export async function patchNotificationAll() {
-  const response = await axios
-    .patch(`${API_URL}${NotificatiomServicePath}${NotificationAPI}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .then(response => {
-      console.log("알림 전체 확인하기 성공", response.data);
-    })
-    .catch(error => {
-      console.error("알림 전체 확인하기 실패", error);
     });
 }
 

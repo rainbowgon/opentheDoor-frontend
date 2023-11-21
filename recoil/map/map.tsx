@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export interface mapRegionType {
   latitude?: number;
-  longtitude?: number;
+  longitude?: number;
   latitudeDelta?: number;
   longitudeDelta?: number;
 }
