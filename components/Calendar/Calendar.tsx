@@ -29,6 +29,7 @@ const Calendar = ({ onTimeSelect, onDateSelect }) => {
     compareToMonth: (new Date().getMonth() + 1).toString(),
     compareToDate: new Date().getDate().toString(),
   });
+  const [onSelectedTime, setOnSelectedTime] = useState<string>("");
 
   const handleDate = selectedDate => {
     console.log(
@@ -60,8 +61,11 @@ const Calendar = ({ onTimeSelect, onDateSelect }) => {
     return true;
   };
 
-  const onModeSelected = (isAvailable: string) => {
-    if (isAvailable === "AVAILABLE") {
+  const onModeSelected = (time) => {
+    if (time.isAvailable === "AVAILABLE" && time.time === onSelectedTime) {
+      return "active"
+    }
+    if (time.isAvailable === "AVAILABLE") {
       return "selected";
     }
     return "inactive";
@@ -103,9 +107,12 @@ const Calendar = ({ onTimeSelect, onDateSelect }) => {
                 onCompareDate(timeInfo.date) &&
                 timeInfo.timeList?.map(time => (
                   <CustomButton
-                    mode={onModeSelected(time.isAvailable)}
+                    mode={onModeSelected(time)}
                     value={time.time}
-                    onPress={() => onTimeSelect(time.time)}
+                    onPress={() => {
+                      setOnSelectedTime(time.time);
+                      onTimeSelect(time.time);
+                    }}
                   />
                 ))}
             </>

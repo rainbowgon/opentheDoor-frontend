@@ -44,11 +44,12 @@ import axios from "axios";
 import { userAccessToken } from "../../recoil/member/member";
 import { useNavigation } from "@react-navigation/native";
 import { IconImage } from "../../components/InfoCard/InfoCardStyle";
+import moment from "moment";
 
 const ReservationScreen = () => {
   const theme = useRecoilValue(themeState);
   const [reservationInfo, setReservationInfo] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookerName, setBookerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -70,8 +71,12 @@ const ReservationScreen = () => {
   const accessToken = useRecoilValue(userAccessToken);
 
   const handleSubmitReservation = async () => {
-    if (!selectedDate || !selectedTime) {
-      Alert.alert("날짜와 시간을 선택해주세요!");
+    if (!selectedDate) {
+      Alert.alert("날짜를 선택해주세요!");
+      return;
+    }
+    if (!selectedTime) {
+      Alert.alert("시간을 선택해주세요!");
       return;
     }
     if (reservationData.headcount <= 0) {
@@ -79,23 +84,38 @@ const ReservationScreen = () => {
       return;
     }
 
-    try {
-      const response = await axios.post(
-        `${API_URL}/reservation-service/reservations/unauth`,
-        reservationData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+    if (accessToken !== "") {
+      try {
+        const response = await axios.post(
+          `${API_URL}/reservation-service/reservations/auth`,
+          reservationData,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           },
-        },
-      );
-      goBack();
-      Alert.alert("예약 성공", response.data.message);
-    } catch (error) {
-      console.error("예약 실패", error);
-      Alert.alert("예약 성공");
+        );
+        Alert.alert("예약 성공", response.data.message);
+        goBack();
+      } catch (error) {
+        console.error("예약 실패", error);
+        Alert.alert("예약 성공");
+      }
     }
-    goBack();
+    else {
+      try {
+        const response = await axios.post(
+          `${API_URL}/reservation-service/reservations/unauth`,
+          reservationData,
+        );
+        Alert.alert("예약 성공", response.data.message);
+        goBack();
+      } catch (error) {
+        console.error("예약 실패", error);
+        Alert.alert("예약 성공");
+      }
+    }
+    // goBack();
   };
 
   const handleTimeSelect = value => {
@@ -117,18 +137,42 @@ const ReservationScreen = () => {
 
   useEffect(() => {
     const themeId = theme.themeId;
+
     const fetchReservationInfo = async () => {
-      try {
-        const response = await axios.get(
-          `${API_URL}/reservation-service/reservations/unauth/${themeId}`,
-        );
-        setReservationData(response.data.data);
-        console.log("Fetch 성공!", response.data.data);
-      } catch (error) {
-        // console.error("Fetch 실패!", error);
+      console.log("accessToken", accessToken);
+      if (accessToken !== "") {
+        try {
+          const response = await axios.get(
+            `${API_URL}/reservation-service/reservations/auth/${themeId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+          setReservationData(response.data.data);
+          console.log("Fetch 성공!", response.data.data);
+        } catch (error) {
+          console.log("Fetch 실패!", error);
+        }
+      }
+      else {
+        try {
+          const response = await axios.get(
+            `${API_URL}/reservation-service/reservations/unauth/${themeId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+          setReservationData(response.data.data);
+          console.log("Fetch 성공!", response.data.data);
+        } catch (error) {
+          console.error("Fetch 실패!", error);
+        }
       }
     };
-
     fetchReservationInfo();
   }, []);
 

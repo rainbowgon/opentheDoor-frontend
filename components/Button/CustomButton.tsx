@@ -6,7 +6,7 @@ import { Button, ButtonText } from './ButtonStyle';
 export interface CustomButtonProps {
   value?: null | string;
   size?: "large" | "medium" | "small" | "xsmall";
-  mode?: "text" | "outlined" | "static" | "selected" | "inactive" | "error" | "kakao";
+  mode?: "text" | "outlined" | "static" | "selected" | "active" | "inactive" | "error" | "kakao";
   border?: "square" | "round";
   onPress?: () => any;
 }

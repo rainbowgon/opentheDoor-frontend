@@ -43,7 +43,7 @@ export const ReviewUserPrivacyInfo = styled.View`
 export const ReviewUserImage = styled.Image`
   width: 30px;
   height: 30px;
-  overflow: auto;
+  overflow: hidden;
   border-radius: 100px;
 `;
 

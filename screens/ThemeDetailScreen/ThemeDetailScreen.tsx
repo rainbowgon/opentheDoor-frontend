@@ -25,6 +25,7 @@ import ZoomIcon from "../../assets/icons/icon-zoom.png";
 import {
   Explanation,
   GetImageView,
+  NoReviewView,
   StyledView,
   SubContent,
   ThemeDetailBottomButton,
@@ -180,11 +181,15 @@ const ThemeDetailScreen = () => {
                 <ReviewItem review={review} />
               ))}
               {
-                accessToken === "" &&
-                <ReviewItem
-                  review={testReview}
-                  disabled={false}
-                />
+                (accessToken === "" &&
+                  reviewList?.length > 1) ?
+                  <ReviewItem
+                    review={testReview}
+                    disabled={false}
+                  /> :
+                  <NoReviewView>
+                    <Text>회원가입하고 리뷰를 등록해보세요!</Text>
+                  </NoReviewView>
               }
             </ThemeDetailReviewView>
             {/* <CustomButton mode="selected" value="리뷰 더 보기" /> */}

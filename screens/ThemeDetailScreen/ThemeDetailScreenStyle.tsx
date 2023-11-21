@@ -18,6 +18,11 @@ export const GetImageView = styled.View`
   height: 420px;
   `;
 
+export const NoReviewView = styled.View`
+    height: 100px;
+    justify-content: center;
+  `;
+
 export const ThemeDetailScrollView = styled.ScrollView`
   flex: 1;
   `;
