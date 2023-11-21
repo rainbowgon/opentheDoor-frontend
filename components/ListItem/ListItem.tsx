@@ -34,7 +34,7 @@ export interface ListItemProps {
   right?: string;
   color?: "white" | "success" | "warn" | "info" | "error" | "disable";
   style?: string;
-  onPress?: void;
+  onPress?: () => any;
 }
 
 const handleIcon = (value: string) => {
@@ -72,8 +72,15 @@ const ListItem = ({
   color,
   style,
   onPress,
-}: ListItemProps) => (
-  <ListItemView>
+}: ListItemProps) => {
+  const handleListItemPress = () => {
+    console.log(`leListItem 버튼이 눌렸습니다.`);
+    // alert(`${value} 버튼이 눌렸습니다.`);
+    if (onPress) {
+      onPress();
+    }
+  };
+  return (<ListItemView onPress={handleListItemPress}>
     <ListItemItem>
       {handleIcon(icon)}
       <View>
@@ -89,6 +96,7 @@ const ListItem = ({
     </ListItemItem>
     {handleRight(right)}
   </ListItemView>
-);
+  )
+};
 
 export default ListItem;

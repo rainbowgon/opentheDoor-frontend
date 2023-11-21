@@ -1,9 +1,10 @@
 import { Text, View } from 'react-native';
 import CustomButton from "../../Button/CustomButton";
-import { getBookmarkListMypage, getNotification, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, patchNotification, patchNotificationAll, postReservation, putBookmarkToggle } from "../../../recoil/selector/selector";
+import { getBookmarkListMypage, getReservation, getBookmarkCreateHome, patchAllNotification, patchBookmarkNotification, patchBookmarkNotificationToggle, postReservation, putBookmarkToggle } from "../../../recoil/selector/selector";
 import { deleteReview, getHistory, getReviewAll, getReviewCheckMyself, getReviewOne, patchReviewEdit, postReviewCreate } from "../../../recoil/review/reviewFeature";
 import { getThemeDetail, getThemeRanking, getThemeSearch, getThemeSort, getUpdateNearByThemeList, testGetThemeSearch } from "../../../recoil/theme/themeFeature";
 import { deleteMember, getMemberCheckMyself, patchMemberInfo, postCheckPhoneNumber, postKakaoLogin, postSignup } from "../../../recoil/member/memberFeature";
+import { getNotification, patchNotification, patchNotificationAll } from "../../../recoil/alarm/alarmFeature";
 
 const AdminAxiosTestBox = () => {
   const onGetThemeSort = () => {
