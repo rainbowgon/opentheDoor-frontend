@@ -13,17 +13,20 @@ const AlarmScreen = () => {
   return (
     <PageContainer>
       {/* FIXME - Admin 기능입니다 */}
-      <AdminAxiosTestBox />
+      {/* <AdminAxiosTestBox /> */}
       <Header back="true" />
-      <Button title="AlarmScreenDemo" />
       <CustomButton
-        value="TODO - 알림 전체 확인하기 (PATCH) - patchNotificationAll"
+        value="알림 전체 확인하기"
         onPress={patchNotificationAll}
+        mode="selected"
+        size="small"
       />
       <ScrollView>
-        {[...Array(3)].map(key => (
+        <ListItem title="메르헨 수호대 테마가 예약되었습니다." content="예약번호는 691238 입니다." color="disable" />
+        <ListItem title="히로인 테마가 예약되었습니다." content="예약번호는 342712 입니다." color="disable" />
+        {/* {[...Array(3)].map(key => (
           <ListItem title={key} content={key} />
-        ))}
+        ))} */}
       </ScrollView>
     </PageContainer>
   );

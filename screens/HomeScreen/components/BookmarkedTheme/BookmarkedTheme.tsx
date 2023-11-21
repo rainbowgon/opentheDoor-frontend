@@ -11,7 +11,7 @@ const BookmarkedTheme = () => {
   return (
     <>
       {
-        accessToken === ""
+        accessToken !== ""
           ?
           <View>
             <HomeScreenTitleView>
@@ -27,7 +27,7 @@ const BookmarkedTheme = () => {
               <HomeScreenTitle>북마크한 테마</HomeScreenTitle>
             </HomeScreenTitleView>
             <View style={styles}>
-              <Text>회원가입하여 내가 좋아하는 테마를 저장하세요</Text>
+              <Text>회원가입하여 테마를 저장하세요</Text>
             </View>
           </View>
 

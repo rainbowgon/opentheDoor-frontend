@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 // components
 import CustomButton from "../../../../components/Button/CustomButton";
@@ -18,6 +18,7 @@ const MypageLogin = () => {
     // FIXME 구글 로그인으로 변경 필요
     console.log("FIXME 구글 로그인으로 변경 필요")
     // navigation.navigate("kakaoLogin");
+    Alert.alert("구글 로그인은 개발중입니다.")
   };
 
   return (

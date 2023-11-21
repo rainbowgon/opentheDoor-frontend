@@ -178,7 +178,12 @@ const InfoCard = (
         <CardView>
           <ImageGuideView>
             <ContentImage
-              source={{ uri: poster }}
+              source={
+                poster
+                  ?
+                  { uri: poster }
+                  : ImageDefault
+              }
               onError={error => console.error("Image load error:", error)}
             />
             <LinearGradient

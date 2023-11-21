@@ -3,8 +3,12 @@ import { View, Button, ScrollView } from "react-native";
 import Header from "../../components/Header/Header";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import PageContainer from "../../styles/commonStyles";
+import { ReservationInfoList } from "../../recoil/reservation/reservation";
+import { useRecoilState } from "recoil";
 
 const ReservationListScreen = () => {
+
+  const [reservationInfoList, setReservationInfoList] = useRecoilState(ReservationInfoList);
   // const [reservations, setReservations] = useState([]);
 
   // useEffect(() => {
@@ -24,14 +28,17 @@ const ReservationListScreen = () => {
       {/* {reservations.map((reservation, index) => (
         <InfoCard key={index} theme={reservation.title} />
       ))} */}
-      <InfoCard
-        theme="백조의 호수"
-        venue="역삼 익스케이프"
-        time="2023.11.03(금) 19:00 ~"
-        reviewCount={5}
-        priceList={120000}
-        memberCount={4}
-      />
+      {
+        reservationInfoList?.map(resercation => {
+          <InfoCard
+            themeId={resercation.themeId}
+            minHeadcount={resercation.headcount}
+            poster={resercation.poster}
+            ratingScore={resercation.reservationNumber}
+            reservationNotice={resercation.targetDate}
+          />
+        })
+      }
     </PageContainer>
   );
 };

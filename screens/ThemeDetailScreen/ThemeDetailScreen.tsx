@@ -54,6 +54,7 @@ import { ImageBackground } from "react-native";
 import Header from "../../components/Header/Header";
 import { Image } from "react-native";
 import { userAccessToken } from "../../recoil/member/member";
+import { Alert } from "react-native";
 
 const ThemeDetailScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -65,6 +66,8 @@ const ThemeDetailScreen = () => {
     latitudeDelta: 0.004,
     longitudeDelta: 0.004,
   });
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
 
   const onPressReservation = () => {
     console.log("reservation 페이지로 이동")
@@ -94,7 +97,11 @@ const ThemeDetailScreen = () => {
     <ThemeDetailContainer>
       <ThemeDetailImage
         // source={ImageDefault}
-        source={{ uri: theme.poster }}
+        source={
+          theme?.poster
+            ? { uri: theme.poster }
+            : ImageDefault
+        }
         onError={(error) => console.error("Image load error:", error)}
       />
       <ThemeDetailScrollView>
@@ -125,7 +132,10 @@ const ThemeDetailScreen = () => {
           <Explanation>{theme.explanation}</Explanation>
           <StyledView />
           <View>
-            <Calendar />
+            <Calendar
+              onDateSelect={setSelectedDate}
+              onTimeSelect={setSelectedTime}
+            />
           </View>
           <StyledView />
           <View>
@@ -185,7 +195,11 @@ const ThemeDetailScreen = () => {
       </ThemeDetailScrollView>
       <ThemeDetailBottomButtons>
         <ThemeDetailBottomButton>
-          <CustomButton mode="inactive" value="리뷰 쓰기" />
+          <CustomButton
+            mode="inactive"
+            value="리뷰 쓰기"
+            onPress={() => Alert.alert("리뷰 쓰기는 개발중입니다.")}
+          />
         </ThemeDetailBottomButton>
         <ThemeDetailBottomButton>
           <CustomButton

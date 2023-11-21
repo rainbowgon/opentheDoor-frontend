@@ -1,10 +1,22 @@
 import { atom, selector } from "recoil";
 
 interface MemberInfoType {
-  name: string;
-  phoneNumber: string;
-  nickname: string;
-  profileImage: string;
+  name?: null | string;
+  phoneNumber?: null | string;
+  nickname?: null | string;
+  profileImage?: null | string;
+}
+
+interface MemberFullInfoType {
+  name: null | string;
+  phoneNumber: null | string;
+  nickname: null | string;
+  profileImage: null | string;
+}
+
+export interface LoginUserInfo {
+  nickname: null | string;
+  profileImage: null | string;
 }
 
 interface MemberLoginInfoType {
@@ -29,11 +41,9 @@ export const userRefreshToken = atom<string>({
   default: ``
 });
 
-export const memberState = atom<MemberInfoType>({
+export const memberState = atom<LoginUserInfo>({
   key: 'memberState',
   default: {
-    name: "",
-    phoneNumber: "",
     nickname: "",
     profileImage: "",
   },
@@ -50,13 +60,13 @@ export const memberLoginState = atom<MemberLoginInfoType>({
 });
 
 
-export const editMemberState = selector<MemberInfoType>({
-  key: "editMemberState",
-  get: ({ get }) => {
-    const editMemberState = get(memberState);
-    return editMemberState;
-  },
-  set: ({ set }, newValue) => {
-    set(memberState, newValue);
-  }
-})
+// export const editMemberState = selector<MemberFullInfoType>({
+//   key: "editMemberState",
+//   get: ({ get }) => {
+//     const editMemberState = get(memberState);
+//     return editMemberState;
+//   },
+//   set: ({ set }, newValue) => {
+//     set(memberState, newValue);
+//   }
+// })

@@ -49,6 +49,8 @@ const SignUpScreen = () => {
     nickname: emberLoginInfo.nickname,
   });
 
+  const [numberItem, setNumberItem] = useState("");
+
   const handlenameChange = text => {
     console.log("text, inputInfo.name : ", text, inputInfo.name);
     setInputInfo({ ...inputInfo, name: text });
@@ -57,6 +59,11 @@ const SignUpScreen = () => {
   const handlePhoneNumberChange = text => {
     console.log("text, inputInfo.name : ", text, inputInfo.name);
     setInputInfo({ ...inputInfo, phoneNumber: text });
+  };
+
+  const handleNumberChange = text => {
+    console.log("text, inputInfo.name : ", text, inputInfo.name);
+    setNumberItem(text);
   };
 
   const handleBirthDateChange = text => {
@@ -111,6 +118,10 @@ const SignUpScreen = () => {
       Alert.alert("-를 제외한 11자리 숫자를 입력해주세요");
     }
 
+    if (inputInfo.phoneNumber.substring(0, 3) !== "010") {
+      Alert.alert("010부터 시작하는 숫자를 입력해주세요");
+    }
+
     const data = {
       phoneNumber: inputInfo.phoneNumber,
     };
@@ -156,7 +167,7 @@ const SignUpScreen = () => {
         <Input
           label="인증번호 확인 *"
           value={inputInfo.name}
-          onChangeText={handlenameChange}
+          onChangeText={handleNumberChange}
         />
         <Input
           label="닉네임"

@@ -26,6 +26,8 @@ import { useRecoilValue } from "recoil";
 import {
   GenreListView,
   GetImageView,
+  InputView,
+  InputViews,
   ThemeDetailContainer,
   ThemeDetailContent,
   ThemeDetailImage,
@@ -39,8 +41,9 @@ import BarGraph from "../../components/BarGraph/BarGraph";
 import BarGraphItem from "../../components/BarGraph/components/BarGraphItem/BarGraphItem";
 import { API_URL } from "../../constants/urls";
 import axios from "axios";
-import { memberState, userAccessToken } from "../../recoil/member/member";
+import { userAccessToken } from "../../recoil/member/member";
 import { useNavigation } from "@react-navigation/native";
+import { IconImage } from "../../components/InfoCard/InfoCardStyle";
 
 const ReservationScreen = () => {
   const theme = useRecoilValue(themeState);
@@ -58,9 +61,9 @@ const ReservationScreen = () => {
   const [reservationData, setReservationData] = useState({
     targetDate: selectedDate,
     targetTime: selectedTime,
-    headcount: 5,
-    bookerName: "",
-    bookerPhoneNumber: "",
+    headcount: 4,
+    bookerName: bookerName,
+    bookerPhoneNumber: null,
     themeId: theme.themeId,
   });
 
@@ -78,7 +81,7 @@ const ReservationScreen = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/reservation-service/reservations/auth`,
+        `${API_URL}/reservation-service/reservations/unauth`,
         reservationData,
         {
           headers: {
@@ -117,17 +120,12 @@ const ReservationScreen = () => {
     const fetchReservationInfo = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}/reservation-service/reservations/auth/${themeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
+          `${API_URL}/reservation-service/reservations/unauth/${themeId}`,
         );
-        setReservationInfo(response.data.data);
+        setReservationData(response.data.data);
         console.log("Fetch 성공!", response.data.data);
       } catch (error) {
-        console.error("Fetch 실패!", error);
+        // console.error("Fetch 실패!", error);
       }
     };
 
@@ -161,6 +159,8 @@ const ReservationScreen = () => {
     );
     return priceInfo ? priceInfo.price : null;
   };
+
+  const [person, setPerson] = useState(null);
 
   return (
     <ThemeDetailContainer>
@@ -204,28 +204,33 @@ const ReservationScreen = () => {
               maxPerson={theme?.maxHeadcount}
               date={new Date()}
             />
+            <InputViews>
+              <InputView>
+                <Input
+                  label="예약자"
+                  value={reservationData.bookerName}
+                  onChangeText={text =>
+                    setReservationData({ ...reservationData, bookerName: text })
+                  }
+                />
+              </InputView>
+              <InputView>
+                <Input
+                  label="전화번호"
+                  value={reservationData.bookerPhoneNumber}
+                  onChangeText={text =>
+                    setReservationData({
+                      ...reservationData,
+                      bookerPhoneNumber: text,
+                    })
+                  }
+                />
+              </InputView>
+
+              {/* <InputView>
+              </InputView> */}
+            </InputViews>
             <View>
-              <Input
-                label="예약자"
-                value={reservationData.bookerName}
-                onChangeText={text =>
-                  setReservationData({ ...reservationData, bookerName: text })
-                }
-                editable={false}
-              />
-            </View>
-            <View>
-              <Input
-                label="전화번호"
-                value={reservationData.bookerPhoneNumber}
-                onChangeText={text =>
-                  setReservationData({
-                    ...reservationData,
-                    bookerPhoneNumber: text,
-                  })
-                }
-                editable={false}
-              />
               {/* <CustomButton
                 mode="selected"
                 size="medium"
@@ -237,11 +242,21 @@ const ReservationScreen = () => {
             {/* <View>
               <Input label="인증번호 입력" />
             </View> */}
-            <View>
-              {/* <Image source={Capacity} /> */}
-              <BarGraphItem type={"capacity"} value={50} />
-              <Text>{}</Text>
-            </View>
+            {/* <InputViews> */}
+            {/* <IconImage source={Capacity} /> */}
+            {/* <Input
+                label="인원"
+                value={person}
+                onChangeText={text =>
+                  setPerson({
+                    text
+                  })
+                }
+                editable={false}
+              /> */}
+            {/* <BarGraphItem type={"capacity"} value={50} /> */}
+            {/* <Text>{인원선택}</Text> */}
+            {/* </InputViews> */}
             <Calendar
               timeSlotList={reservationData?.timeSlotList}
               onDateSelect={setSelectedDate}
@@ -264,23 +279,29 @@ const ReservationScreen = () => {
                   ))}
               </View>
             ))} */}
-            <View>
+            {/* <View>
               <Text> 금액 </Text>
               <Text>
                 총 {calculatePricePerPerson(reservationData.headcount)} 원{" "}
               </Text>
               <Text>인당 {calculatePricePerPerson(1)} 원 </Text>
-            </View>
-            <Text>사이트 이용약관</Text>
+            </View> */}
+            {/* <Text>사이트 이용약관</Text> */}
             <CustomButton
               mode="selected"
               size="large"
               value="예약하기"
               onPress={handleSubmitReservation}
             />
-            <Dropdown data={[reservationInfo?.siteToS]} />
+            {/* <Dropdown data={[reservationInfo?.siteToS]} />
             <Text>방탈출 이용약관</Text>
-            <Dropdown data={[reservationInfo?.venueToS]} />
+            <Dropdown data={[reservationInfo?.venueToS]} /> */}
+            <CustomButton
+              mode="selected"
+              size="large"
+              value="예약하기"
+              onPress={handleSubmitReservation}
+            />
           </View>
         </ThemeDetailContent>
       </ThemeDetailScrollView>

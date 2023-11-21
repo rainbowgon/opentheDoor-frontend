@@ -21,12 +21,12 @@ const UserProfile = () => {
       <UserProfileInfo>
         <ProfileImage source={ImageDefault} />
         <View>
-          <UserId>{userInfo.name}</UserId>
+          <UserId>{userInfo.nickname}</UserId>
         </View>
       </UserProfileInfo>
       <CustomButton
         size="small"
-        mode="outlined"
+        mode="selected"
         value="프로필 수정"
       />
     </UserProfileContainer>
