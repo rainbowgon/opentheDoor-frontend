@@ -36,3 +36,7 @@ export const CardView = styled.View`
 export const WeeklyThemeData = styled.View`
   height: 203px;
 `;
+
+export const ThemeDataFlatList = styled.FlatList`
+  padding: 0 10px;
+`;

@@ -10,7 +10,7 @@ import RenderThemeItem from "../RenderThemeItem/RenderThemeItem";
 import { useNavigation } from "@react-navigation/native";
 
 import Expandmore from "../../../../assets/icons/icon-expandmore.png"
-import { WeeklyThemeData, WeeklyThemeNoData } from "./WeeklyThemeStyle";
+import { ThemeDataFlatList, WeeklyThemeData, WeeklyThemeNoData } from "./WeeklyThemeStyle";
 
 const WeeklyTheme = () => {
   const themeList = useRecoilValue(themeRankListState);
@@ -48,7 +48,7 @@ const WeeklyTheme = () => {
       <WeeklyThemeData>
         {
           themeList.length ?
-            <FlatList
+            <ThemeDataFlatList
               data={themeList}
               renderItem={({ item }) => <RenderThemeItem item={item} />}
               keyExtractor={item => item.themeId}

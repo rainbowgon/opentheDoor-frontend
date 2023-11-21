@@ -197,7 +197,7 @@ const BottomNavigator = () => {
       // setLoading(true);
       const curKeyword = "";
       const curPage = 1;
-      const curSize = 3;
+      const curSize = 30;
 
       const response = await axios
         .get(`${API_URL}${SearchServicePath}${ThemeAPI}/searches`)

@@ -1,6 +1,14 @@
 import styled from 'styled-components/native';
 import { theme } from "../../../../styles/colors";
 
+export const StarRatingContainter = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10px auto;
+`;
+
 export const ThemeStarRateViewContent = styled.View`
   flex: 1;
   flex-direction: row;

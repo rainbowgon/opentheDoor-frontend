@@ -14,6 +14,7 @@ import {
   ImageGuideView,
   StarImage,
   StarText,
+  StarratingView,
   SubTitleText,
   TitleText,
 } from "./InfoCardStyle";
@@ -40,6 +41,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { myReviewState, reviewListState } from "../../recoil/review/review";
 import { modalState } from "../../recoil/map/map";
 import { userAccessToken } from "../../recoil/member/member";
+import StarRating from "../StarRating/StarRating";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -231,7 +233,11 @@ const InfoCard = (
               </ContentInfoList>
             )}
             <ContentInfoList>
-              <StarImage source={StarOn}></StarImage>
+              <StarratingView>
+                <StarRating
+                  value={ratingScore}
+                />
+              </StarratingView>
               <StarText>{ratingScore || " - "}</StarText>
               <ContentText> ({reviewCount || 0})</ContentText>
             </ContentInfoList>

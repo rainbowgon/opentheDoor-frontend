@@ -113,7 +113,7 @@ export async function testGetThemeSearch() {
   console.log("테마 검색 진행");
   const curKeyword = "";
   const curPage = 1;
-  const curSize = 10;
+  const curSize = 3;
 
   const response = await axios
     .get(`${API_URL}${SearchServicePath}${ThemeAPI}/searches`)
@@ -221,7 +221,7 @@ export const useUpdateNearByThemeList = () => {
         const response = await getThemeSearch({
           keyword: "특정 키워드", // 필요한 키워드 입력
           page: 1,
-          size: 10,
+          size: 3,
         });
 
         // 받아온 데이터를 상태에 저장

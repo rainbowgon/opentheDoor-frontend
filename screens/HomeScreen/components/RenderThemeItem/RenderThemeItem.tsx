@@ -17,6 +17,7 @@ import { userAccessToken } from "../../../../recoil/member/member";
 import axios from "axios";
 import { API_URL } from "../../../../constants/urls";
 import { useNavigation } from "@react-navigation/native";
+import StarRating from "../../../../components/StarRating/StarRating";
 
 const RenderThemeItem = ({ item }: { item: ThemeSimpleInfoType }) => {
   const navigation = useNavigation();
@@ -129,10 +130,13 @@ const RenderThemeItem = ({ item }: { item: ThemeSimpleInfoType }) => {
           <View>
             <Title>{item?.title}</Title>
             <Venue>{item?.venue}</Venue>
-            <StarrateView>
+            {/* <StarrateView>
               <IconImage source={StarOn}></IconImage>
               <StarRate>{item.ratingScore || "-"}</StarRate>
-            </StarrateView>
+            </StarrateView> */}
+            <StarRating
+              value={item.ratingScore}
+            />
           </View>
         </LinearGradient>
       </RenderThemeItemContent>

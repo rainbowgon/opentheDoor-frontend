@@ -56,6 +56,12 @@ export const BookmarkView = styled.View`
   display: flex;
 `
 
+export const StarratingView = styled.View`
+  display: flex;
+  width: 90px;
+  height: 25px;
+`
+
 export const TitleText = styled.Text`
   font-weight: bold;
   font-size: 18px;

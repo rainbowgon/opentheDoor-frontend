@@ -8,6 +8,7 @@ import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import { ReservationInfoList } from "../../../../recoil/reservation/reservation";
 import { TouchableHighlight } from "react-native";
+import CustomButton from "../../../../components/Button/CustomButton";
 
 const ReservationInfo = () => {
   const navigation = useNavigation();
@@ -46,8 +47,14 @@ const ReservationInfo = () => {
   };
   return (
     <TouchableHighlight onPress={handleThemeDetail}>
-      <Text>지점명</Text>
-      <Text>예약 코드</Text>
+      <View>
+        <CustomButton
+          value="예약확인"
+          mode="selected"
+        />
+        {/* <Text>지점명</Text>
+        <Text>예약 코드</Text> */}
+      </View>
     </TouchableHighlight>
   );
 };
