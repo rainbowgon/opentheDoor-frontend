@@ -3,7 +3,9 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
 // conponent
 import CustomButton from "../../../../components/Button/CustomButton";
-import PageContainer, { FixedPageContainer } from "../../../../styles/commonStyles";
+import PageContainer, {
+  FixedPageContainer,
+} from "../../../../styles/commonStyles";
 import Input from "../../../../components/Input/Input";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import { API_URL } from "../../../../constants/urls";
@@ -14,6 +16,7 @@ import { themeListState } from "../../../../recoil/theme/theme";
 import { SearchButtonContainer, SearchContainer } from "./SearchFilterStyle";
 import { SearchFilterIsOpened } from "../../../../recoil/state/state";
 import { SearchTitle } from "./SearchScreenMapBottomStyle";
+import { myRegionState } from "../../../../recoil/map/map";
 
 const headcountOptions = {
   "2인": 2,
@@ -45,6 +48,7 @@ const SearchFilter = () => {
   const [keyword, setKeyword] = useState("");
   const [selectedHeadcount, setSelectedHeadcount] = useState([]);
   const [themeList, setThemeList] = useRecoilState(themeListState);
+  const [myRegion, setMyRegion] = useRecoilState(myRegionState);
 
   const handleSelectRegion = userFriendlyName => {
     const backendRegionName = regionsMapping[userFriendlyName];
@@ -98,6 +102,16 @@ const SearchFilter = () => {
       console.log(selectedRegions);
       const searchData = response.data.data;
       setThemeList(searchData);
+      // setMyRegion(searchData);
+      if (searchData.length > 0) {
+        const topResult = searchData[0];
+        setMyRegion({
+          latitude: parseFloat(topResult.latitude),
+          longitude: parseFloat(topResult.longitude),
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -116,9 +130,7 @@ const SearchFilter = () => {
         value={keyword}
         onIconPress={handleSubmit}
       />
-      <SearchTitle>
-        권장 인원 (최소 인원)
-      </SearchTitle>
+      <SearchTitle>권장 인원 (최소 인원)</SearchTitle>
       <SearchButtonContainer>
         {Object.keys(headcountOptions).map(option => (
           <CustomButton
@@ -136,9 +148,7 @@ const SearchFilter = () => {
           />
         ))}
       </SearchButtonContainer>
-      <SearchTitle>
-        지역
-      </SearchTitle>
+      <SearchTitle>지역</SearchTitle>
       <SearchButtonContainer>
         {Object.keys(regionsMapping).map(regionKey => (
           <CustomButton

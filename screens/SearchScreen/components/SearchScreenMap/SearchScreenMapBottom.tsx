@@ -31,6 +31,7 @@ import {
   useUpdateNearByThemeList,
 } from "../../../../recoil/theme/themeFeature";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LocationOn from "../../../../assets/icons/icon-location-on.png";
 import ThemeDetailScreen from "../../../ThemeDetailScreen/ThemeDetailScreen";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import SearchListModal from "./SearchListModal";
@@ -39,8 +40,11 @@ import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import SearchFilter from "./SearchFilter";
 import { searchResultsState } from "../../../../recoil/search/search";
-import { locationState } from "../../../../recoil/map/map";
+import { locationState, myRegionState } from "../../../../recoil/map/map";
 import { ListViewButton, MapContainer } from "./SearchScreenMapBottomStyle";
+import MyLocationIcon from "../../../../assets/icons/icon-marker-red.png";
+import ThemeLocationIcon from "../../../../assets/icons/icon-marker-main5.png";
+
 const SearchServicePath = `/search-service`;
 const ThemeAPI = "/themes";
 
@@ -56,6 +60,12 @@ const SearchScreenMapBottom = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
   const [region, setRegion] = useRecoilState(locationState);
+  // 이 아래는 테마 위치
+  const [myRegion, setMyRegion] = useRecoilState(myRegionState);
+
+  //이것은 내 위치
+  const [myLocation, setMyLocation] = useState();
+
   const fetchThemes = async () => {
     setIsLoading(true);
     try {
@@ -97,55 +107,71 @@ const SearchScreenMapBottom = () => {
     setModalVisible(true);
   };
 
-  const initialRegion = {
-    latitude: 37.5642135,
-    longitude: 127.0016985,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
-  const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => {
+    async function requestLocationPermission() {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            // NOTE 사실 이게 왜 필요한지 모르겠습니다. / device측에서 권한을 받아오는데요
+            title: "위치 정보 권한",
+            message: "이 앱은 당신의 위치 정보가 필요합니다.",
+            buttonNeutral: "나중에 묻기",
+            buttonNegative: "취소",
+            buttonPositive: "허용",
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log("위치 정보 접근 권한 획득!");
+        } else {
+          console.log("위치 정보 접근 권한 거부됨");
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
 
-  const handleSearch = searchData => {
-    setSearchResults(searchData);
+    requestLocationPermission();
 
-    // 검색된 장소들을 포함하는 지도 범위를 계산
-    let minLat = Number.MAX_VALUE;
-    let maxLat = -Number.MAX_VALUE;
-    let minLng = Number.MAX_VALUE;
-    let maxLng = -Number.MAX_VALUE;
+    Geolocation.getCurrentPosition(
+      position => {
+        setMyLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+      },
+      error => {
+        console.error("지도 불러오기 실패(위치 권한 실패)", error);
+      },
+      { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
+    );
+  }, []);
 
-    searchData.forEach(location => {
-      minLat = Math.min(minLat, location.latitude);
-      maxLat = Math.max(maxLat, location.latitude);
-      minLng = Math.min(minLng, location.longitude);
-      maxLng = Math.max(maxLng, location.longitude);
-    });
-
-    // 지도 중심을 계산합 (위도 경도 교차점)
-    const midLat = (minLat + maxLat) / 2;
-    const midLng = (minLng + maxLng) / 2;
-
-    // 지도 범위를 계산
-    const latDelta = maxLat - minLat;
-    const lngDelta = maxLng - minLng;
-  };
   return (
     <View>
       {/* <Input label="테마 검색" icon={Search} /> */}
       <SearchFilter />
       <MapContainer>
-        <CustomMap region={initialRegion} style={{ height: 630 }}>
-          {region && <Marker coordinate={region} title="내 위치" />}
+        <CustomMap region={myRegion} style={{ height: 630 }}>
+          {myLocation && (
+            <Marker
+              image={MyLocationIcon}
+              coordinate={myLocation}
+              title="내 위치"
+            />
+          )}
           {!isLoading &&
             themeList.map(theme => (
               <Marker
+                image={ThemeLocationIcon}
                 key={theme.themeId}
                 coordinate={{
                   latitude: theme.latitude,
                   longitude: theme.longitude,
                 }}
                 title={theme.title || "검색 위치"}
-                pinColor="#BAB2FFFF"
                 onPress={() => handleMarkerPress(theme)}
               />
             ))}
