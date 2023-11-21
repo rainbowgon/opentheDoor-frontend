@@ -36,3 +36,13 @@ export const modalState = atom({
   key: "modalState",
   default: false,
 });
+
+export const myRegionState = atom({
+  key: "myRegionState",
+  default: {
+    latitude: 37.5013,
+    longitude: 127.0397004,
+    latitudeDelta: 0.0405,
+    longitudeDelta: 0.0421,
+  },
+});

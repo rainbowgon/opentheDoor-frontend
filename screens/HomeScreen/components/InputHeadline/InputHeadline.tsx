@@ -9,10 +9,12 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import Search from "../../../../assets/icons/icon-sarch.png";
 import { useNavigation } from "@react-navigation/native";
 import { themeListState } from "../../../../recoil/theme/theme";
+import { myRegionState } from "../../../../recoil/map/map";
 
 const InputHeadline = () => {
   const [themeList, setThemeList] = useRecoilState(themeListState);
   const [searchText, setSearchText] = useState("");
+  const [myRegion, setMyRegion] = useRecoilState(myRegionState);
 
   const navigation = useNavigation();
   const handleSearchChange = text => {
@@ -27,7 +29,19 @@ const InputHeadline = () => {
           params: { keyword: searchText },
         },
       );
-      setThemeList(response.data.data);
+      // setThemeList(response.data.data);
+      const searchData = response.data.data;
+      setThemeList(searchData);
+      // setMyRegion(searchData);
+      if (searchData.length > 0) {
+        const topResult = searchData[0];
+        setMyRegion({
+          latitude: parseFloat(topResult.latitude),
+          longitude: parseFloat(topResult.longitude),
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+      }
       navigation.navigate("searchBottomTab");
     } catch (error) {
       console.error("검색 실패", error);

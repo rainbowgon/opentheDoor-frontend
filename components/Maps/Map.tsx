@@ -12,6 +12,15 @@ interface CustomMapProps {
   pitchEnabled?: boolean;
 }
 
+const customMapStyle = [
+  {
+    featureType: "poi",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
+  },
+  // 여기에 필요한 추가 스타일 규칙을 추가할 수 있습니다.
+];
+
 const CustomMap: React.FC<CustomMapProps> = ({
   region,
   children,
@@ -30,7 +39,8 @@ const CustomMap: React.FC<CustomMapProps> = ({
         scrollEnabled={scrollEnabled}
         zoomEnabled={zoomEnabled}
         rotateEnabled={rotateEnabled}
-        pitchEnabled={pitchEnabled}>
+        pitchEnabled={pitchEnabled}
+        customMapStyle={customMapStyle}>
         {children}
       </MapView>
     </View>
@@ -48,5 +58,8 @@ const styles = StyleSheet.create({
   map: {
     minHeight: 300,
     minWidth: 400,
+    featureType: "poi",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
   },
 });

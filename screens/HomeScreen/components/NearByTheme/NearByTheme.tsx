@@ -7,6 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import CustomFab from "../../../../components/Fab/Fab";
 import Zoomicon from "../../../../assets/icons/icon-zoom.png";
 import SearchScreen from "../../../SearchScreen/SearchScreen";
+import MyLocationIcon from "../../../../assets/icons/icon-marker-red.png";
+import ThemeLocationIcon from "../../../../assets/icons/icon-marker-main5.png";
 
 import { PermissionsAndroid } from "react-native";
 import { Region, Marker } from "react-native-maps";
@@ -71,7 +73,7 @@ const NearByTheme = () => {
         });
       },
       error => {
-        console.error(error);
+        console.error("지도 불러오기 실패(위치 권한 실패)", error);
       },
       { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
     );
@@ -91,16 +93,18 @@ const NearByTheme = () => {
           zoomEnabled={false}
           rotateEnabled={false}
           pitchEnabled={false}>
-          {region && <Marker coordinate={region} title="내 위치" />}
+          {region && (
+            <Marker icon={MyLocationIcon} coordinate={region} title="내 위치" />
+          )}
           {themeList.map((markerData, index) => (
             <Marker
+              icon={ThemeLocationIcon}
               key={index}
               coordinate={{
                 latitude: markerData.latitude,
                 longitude: markerData.longitude,
               }}
               title={markerData.title}
-              pinColor="#BAB2FFFF"
               onPress={() => handleMarkerPress(markerData)}
             />
           ))}
@@ -125,8 +129,6 @@ const NearByTheme = () => {
               },
               { enableHighAccuracy: true, timeout: 300000, maximumAge: 300000 },
             );
-
-            // 이 상태로 searchScreen으로 이동해요
             navigation.navigate("searchBottomTab");
           }}
         />
