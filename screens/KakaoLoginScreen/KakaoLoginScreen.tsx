@@ -81,9 +81,9 @@ const KakaoLoginScreen = () => {
       setUserInfo(response.data.data);
       console.log("카카오 로그인 성공", response.data);
       setAccessToken(response.data.data.accessToken);
-      console.log("accessToken 주입 성공", response.data.data.accessToken);
+      console.log("accessToken 주입 성공", `|${response.data.data.accessToken}|`);
       setRefreshToken(response.data.data.refreshToken);
-      console.log("refreshToken 주입 성공", response.data.data.accessToken);
+      console.log("refreshToken 주입 성공", `|${response.data.data.accessToken}|`);
       setMemberState({
         nickname: response.data.data.nickname,
         profileImage: response.data.data.profileImage,

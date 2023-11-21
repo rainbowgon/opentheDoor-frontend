@@ -15,7 +15,8 @@ export const RenderThemeItemView = styled.TouchableOpacity`
 
 export const RenderThemeItemImage = styled.Image`
   height: 203px;
-  width: 152px;
+  width: 146
+  ''''''px;
   object-fit: cover;
   resizeMode: cover;
   `;

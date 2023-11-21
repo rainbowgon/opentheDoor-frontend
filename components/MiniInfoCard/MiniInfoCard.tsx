@@ -40,6 +40,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { myReviewState, reviewListState } from "../../recoil/review/review";
 import { modalState } from "../../recoil/map/map";
 import { userAccessToken } from "../../recoil/member/member";
+import StarRating from "../StarRating/StarRating";
 
 // TODO - 미사용 태그는 비활성화 진행
 
@@ -180,17 +181,6 @@ const MiniInfoCard = (
             {title && <TitleText>{title}</TitleText>}
             <View>
               {venue && <ContentText>{venue}</ContentText>}
-              {tel && <ContentText>{timeLimit}</ContentText>}
-              {minHeadcount && maxHeadcount && (
-                <>
-                  <ContentText>
-                    최대 {(priceList && priceList?.[0]?.price) || "- "}원 (
-                    {minHeadcount || "0"}
-                    {minHeadcount && maxHeadcount && " ~ "}
-                    {maxHeadcount || "0"}명)
-                  </ContentText>
-                </>
-              )}
             </View>
             {genre && (
               <ContentInfoList>
@@ -205,7 +195,8 @@ const MiniInfoCard = (
               </ContentInfoList>
             )}
             <ContentInfoList>
-              <StarImage source={StarOn}></StarImage>
+              <StarRating />
+              {/* <StarImage source={StarOn}></StarImage> */}
               <StarText>{ratingScore || " - "}</StarText>
               <ContentText> ({bookmarkCount || 0})</ContentText>
             </ContentInfoList>

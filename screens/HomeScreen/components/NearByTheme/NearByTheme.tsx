@@ -131,7 +131,7 @@ const NearByTheme = () => {
           }}
         />
       </View>
-      {themeList.map(theme => (
+      {themeList.slice(0, 3).map(theme => (
         <MiniInfoCard
           key={theme.themeId}
           themeId={theme.themeId}
