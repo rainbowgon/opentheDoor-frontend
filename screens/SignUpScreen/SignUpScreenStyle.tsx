@@ -11,7 +11,7 @@ export const SignUpNumberInputView = styled.View`
   width: 60%;
 `;
 
-export const SignUpNumberCheckView = styled.View`
+export const SignUpFlexRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
