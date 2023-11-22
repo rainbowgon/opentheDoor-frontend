@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "react-native-gesture-handler";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useSetRecoilState } from "recoil";
 import messaging from "@react-native-firebase/messaging";
 import { NavigationContainer } from "@react-navigation/native";
 import PushNotification from "react-native-push-notification";
@@ -14,6 +14,7 @@ import AdminRightNavigation from "./components/_admin/_AdminRightNavigation/Admi
 
 import { Container } from "./styles/commonStyles";
 import { Dimensions } from "react-native";
+import { userFcmToken } from "./recoil/member/member";
 
 // type RootStackParamList = {
 //   Home: undefined;
@@ -28,8 +29,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log("[Background Remote Message]", remoteMessage);
 
   PushNotification.localNotification({
-    title: remoteMessage.notification?.title || "opentheDoor",
-    message: remoteMessage.notification?.body || "",
+    title: remoteMessage.data?.title || "opentheDoor",
+    message: remoteMessage.data?.body || "",
     channelId: "1",
     // channelName: "opentheDoor",
     playSound: true,
@@ -40,7 +41,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 const windowHeight = Dimensions.get("window").height;
 
 const App = () => {
-  Snackbar.LENGTH_SHORT; // 또는 LENGTH_LONG 설정
+  const setFCMToken = useSetRecoilState(userFcmToken);
+  Snackbar.LENGTH_LONG; // 또는 LENGTH_LONG 설정
   // Snackbar.Color("#333"); // 스낵바 배경색 설정
   // Snackbar.setActionTextColor("#f0e7d9"); // 액션 텍스트 색상 설정
   // Snackbar = () => {
@@ -50,17 +52,22 @@ const App = () => {
 
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
+    setFCMToken(fcmToken);
     console.log("[FCM Token] ", fcmToken);
   };
 
   useEffect(() => {
     getFcmToken();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log("[Remote Message] ", JSON.stringify(remoteMessage));
-
+      console.log(
+        "[Remote Message] ",
+        JSON.stringify(remoteMessage.data?.body),
+      );
+      ///////아래는 됩니다///////////////////////////////
+      ///////push 알림///////////////////////////////////
       Snackbar.show({
-        // title: remoteMessage.notification?.title || "Default Title",
-        text: remoteMessage.notification?.body || "Default Message",
+        // title: remoteMessage.data?.title || "Default Title",
+        text: remoteMessage.data?.body || "Default Message",
         duration: Snackbar.LENGTH_LONG, // 또는 LENGTH_SHORT
         action: {
           text: "닫기",
@@ -74,7 +81,8 @@ const App = () => {
         // marginBottom: (windowHeight / 100) * 94,
       });
     });
-
+    //////////////////여기까지/////////////////////////////
+    ////////////////////////////////////////////
     //   PushNotification.localNotification({
     //     title: remoteMessage.notification?.title || "opentheDoor",
     //     message: remoteMessage.notification?.body || "",

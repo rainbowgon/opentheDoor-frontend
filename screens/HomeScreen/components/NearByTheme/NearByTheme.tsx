@@ -23,7 +23,7 @@ import {
   themeNearByList,
 } from "../../../../recoil/theme/theme";
 import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
-import { locationState } from "../../../../recoil/map/map";
+import { isFabState, locationState } from "../../../../recoil/map/map";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
 import MiniInfoCard from "../../../../components/MiniInfoCard/MiniInfoCard";
 import axios from "axios";
@@ -35,6 +35,7 @@ const ThemeAPI = "/themes";
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
   const [nearByTheme, setNearByTheme] = useRecoilState(themeListState);
+  const [isFab, setIsFab] = useRecoilState(isFabState);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,11 +60,12 @@ const NearByTheme = () => {
       );
 
       console.log("테마 검색 성공", response.data);
-      setNearByTheme(response.data.data);
+      // setNearByTheme(response.data.data);
       setIsLoading(false);
+      const nearTheme = response.data.data;
       console.log(
         "###############################################",
-        nearByTheme,
+        // nearByTheme,
       );
     } catch (error) {
       console.error("내 주변 테마 검색 실패", error);
@@ -161,6 +163,7 @@ const NearByTheme = () => {
                   longitudeDelta: 0.005,
                 };
                 setRegion(newRegion);
+                setIsFab(true);
               },
               error => {
                 console.error("위치 정보를 받아오는데 실패했습니다.", error);

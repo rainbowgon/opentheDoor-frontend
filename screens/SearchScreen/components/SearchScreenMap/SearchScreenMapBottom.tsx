@@ -40,7 +40,11 @@ import { API_URL } from "../../../../constants/urls";
 import axios from "axios";
 import SearchFilter from "./SearchFilter";
 import { searchResultsState } from "../../../../recoil/search/search";
-import { locationState, myRegionState } from "../../../../recoil/map/map";
+import {
+  isFabState,
+  locationState,
+  myRegionState,
+} from "../../../../recoil/map/map";
 import { ListViewButton, MapContainer } from "./SearchScreenMapBottomStyle";
 import MyLocationIcon from "../../../../assets/icons/icon-marker-red.png";
 import ThemeLocationIcon from "../../../../assets/icons/icon-marker-main5.png";
@@ -60,6 +64,7 @@ const SearchScreenMapBottom = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState();
   const [region, setRegion] = useRecoilState(locationState);
+  const [isFab, setIsFab] = useRecoilState(isFabState);
   // 이 아래는 테마 위치
   const [myRegion, setMyRegion] = useRecoilState(myRegionState);
 
@@ -154,7 +159,7 @@ const SearchScreenMapBottom = () => {
       {/* <Input label="테마 검색" icon={Search} /> */}
       <SearchFilter />
       <MapContainer>
-        <CustomMap region={myRegion} style={{ height: 630 }}>
+        <CustomMap region={isFab ? myRegion : region} style={{ height: 630 }}>
           {myLocation && (
             <Marker
               image={MyLocationIcon}

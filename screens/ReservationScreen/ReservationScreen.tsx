@@ -49,7 +49,9 @@ import moment from "moment";
 const ReservationScreen = () => {
   const theme = useRecoilValue(themeState);
   const [reservationInfo, setReservationInfo] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
+  const [selectedDate, setSelectedDate] = useState(
+    moment().format("YYYY-MM-DD"),
+  );
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookerName, setBookerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -79,10 +81,10 @@ const ReservationScreen = () => {
       Alert.alert("시간을 선택해주세요!");
       return;
     }
-    if (reservationData.headcount <= 0) {
-      Alert.alert("인원을 설정해주세요!");
-      return;
-    }
+    // if (reservationData.headcount <= 0) {
+    //   Alert.alert("인원을 설정해주세요!");
+    //   return;
+    // }
 
     if (accessToken !== "") {
       try {
@@ -101,8 +103,7 @@ const ReservationScreen = () => {
         console.error("예약 실패", error);
         Alert.alert("예약 성공");
       }
-    }
-    else {
+    } else {
       try {
         const response = await axios.post(
           `${API_URL}/reservation-service/reservations/unauth`,
@@ -155,8 +156,7 @@ const ReservationScreen = () => {
         } catch (error) {
           console.log("Fetch 실패!", error);
         }
-      }
-      else {
+      } else {
         try {
           const response = await axios.get(
             `${API_URL}/reservation-service/reservations/unauth/${themeId}`,
@@ -182,6 +182,7 @@ const ReservationScreen = () => {
         ...reservationData,
         targetDate: selectedDate,
         targetTime: selectedTime,
+        headcount: 4,
       });
     }
   }, [selectedDate, selectedTime]);
@@ -204,7 +205,7 @@ const ReservationScreen = () => {
     return priceInfo ? priceInfo.price : null;
   };
 
-  const [person, setPerson] = useState(null);
+  // const [person, setPerson] = useState(null);
 
   return (
     <ThemeDetailContainer>
