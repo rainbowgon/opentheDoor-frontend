@@ -185,11 +185,11 @@ const BottomNavigator = () => {
         `${API_URL}${SearchServicePath}${ThemeAPI}/rankings`,
       );
 
-      console.log("테마 상세 조회 성공", response.data);
+      console.log("테마 랭킹 조회 성공", response.data);
       setThemeRankList(response.data.data);
       // await getThemeRanking();
     } catch (error) {
-      console.error("테마 상세 조회 실패", error);
+      console.error("테마 랭킹 조회 실패", error);
     } finally {
     }
 

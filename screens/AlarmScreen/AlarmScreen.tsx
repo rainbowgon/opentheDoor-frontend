@@ -110,24 +110,25 @@ const AlarmScreen = () => {
       }
     }
 
-    try {
-      // setLoading(true);7
-      console.log("accessToken", accessToken);
+    // FIXME - 내가 쓴 리뷰 활성화
+    // try {
+    //   // setLoading(true);7
+    //   console.log("accessToken", accessToken);
 
-      const response = await axios.get(
-        `${API_URL}${MemberServicePath}${ReviewAPI}/themes/my?themeId=${themeId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
-      setMyThemeReview(response.data.data);
-    } catch (error) {
-      console.error("테마의 내가 쓴 리뷰 조회 실패", error);
-    } finally {
-    }
+    //   const response = await axios.get(
+    //     `${API_URL}${MemberServicePath}${ReviewAPI}/themes/my?themeId=${themeId}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     },
+    //   );
+    //   console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
+    //   setMyThemeReview(response.data.data);
+    // } catch (error) {
+    //   console.error("테마의 내가 쓴 리뷰 조회 실패", error);
+    // } finally {
+    // }
   }, []);
 
   const [a, setA] = useState<alarmType>({

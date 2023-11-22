@@ -47,10 +47,16 @@ export const ReviewUserImage = styled.Image`
   border-radius: 100px;
 `;
 
-export const ReviewIcon = styled.Image`
+export const ReviewActiveIcon = styled.Image`
   width: 25px;
   height: 25px;
   tint-color: ${theme.primary3_main};
+`;
+
+export const ReviewEnactiveIcon = styled.Image`
+  width: 25px;
+  height: 25px;
+  tint-color: ${theme.background3};
 `;
 
 export const ReviewTitle = styled.Text`

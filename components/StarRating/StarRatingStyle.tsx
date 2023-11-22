@@ -22,6 +22,17 @@ const handleSize = (props) => {
   return props.size + 4;
 }
 
+const handleColor = (props) => {
+  if (props.mode === "main") return theme.primary3_main;
+  if (props.mode === "warn") return theme.semantic_warn;
+  if (props.mode === "success") return theme.semantic_success;
+  if (props.mode === "info") return theme.semantic_info;
+  if (props.mode === "error") return theme.semantic_error;
+  if (props.mode === "disable") return theme.semantic_disable;
+
+  return theme.primary3_main;
+}
+
 // border : 'square' | 'round'
 const getRadius = (props) => {
   if (props.border === "square") return "5px";
@@ -101,5 +112,5 @@ export const StarRatingActiveIcon = styled.Image`
   width: ${handleSize}px;
   height: ${handleSize}px;
   margin: -2px;
-  tint-color: ${theme.primary3_main};
+  tint-color: ${handleColor};
 `;
