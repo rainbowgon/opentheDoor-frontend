@@ -2039,6 +2039,11 @@
   dependencies:
     react-native-maps "*"
 
+"@types/react-native-push-notification@^8.1.4":
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-8.1.4.tgz#5adcddab82beeac6f1256eeb54160bca1714d080"
+  integrity sha512-qXu/NcQ7YSk5ZveDMNKFBQkLt9W5FCde3be+h8fYbEnmvd5O+v5m318XGhh8AMPXURAV9pSB5Ads08Wc0KTS7A==
+
 "@types/react-native@^0.70":
   version "0.70.16"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.16.tgz#b6893f85f22f25572b45fc3bca61560f3831bf79"
@@ -6159,6 +6164,11 @@ react-native-progress-circle-gradient@^1.2.1:
     "@shopify/react-native-skia" "^0.1.191"
     color-interpolate "^1.0.5"
 
+react-native-push-notification@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz#a41d20c70ea5a7709417e96261b225461f8dc73a"
+  integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
+
 react-native-ratings@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-8.1.0.tgz#3fa9ad29128dc3a88e59518ba151e61c59dd0647"
@@ -6195,6 +6205,11 @@ react-native-sliders@^2.0.2:
   integrity sha512-1P4P2+bS7qDWo2UmcrcMjniLIV3ZlXREzwV+/DWMsMULuIaZjfFo2JPAfd6Sk15WkHUotc8r5TobqZfRmi4eag==
   dependencies:
     prop-types "^15.5.6"
+
+react-native-snackbar@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-snackbar/-/react-native-snackbar-2.6.2.tgz#7c0d0d93bfb5822fb1f41f00d29383f522c02185"
+  integrity sha512-edAubZJiBowwQUXJV5oXbMqitQ9vw7JzWUCczeTPVo6lRa+FzsUjiCQBHdWBbCw/N8/Q7jgKg4juNXU/bXZdXg==
 
 react-native-star-rating-widget@^1.7.2:
   version "1.7.2"

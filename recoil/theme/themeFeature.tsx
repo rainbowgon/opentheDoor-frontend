@@ -142,9 +142,9 @@ export async function getUpdateNearByThemeList({
   longitude?: null | number;
 }) {
   console.log("테마 검색 성공", nearByTheme);
-  const curKeyword = "강남";
+  const curKeyword = null;
   const curPage = null;
-  const curSize = 3;
+  const curSize = 10;
   const curHeadcount = null;
   const curRegion = null;
   const curSortBy = "DISTANCE";
