@@ -70,7 +70,7 @@ const SearchScreenMapBottom = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_URL}${SearchServicePath}${ThemeAPI}/searches?page=&size=100`,
+        `${API_URL}${SearchServicePath}${ThemeAPI}/searches?page=&size=1000`,
       );
       const themes = response.data.data.map(theme => ({
         ...theme,

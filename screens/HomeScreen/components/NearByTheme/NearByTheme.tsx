@@ -14,7 +14,9 @@ import { PermissionsAndroid } from "react-native";
 import { Region, Marker } from "react-native-maps";
 
 // apis
-import getThemeSearch from "../../../../recoil/theme/themeFeature";
+import getThemeSearch, {
+  getUpdateNearByThemeList,
+} from "../../../../recoil/theme/themeFeature";
 import { useRecoilState } from "recoil";
 import {
   themeListState,
@@ -24,18 +26,50 @@ import { HomeScreenTitle, HomeScreenTitleView } from "../../HomeScreenStyle";
 import { locationState } from "../../../../recoil/map/map";
 import InfoCard from "../../../../components/InfoCard/InfoCard";
 import MiniInfoCard from "../../../../components/MiniInfoCard/MiniInfoCard";
+import axios from "axios";
+import { API_URL } from "../../../../constants/urls";
+
+const SearchServicePath = `/search-service`;
+const ThemeAPI = "/themes";
 
 const NearByTheme = () => {
   // const [markers, setMarkers] = useRecoilState(themeNearByList);
-  const [themeList, setThemeList] = useRecoilState(themeNearByList);
+  const [nearByTheme, setNearByTheme] = useRecoilState(themeListState);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const handleMarkerPress = markerData => {
     setSelectedMarker(markerData);
     setModalVisible(true);
   };
-
   const [region, setRegion] = useRecoilState(locationState);
+
+  async function getUpdateNearByThemeList() {
+    setIsLoading(true);
+    try {
+      const curKeyword = null;
+      const curPage = null;
+      const curSize = 10;
+      const curHeadcount = null;
+      const curRegion = null;
+      const curSortBy = "DISTANCE";
+
+      const response = await axios.get(
+        `${API_URL}${SearchServicePath}${ThemeAPI}/sorts?sortBy=${curSortBy}`,
+      );
+
+      console.log("테마 검색 성공", response.data);
+      setNearByTheme(response.data.data);
+      setIsLoading(false);
+      console.log(
+        "###############################################",
+        nearByTheme,
+      );
+    } catch (error) {
+      console.error("내 주변 테마 검색 실패", error);
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     async function requestLocationPermission() {
@@ -71,6 +105,7 @@ const NearByTheme = () => {
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         });
+        getUpdateNearByThemeList();
       },
       error => {
         console.error("지도 불러오기 실패(위치 권한 실패)", error);
@@ -78,6 +113,7 @@ const NearByTheme = () => {
       { enableHighAccuracy: false, timeout: 30000, maximumAge: 30000 },
     );
   }, []);
+
   const navigation = useNavigation();
 
   return (
@@ -96,18 +132,20 @@ const NearByTheme = () => {
           {region && (
             <Marker icon={MyLocationIcon} coordinate={region} title="내 위치" />
           )}
-          {themeList.map((markerData, index) => (
-            <Marker
-              icon={ThemeLocationIcon}
-              key={index}
-              coordinate={{
-                latitude: markerData.latitude,
-                longitude: markerData.longitude,
-              }}
-              title={markerData.title}
-              onPress={() => handleMarkerPress(markerData)}
-            />
-          ))}
+          {!isLoading &&
+            Array.isArray(nearByTheme) &&
+            nearByTheme.map((markerData, index) => (
+              <Marker
+                icon={ThemeLocationIcon}
+                key={index}
+                coordinate={{
+                  latitude: markerData.latitude,
+                  longitude: markerData.longitude,
+                }}
+                title={markerData.title}
+                onPress={() => handleMarkerPress(markerData)}
+              />
+            ))}
         </CustomMap>
         <CustomFab
           icon={Zoomicon}
@@ -133,24 +171,28 @@ const NearByTheme = () => {
           }}
         />
       </View>
-      {themeList.slice(0, 3).map(theme => (
-        <MiniInfoCard
-          key={theme.themeId}
-          themeId={theme.themeId}
-          venue={theme.venue}
-          title={theme.title}
-          poster={theme.poster}
-          level={theme.level}
-          priceList={theme.priceList}
-          minHeadcount={theme.minHeadcount}
-          maxHeadcount={theme.maxHeadcount}
-          timeLimit={theme.timeLimit}
-          genre={theme.genre}
-          ratingScore={theme.ratingScore}
-          reviewCount={theme.reviewCount}
-          bookmarkCount={theme.bookmarkCount}
-        />
-      ))}
+      {!isLoading &&
+        Array.isArray(nearByTheme) &&
+        nearByTheme
+          .slice(0, 3)
+          .map(theme => (
+            <MiniInfoCard
+              key={theme.themeId}
+              themeId={theme.themeId}
+              venue={theme.venue}
+              title={theme.title}
+              poster={theme.poster}
+              level={theme.level}
+              priceList={theme.priceList}
+              minHeadcount={theme.minHeadcount}
+              maxHeadcount={theme.maxHeadcount}
+              timeLimit={theme.timeLimit}
+              genre={theme.genre}
+              ratingScore={theme.ratingScore}
+              reviewCount={theme.reviewCount}
+              bookmarkCount={theme.bookmarkCount}
+            />
+          ))}
     </View>
   );
 };
