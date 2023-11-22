@@ -46,3 +46,8 @@ export const myRegionState = atom({
     longitudeDelta: 0.0784,
   },
 });
+
+export const isFabState = atom({
+  key: "isFab",
+  default: false,
+});
