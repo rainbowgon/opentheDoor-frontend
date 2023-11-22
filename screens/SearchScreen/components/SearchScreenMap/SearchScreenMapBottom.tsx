@@ -159,7 +159,7 @@ const SearchScreenMapBottom = () => {
       {/* <Input label="테마 검색" icon={Search} /> */}
       <SearchFilter />
       <MapContainer>
-        <CustomMap region={isFab ? myRegion : region} style={{ height: 630 }}>
+        <CustomMap region={myRegion} style={{ height: 630 }}>
           {myLocation && (
             <Marker
               image={MyLocationIcon}
