@@ -4,15 +4,16 @@ import StarOn from "../../assets/icons/icon-star-on.png"
 import StarOff from "../../assets/icons/icon-star-off.png"
 
 export interface StarRatingProps {
-  value?: null | string;
+  value?: null | number;
   size?: null | number;
-  mode?: "text" | "outlined" | "static" | "selected" | "inactive" | "error" | "kakao";
+  mode?: null | "main" | "warn" | "success" | "info" | "error" | "disable";
   onPress?: () => any;
 }
 
 const StarRating = ({
   value,
   size = 18,
+  mode = "main",
   onPress,
 }: StarRatingProps) => {
   return (
@@ -46,22 +47,27 @@ const StarRating = ({
         <StarRatingActiveIcon
           source={StarOn}
           size={size}
+          mode={mode}
         />
         <StarRatingActiveIcon
           source={StarOn}
           size={size}
+          mode={mode}
         />
         <StarRatingActiveIcon
           source={StarOn}
           size={size}
+          mode={mode}
         />
         <StarRatingActiveIcon
           source={StarOn}
           size={size}
+          mode={mode}
         />
         <StarRatingActiveIcon
           source={StarOn}
           size={size}
+          mode={mode}
         />
       </StarRatingIconList>
     </StarRatingContainer >

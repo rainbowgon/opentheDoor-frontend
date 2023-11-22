@@ -151,26 +151,27 @@ const InfoCard = (
       }
     }
 
-    try {
-      // setLoading(true);
-      const curThemeId = themeId && 1;
+    // FIXME - 내가 쓴 리뷰 활성화
+    // try {
+    //   // setLoading(true);
+    //   const curThemeId = themeId && 1;
 
-      console.log("accessToken", accessToken);
+    //   console.log("accessToken", accessToken);
 
-      const response = await axios.get(
-        `${API_URL}${MemberServicePath}${ReviewAPI}/themes/my?themeId=${curThemeId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
-      setMyThemeReview(response.data.data);
-    } catch (error) {
-      console.error("테마의 내가 쓴 리뷰 조회 실패", error);
-    } finally {
-    }
+    //   const response = await axios.get(
+    //     `${API_URL}${MemberServicePath}${ReviewAPI}/themes/my?themeId=${curThemeId}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     },
+    //   );
+    //   console.log("테마의 내가 쓴 리뷰 조회 성공", response.data);
+    //   setMyThemeReview(response.data.data);
+    // } catch (error) {
+    //   console.error("테마의 내가 쓴 리뷰 조회 실패", error);
+    // } finally {
+    // }
   }, []);
 
   return (
