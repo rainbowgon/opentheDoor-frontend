@@ -42,7 +42,7 @@ export const myRegionState = atom({
   default: {
     latitude: 37.5013,
     longitude: 127.0397004,
-    latitudeDelta: 0.0405,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.0784,
+    longitudeDelta: 0.0784,
   },
 });
