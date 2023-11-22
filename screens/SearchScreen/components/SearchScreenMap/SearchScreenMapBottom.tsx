@@ -138,8 +138,8 @@ const SearchScreenMapBottom = () => {
         setMyLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          latitudeDelta: 0.0784,
+          longitudeDelta: 0.0784,
         });
       },
       error => {
