@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Text, Animated, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Marker, Region } from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
@@ -26,6 +26,7 @@ import {
   Explanation,
   GetImageView,
   NoReviewView,
+  OpacityView,
   StyledView,
   SubContent,
   ThemeDetailBottomButton,
@@ -35,11 +36,11 @@ import {
   ThemeDetailImage,
   ThemeDetailMapFab,
   ThemeDetailMapView,
-  ThemeDetailReviewTitle,
   ThemeDetailReviewTitleButtons,
   ThemeDetailReviewView,
   ThemeDetailScrollView,
   ThemeDetailTitleView,
+  ThemeMapView,
   ThemeReviewTitle,
   ThemeStarRateIcon,
   ThemeStarRateText,
@@ -94,6 +95,26 @@ const ThemeDetailScreen = () => {
     isVerified: true,
   },);
 
+
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const startAnimation = () => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 0, // 투명도를 0으로 설정 (완전 투명)
+        duration: 200, // 애니메이션 지속 시간 (밀리초)
+        useNativeDriver: true, // 네이티브 드라이버 사용
+      }
+    ).start();
+  };
+
+  useEffect(() => {
+    setTimeout(function () {
+      startAnimation();
+    }, 400);
+  })
+
   return (
     <ThemeDetailContainer>
       <ThemeDetailImage
@@ -106,6 +127,15 @@ const ThemeDetailScreen = () => {
         onError={(error) => console.error("Image load error:", error)}
       />
       <ThemeDetailScrollView>
+        <Animated.View
+          style={{
+            position: "absolute",
+            width: 420,
+            height: 500,
+            backgroundColor: '#19181D',
+            opacity: fadeAnim, // 투명도 적용
+          }}
+        ></Animated.View>
         <Header
           back="true"
         />
@@ -147,7 +177,7 @@ const ThemeDetailScreen = () => {
             <ThemeDetailMapView>
               <CustomMap
                 region={region}
-                style={{ minHeight: 100, minWidth: 300 }}
+                style={{ minHeight: 150, minWidth: 300 }}
                 scrollEnabled={false}
                 zoomEnabled={false}
                 rotateEnabled={false}
@@ -193,8 +223,8 @@ const ThemeDetailScreen = () => {
               }
             </ThemeDetailReviewView>
             {/* <CustomButton mode="selected" value="리뷰 더 보기" /> */}
-            <CustomButton mode="inactive" value="리뷰 쓰기" />
-            <CustomButton mode="inactive" value="리뷰 쓰기" />
+            <CustomButton mode="inactive" value="" />
+            <CustomButton mode="inactive" value="" />
           </View>
         </ThemeDetailContent>
       </ThemeDetailScrollView>
@@ -241,9 +271,4 @@ var styles = StyleSheet.create({
   },
 });
 
-const stylediv = StyleSheet.create({
-  container: {
-    height: 250,
-  },
-});
 export default ThemeDetailScreen;

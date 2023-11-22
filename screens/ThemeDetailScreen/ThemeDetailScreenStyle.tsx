@@ -15,7 +15,14 @@ export const ThemeDetailImage = styled.Image`
   `;
 
 export const GetImageView = styled.View`
+  position: relative;
   height: 420px;
+  `;
+
+export const OpacityView = styled.View`
+  position: absolute;
+  height: 420px;
+  background-color: ${theme.background4};
   `;
 
 export const NoReviewView = styled.View`
@@ -34,6 +41,10 @@ export const ThemeDetailContent = styled.View`
 
 export const ThemeDetailMapView = styled.View`
   position: relative;
+  width: 96%;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 5px;
 `;
 
 export const ThemeDetailMapFab = styled.View`
